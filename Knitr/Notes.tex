@@ -1,0 +1,375 @@
+\documentclass[12pt, a4paper, oneside]{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\title{Trading}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+\section*{Introduction}
+\href{}http://www.r-bloggers.com/predicting-high-yield-with-spy-a-two-part-post/}{High yield strategy}.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hlstd{(quntmod)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in library(quntmod): there is no package called 'quntmod'}}\begin{alltt}
+\hlkwd{library}\hlstd{(PerformanceAnalytics)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: xts\\\#\# Loading required package: zoo\\\#\# \\\#\# Attaching package: 'zoo'\\\#\# \\\#\# The following objects are masked from 'package:base':\\\#\# \\\#\#\ \ \ \  as.Date, as.Date.numeric\\\#\# \\\#\# \\\#\# Attaching package: 'PerformanceAnalytics'\\\#\# \\\#\# The following object is masked from 'package:graphics':\\\#\# \\\#\#\ \ \ \  legend}}\begin{alltt}
+\hlkwd{getSymbols}\hlstd{(}\hlstr{"VWEHX"}\hlstd{,} \hlkwc{from}\hlstd{=}\hlstr{"1950-01-01"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}getSymbols"{}}}\begin{alltt}
+\hlkwd{getSymbols}\hlstd{(}\hlstr{"SPY"}\hlstd{,} \hlkwc{from}\hlstd{=}\hlstr{"1900-01-01"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}getSymbols"{}}}\begin{alltt}
+\hlkwd{getSymbols}\hlstd{(}\hlstr{"HYG"}\hlstd{,} \hlkwc{from}\hlstd{=}\hlstr{"1990-01-01"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}getSymbols"{}}}\begin{alltt}
+\hlkwd{getSymbols}\hlstd{(}\hlstr{"SHY"}\hlstd{,} \hlkwc{from}\hlstd{=}\hlstr{"1990-01-01"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}getSymbols"{}}}\begin{alltt}
+\hlkwd{getSymbols}\hlstd{(}\hlstr{"VFISX"}\hlstd{,} \hlkwc{from}\hlstd{=}\hlstr{"1990-01-01"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}getSymbols"{}}}\begin{alltt}
+\hlstd{spySma20Cl} \hlkwb{<-} \hlkwd{SMA}\hlstd{(}\hlkwd{Cl}\hlstd{(SPY),} \hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}SMA"{}}}\begin{alltt}
+\hlstd{clSig} \hlkwb{<-} \hlkwd{Cl}\hlstd{(SPY)} \hlopt{>} \hlstd{spySma20Cl}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{clSig} \hlkwb{<-} \hlkwd{lag}\hlstd{(clSig,} \hlnum{1}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in lag(clSig, 1): object 'clSig' not found}}\begin{alltt}
+\hlstd{vwehxCloseRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Cl}\hlstd{(VWEHX))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{vfisxCloseRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Cl}\hlstd{(VFISX))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{vwehxAdjustRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Ad}\hlstd{(VWEHX))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Ad"{}}}\begin{alltt}
+\hlstd{vfisxAdjustRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Ad}\hlstd{(VFISX))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Ad"{}}}\begin{alltt}
+\hlstd{hygCloseRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Cl}\hlstd{(HYG))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{shyCloseRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Cl}\hlstd{(SHY))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{hygAdjustRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Ad}\hlstd{(HYG))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Ad"{}}}\begin{alltt}
+\hlstd{shyAdjustRets} \hlkwb{<-} \hlkwd{Return.calculate}\hlstd{(}\hlkwd{Ad}\hlstd{(SHY))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): could not find function "{}Ad"{}}}\begin{alltt}
+\hlstd{mutualAdRets} \hlkwb{<-} \hlstd{vwehxAdjustRets}\hlopt{*}\hlstd{clSig} \hlopt{+} \hlstd{vfisxAdjustRets}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{clSig)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'vwehxAdjustRets' not found}}\begin{alltt}
+\hlstd{mutualClRets} \hlkwb{<-} \hlstd{vwehxCloseRets}\hlopt{*}\hlstd{clSig} \hlopt{+} \hlstd{vfisxCloseRets}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{clSig)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'vwehxCloseRets' not found}}\begin{alltt}
+\hlstd{etfAdRets} \hlkwb{<-} \hlstd{hygAdjustRets}\hlopt{*}\hlstd{clSig} \hlopt{+} \hlstd{shyAdjustRets}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{clSig)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'hygAdjustRets' not found}}\begin{alltt}
+\hlstd{etfClRets} \hlkwb{<-} \hlstd{hygCloseRets}\hlopt{*}\hlstd{clSig} \hlopt{+} \hlstd{shyCloseRets}\hlopt{*}\hlstd{(}\hlnum{1}\hlopt{-}\hlstd{clSig)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'hygCloseRets' not found}}\begin{alltt}
+\hlstd{mutualFundBacktest} \hlkwb{<-} \hlkwd{merge}\hlstd{(mutualAdRets, mutualClRets,} \hlkwc{join}\hlstd{=}\hlstr{'inner'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in merge(mutualAdRets, mutualClRets, join = "{}inner"{}): object 'mutualAdRets' not found}}\begin{alltt}
+\hlkwd{charts.PerformanceSummary}\hlstd{(mutualFundBacktest)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): object 'mutualFundBacktest' not found}}\begin{alltt}
+\hlkwd{data.frame}\hlstd{(}\hlkwd{t}\hlstd{(}\hlkwd{rbind}\hlstd{(}\hlkwd{Return.annualized}\hlstd{(mutualFundBacktest)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{maxDrawdown}\hlstd{(mutualFundBacktest)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{SharpeRatio.annualized}\hlstd{(mutualFundBacktest))))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in is.vector(R): object 'mutualFundBacktest' not found}}\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{etfBacktest} \hlkwb{<-} \hlkwd{merge}\hlstd{(etfAdRets, etfClRets,} \hlkwc{join}\hlstd{=}\hlstr{'inner'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in merge(etfAdRets, etfClRets, join = "{}inner"{}): object 'etfAdRets' not found}}\begin{alltt}
+\hlkwd{charts.PerformanceSummary}\hlstd{(etfBacktest)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): object 'etfBacktest' not found}}\begin{alltt}
+\hlkwd{data.frame}\hlstd{(}\hlkwd{t}\hlstd{(}\hlkwd{rbind}\hlstd{(}\hlkwd{Return.annualized}\hlstd{(etfBacktest)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{maxDrawdown}\hlstd{(etfBacktest)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{SharpeRatio.annualized}\hlstd{(etfBacktest))))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in is.vector(R): object 'etfBacktest' not found}}\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fundsAndETFs} \hlkwb{<-} \hlkwd{merge}\hlstd{(mutualFundBacktest, etfBacktest,} \hlkwc{join}\hlstd{=}\hlstr{'inner'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in merge(mutualFundBacktest, etfBacktest, join = "{}inner"{}): object 'mutualFundBacktest' not found}}\begin{alltt}
+\hlkwd{charts.PerformanceSummary}\hlstd{(fundsAndETFs)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in inherits(x, "{}xts"{}): object 'fundsAndETFs' not found}}\begin{alltt}
+\hlkwd{data.frame}\hlstd{(}\hlkwd{t}\hlstd{(}\hlkwd{rbind}\hlstd{(}\hlkwd{Return.annualized}\hlstd{(fundsAndETFs)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{maxDrawdown}\hlstd{(fundsAndETFs)}\hlopt{*}\hlnum{100}\hlstd{,}
+                   \hlkwd{SharpeRatio.annualized}\hlstd{(fundsAndETFs))))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in is.vector(R): object 'fundsAndETFs' not found}}\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{###### BOILERPLATE FROM HERE}
+\hlkwd{require}\hlstd{(quantstrat)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: quantstrat}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE, : there is no package called 'quantstrat'}}\begin{alltt}
+\hlkwd{currency}\hlstd{(}\hlstr{'USD'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}currency"{}}}\begin{alltt}
+\hlkwd{Sys.setenv}\hlstd{(}\hlkwc{TZ}\hlstd{=}\hlstr{"UTC"}\hlstd{)}
+\hlstd{symbols} \hlkwb{<-} \hlstr{"HYG"}
+\hlkwd{stock}\hlstd{(symbols,} \hlkwc{currency}\hlstd{=}\hlstr{"USD"}\hlstd{,} \hlkwc{multiplier}\hlstd{=}\hlnum{1}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}stock"{}}}\begin{alltt}
+\hlstd{initDate}\hlkwb{=}\hlstr{"1990-01-01"}
+
+\hlstd{strategy.st} \hlkwb{<-} \hlstd{portfolio.st} \hlkwb{<-} \hlstd{account.st} \hlkwb{<-} \hlstr{"preCalc"}
+\hlkwd{rm.strat}\hlstd{(portfolio.st)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}rm.strat"{}}}\begin{alltt}
+\hlkwd{rm.strat}\hlstd{(strategy.st)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}rm.strat"{}}}\begin{alltt}
+\hlkwd{initPortf}\hlstd{(portfolio.st,} \hlkwc{symbols}\hlstd{=symbols,} \hlkwc{initDate}\hlstd{=initDate,} \hlkwc{currency}\hlstd{=}\hlstr{'USD'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}initPortf"{}}}\begin{alltt}
+\hlkwd{initAcct}\hlstd{(account.st,} \hlkwc{portfolios}\hlstd{=portfolio.st,} \hlkwc{initDate}\hlstd{=initDate,} \hlkwc{currency}\hlstd{=}\hlstr{'USD'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}initAcct"{}}}\begin{alltt}
+\hlkwd{initOrders}\hlstd{(portfolio.st,} \hlkwc{initDate}\hlstd{=initDate)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}initOrders"{}}}\begin{alltt}
+\hlkwd{strategy}\hlstd{(strategy.st,} \hlkwc{store}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}strategy"{}}}\begin{alltt}
+\hlcom{######### TO HERE}
+
+\hlstd{clSig} \hlkwb{<-} \hlkwd{Cl}\hlstd{(SPY)} \hlopt{>} \hlkwd{SMA}\hlstd{(}\hlkwd{Cl}\hlstd{(SPY),} \hlkwc{n}\hlstd{=}\hlnum{20}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}Cl"{}}}\begin{alltt}
+\hlstd{HYG} \hlkwb{<-} \hlkwd{merge}\hlstd{(HYG, clSig,} \hlkwc{join}\hlstd{=}\hlstr{'inner'}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in merge(HYG, clSig, join = "{}inner"{}): object 'HYG' not found}}\begin{alltt}
+\hlkwd{names}\hlstd{(HYG)[}\hlnum{7}\hlstd{]} \hlkwb{<-} \hlstr{"precomputed_signal"}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in names(HYG)[7] <- "{}precomputed\_signal"{}: object 'HYG' not found}}\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{add.signal}\hlstd{(strategy.st,} \hlkwc{name}\hlstd{=}\hlstr{"sigThreshold"}\hlstd{,}
+           \hlkwc{arguments}\hlstd{=}\hlkwd{list}\hlstd{(}\hlkwc{column}\hlstd{=}\hlstr{"precomputed_signal"}\hlstd{,} \hlkwc{threshold}\hlstd{=}\hlnum{.5}\hlstd{,}
+                          \hlkwc{relationship}\hlstd{=}\hlstr{"gt"}\hlstd{,} \hlkwc{cross}\hlstd{=}\hlnum{TRUE}\hlstd{),}
+           \hlkwc{label}\hlstd{=}\hlstr{"longEntry"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}add.signal"{}}}\begin{alltt}
+\hlkwd{add.signal}\hlstd{(strategy.st,} \hlkwc{name}\hlstd{=}\hlstr{"sigThreshold"}\hlstd{,}
+           \hlkwc{arguments}\hlstd{=}\hlkwd{list}\hlstd{(}\hlkwc{column}\hlstd{=}\hlstr{"precomputed_signal"}\hlstd{,} \hlkwc{threshold}\hlstd{=}\hlnum{.5}\hlstd{,}
+                          \hlkwc{relationship}\hlstd{=}\hlstr{"lt"}\hlstd{,} \hlkwc{cross}\hlstd{=}\hlnum{TRUE}\hlstd{),}
+           \hlkwc{label}\hlstd{=}\hlstr{"longExit"}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}add.signal"{}}}\begin{alltt}
+\hlkwd{add.rule}\hlstd{(strategy.st,} \hlkwc{name}\hlstd{=}\hlstr{"ruleSignal"}\hlstd{,}
+         \hlkwc{arguments}\hlstd{=}\hlkwd{list}\hlstd{(}\hlkwc{sigcol}\hlstd{=}\hlstr{"longEntry"}\hlstd{,} \hlkwc{sigval}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{orderqty}\hlstd{=}\hlnum{1}\hlstd{,} \hlkwc{ordertype}\hlstd{=}\hlstr{"market"}\hlstd{,}
+                        \hlkwc{orderside}\hlstd{=}\hlstr{"long"}\hlstd{,} \hlkwc{replace}\hlstd{=}\hlnum{FALSE}\hlstd{,} \hlkwc{prefer}\hlstd{=}\hlstr{"Open"}\hlstd{),}
+         \hlkwc{type}\hlstd{=}\hlstr{"exit"}\hlstd{,} \hlkwc{path.dep}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}add.rule"{}}}\begin{alltt}
+\hlkwd{add.rule}\hlstd{(strategy.st,} \hlkwc{name}\hlstd{=}\hlstr{"ruleSignal"}\hlstd{,}
+         \hlkwc{arguments}\hlstd{=}\hlkwd{list}\hlstd{(}\hlkwc{sigcol}\hlstd{=}\hlstr{"longExit"}\hlstd{,} \hlkwc{sigval}\hlstd{=}\hlnum{TRUE}\hlstd{,} \hlkwc{orderqty}\hlstd{=}\hlstr{"all"}\hlstd{,} \hlkwc{ordertype}\hlstd{=}\hlstr{"market"}\hlstd{,} \hlkwc{orderside}\hlstd{=}\hlstr{"long"}\hlstd{,} \hlkwc{replace}\hlstd{=}\hlnum{FALSE}\hlstd{,} \hlkwc{prefer}\hlstd{=}\hlstr{"Open"}\hlstd{),}
+         \hlkwc{type}\hlstd{=}\hlstr{"exit"}\hlstd{,} \hlkwc{path.dep}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): could not find function "{}add.rule"{}}}\end{kframe}
+\end{knitrout}
+
+
+\bibliography{../../../myrefs}
+
+
+\end{document}
