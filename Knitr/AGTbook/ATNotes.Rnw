@@ -1,0 +1,58 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Algo Trading Notes}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+\section*{Introduction}
+  These are my notes on Ernest Chan's book Agorithmic Trading.  These are his ideas. There are a number of data suppliers quoted \href{www:\\backdata.com}{backdata.com} and \href{http://www.tickdata.com}{tickdata.com}
+\section*{Backtesting}
+Backtesting will depend on the actual details of the way that the strategy is implemented.  For example, which market is the system implemented on; are limit or market orders used; futures or cash; bid or ask?  Thesea are things that are often glossed over in the focus on the investment idea. There are a number of pitfalls that people should be aware of.  These pitfalls will usually inflated the backtest performance. 
+
+Out-of-sample testing requires a model that has been published.  If the model has not been published, it is possible that there were tweaks to the model after the out-of-sample results were established.  This is not out-of-sample. The backtesting methods needs to be as close to the \emph{scientific method} as is possible. Start from a hypothesis about a strategy, ideally backed by theory, try to refute the hypothesis with backtesting. 
+
+Backtesting pitfalls
+\begin{itemize}
+\item \textbf{Look ahead bias}: this will use tomorrow's price to determine today's signals or any use of future information. If the backtesting programme and the live trading programme are the same, it is not possible to look ahead. 
+\item \textbf{Data snooping or over-fitting}: means usin too many explanatory variables to hit to the historic performance. This problem is solved by out-of-sample testing. Any tweaking of the module turns the out-of-sample into sample. It is possible to test the perofrmance on a number of different samples or sub-samples. To avoid over-fitting, model shoudl be as simple as possible with as few tradng rules as possible. Linear models are preferable to non-linear. Ultimately, the system must be tested on real data. 
+\item \textbf{Stock splits and dividend adjustments}: An N:1 stock split will result in the number of shares being multuiplied N times and the price being divided by N. The adjustment also needs to be made for dividend payments. 
+  \item \textbf{Survivorship bias}: if the database does not include stocks that died, buying a stock that fell 90\% will be successful because that firm will not have gone out of business (as most 90\% decliners would have). This is more of a problem for long positions than short positions.
+  \item \textbf{Primary vs consolidated prices}: Market-on-close (MOC) or Market-on-Open (MOC) prices will be routed through the primary market (say the NYSE).  The open and close prices of the primary exchange are the result of an autction, the consolidated prices from other exchanges are not. Outpying considated prices are likely to be followed by mean-reversion. The same is likely to be true for highs and lows.  
+  \item \textbf{Short-sale constraints}: sellign short is difficult in practice.  If there are a lot of shorts or there is limited free-float, borrowing may be expensive. Sales may also be affected by the \emph{uptick rule} (see page 12 for details).
+  \item \textbf{Futures rollover} the roll from front to back contract can be managed by adjusting the data.  However, this will useually mean that either the profit-and-loss (PL) or the return are correct, not both. If prices turn negative as a result of the adjustment, add a constant.  The adjustment process is more acute when trading contract spreads.  
+  \item \textbf{Settlement price and closing price}:  the exchange will provide a settlement price even if there have not been any trades in the contract.  The settlement price may, in other cases, be different from the closing price. THe last price may not be near the close.  This is important if trading spreads. Closing times of different markets may be different times.  
+\section*{Evaluation}
+It is important to assess whether strategy successs is the result of the random sample. There are three main ways that performance can be evaluated: 
+\begin{itemize}
+\item Using traditional statistical tests of the null hypothesis that the actual return is equal to zero
+\item Using monte carlo simulations of the date to test the strategy. 
+\item Using random trades on the same dataset (Lo, Mamasky and Wang). 
+\end{itemize}
+
+
+
+\end{document}
