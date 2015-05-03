@@ -53,6 +53,10 @@ It is important to assess whether strategy successs is the result of the random 
 \item Using random trades on the same dataset (Lo, Mamasky and Wang). 
 \end{itemize}
 
+\section*{Draw down}
+There is a discssion on Stack Exchange of the expected value of the draw down \href{http://quant.stackexchange.com/questions/17589/expectation-of-maximum-draw-down-in-the-brownian-motion-case?newsletter=1&nlcode=365849%7c1e0c}{Expected Draw Down}. There is R code for the example. 
+
+
 
 
 \end{document}
