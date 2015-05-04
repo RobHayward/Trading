@@ -1,5 +1,7 @@
 # TU hypothesis testing
 require(dplyr)
+require(quantmod)
+require(PerformanceAnalytics)
 da <- read.csv("Data/TU.csv")
 da$Date <- as.Date(da$Date, format = "%Y-%m-%d")
 # turn the dates round so that lagging can be carried out
@@ -28,13 +30,24 @@ longs
 # This is the first chapter of Alog trading book.  
 # When long or short is true, add the returns 
 ret <- rep(NA, dim(da)[1])
-for(i in lookback:dim(da)[i]){
-  if(longs == TRUE){
-  ret[i] <- sum(da$dClose[i]:da$dClose[i + holddays] 
-  }
- if(short == TRUE){
-   ret[i] <- -sum(da$Close[i]:da$Close[i + holddays])
- }  
-else{
+for(i in lookback:dim(da)[1] - holddays){
+  if(longs[i] == TRUE){
+  ret[i] <- sum(da$dClose[i]:da$dClose[i + holddays], na.rm = TRUE) 
+  } else if(shorts[i] == TRUE){
+   ret[i] <- -sum(da$dClose[i]:da$dClose[i + holddays], na.rm = TRUE)
+ } else {
   ret[i] <- 0
 }
+}
+ret <- function(start, end){
+  ret[i] <- sum(start:end)
+}
+ret1 <- apply(ret, da$dclose[lookback:dim(da)[1] - holddays],
+              da$close[lookback + ho])
+da$ret <- annualReturn(da$Close)
+dat <- as.xts(da, order.by = da$Date)
+head(dat)
+head(da)
+class(dat)
+class(dat[1])
+str(dat)
