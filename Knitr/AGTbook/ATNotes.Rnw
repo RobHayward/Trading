@@ -29,7 +29,7 @@
 %erehrere
 %\end{abstract}
 \section*{Introduction}
-  These are my notes on Ernest Chan's book Agorithmic Trading.  These are his ideas. There are a number of data suppliers quoted \href{www:\\backdata.com}{backdata.com} and \href{http://www.tickdata.com}{tickdata.com}
+  These are my notes on Ernest Chan's book Agorithmic Trading.  These are his ideas. There are a number of data suppliers quoted \href{http://backdata.com}{backdata.com} and \href{http://tickdata.com}{tickdata.com}
 \section*{Backtesting}
 Backtesting will depend on the actual details of the way that the strategy is implemented.  For example, which market is the system implemented on; are limit or market orders used; futures or cash; bid or ask?  Thesea are things that are often glossed over in the focus on the investment idea. There are a number of pitfalls that people should be aware of.  These pitfalls will usually inflated the backtest performance. 
 
@@ -45,6 +45,7 @@ Backtesting pitfalls
   \item \textbf{Short-sale constraints}: sellign short is difficult in practice.  If there are a lot of shorts or there is limited free-float, borrowing may be expensive. Sales may also be affected by the \emph{uptick rule} (see page 12 for details).
   \item \textbf{Futures rollover} the roll from front to back contract can be managed by adjusting the data.  However, this will useually mean that either the profit-and-loss (PL) or the return are correct, not both. If prices turn negative as a result of the adjustment, add a constant.  The adjustment process is more acute when trading contract spreads.  
   \item \textbf{Settlement price and closing price}:  the exchange will provide a settlement price even if there have not been any trades in the contract.  The settlement price may, in other cases, be different from the closing price. THe last price may not be near the close.  This is important if trading spreads. Closing times of different markets may be different times.  
+\end{itemize}
 \section*{Evaluation}
 It is important to assess whether strategy successs is the result of the random sample. There are three main ways that performance can be evaluated: 
 \begin{itemize}
@@ -53,10 +54,35 @@ It is important to assess whether strategy successs is the result of the random 
 \item Using random trades on the same dataset (Lo, Mamasky and Wang). 
 \end{itemize}
 
+\section*{Example-1}
+The trading strategy is tested against the null hypothesis that the return is zero. This is tested as 
+\begin{equation}
+H0_{r = 0} = E[r]/sd_r
+\end{equation}
+
+It is also tested on a \emph{monte carlo} simulation of these returns with the same mean, standard deviation, skew and kurtosis.  There is no serial correlation. If there is a positive return from this stratetgy, it means that it is a function of the distribution rather than the momentum that was the aim of the study. Simulate the returns, calculate the prices test the strategy and repeated 10,000 times.  Count how many of those times the strategy get a return greater than the original.  
+
+Finally, randomly buy and sell for 1 month.  Repeat this random buy and sell for the price series and, again, count the number of times that the random strategy out-performs the chosen strategy. 
+
+The null hypothesis will change for each of the tests.  Therefore, it is not surprise that there are different outcomes for different tests. There is also an argument that suggests that the test should be of the probability of observing the test statistic given the null hypoethsis $P(H0|R)$. The previous case was $P(R|H0)$. 
+ One issue that is apparent here is that any momentum trading strategy is likely to appear successsful when returns exhibit high kurtosis. 
+
 \section*{Draw down}
 There is a discssion on Stack Exchange of the expected value of the draw down \href{http://quant.stackexchange.com/questions/17589/expectation-of-maximum-draw-down-in-the-brownian-motion-case?newsletter=1&nlcode=365849%7c1e0c}{Expected Draw Down}. There is R code for the example. 
 
-
-
-
+It is usually not worth testing a strategy with a large draw down.  Even if the expected returns are high, it is unlikely that investors will be able to stomach the pain.
+ 
+   It is also important to make sure that the strategy is tested against the apprpriate benchmark. If a oil strategy is no better than buying and holding oil, there is no reason to backtest.  It is essential to look at the Information ratio rather tha the Sharpe ratio in this case. 
+   
+   It is also important to be careful about high-frequency trades.  In these cases, the order itself can change the market.  
+   
+   If the strategy appears to work, it is also necessary to be very careful about underlying changes that may affect its performance.  Amongst the changes that hav been experienced. 
+   
+   \begin{itemize}
+   \item Decimilisation of US stock prices. This reduced liquidity. 
+   \item Post-financial crisis fall in liquidity. 
+   \item Regulatory reduction in average trade size
+   \item Removal of old uptick rule
+   \end{itemize}
+   
 \end{document}

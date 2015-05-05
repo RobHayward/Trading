@@ -16,7 +16,7 @@ lookback <- 250
 holddays <- 25
 longs <- rep(NA, dim(da)[1] + 1 - lookback - holddays)
 shorts <- rep(NA, dim(da)[1] + 1 - lookback - holddays)
-for(i in lookback + 1:dim(da)[1]){
+for(i in lookback + 1 :dim(da)[1]){
   longs[i] <- da$Close[i] > da$Close[i + 1 - lookback]
 }
 for(i in lookback + 1:dim(da)[1]){
@@ -52,6 +52,8 @@ print(3)
 }
 else {
   print(2)
-  }
+  k
 }
 str(longs)
+#----------------
+# Random number generation with randtoolbox package
