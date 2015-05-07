@@ -84,5 +84,9 @@ It is usually not worth testing a strategy with a large draw down.  Even if the 
    \item Regulatory reduction in average trade size
    \item Removal of old uptick rule
    \end{itemize}
-   
+\section*{Programming}
+There are a number of platforms that will provide the drag-and-drop for the programming of strategies. However, these will be fairly limited. It is also possible to use excel (combined with visual basic).  This is slow and inefficient.  
+
+\href{http://Pracplay/}{Prac Play} offers links from R and python to a number of exchanges. It is often good to combine backesting and implementaiton.  It will be particuarly useful if the strategy is high frequency as the the backtesting then requires ticks rather than prices taken at arbitrary time intervals\footnote{The tick data is based on new orders while the standard data just collects the price at the end of the alloted time. The first is more consistent with the actual trades that will be put into the market.}. 
 \end{document}
+
