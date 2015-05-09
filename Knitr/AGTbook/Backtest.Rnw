@@ -21,7 +21,7 @@
 \definecolor{mygrey}{gray}{0.95}
 \lstset{backgroundcolor=\color{mygrey}}
 \begin{document}
-\title{Algo Trading Notes}
+\title{Backtesting}
 \author{Rob Hayward}
 %\date{\today}
 \maketitle

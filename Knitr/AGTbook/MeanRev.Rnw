@@ -1,0 +1,75 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % paper size, default font size and one-sided paper
+%\graphicspath{{./figures/}} % specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[comma, sort&compress]{natbib}% use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{url: \url}
+ \usepackage{listings}
+ \usepackage{color}
+ \graphicspath{{../pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Mean reversion}
+\author{rob hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+\section*{introduction}
+    Mean reversion is a common occurance in nature.  To establish whether there is mean-reversion in practice, it is necessary to find whether price series are \emph{stationary}. Though there are few price series that are mean-reverting, it is often possile to combine assets together to create a portfolio that is mean-reverting.  The assets in the portfolio would be called \emph{cointegrated}. This is about \emph{time-series} mean reversion rather than \emph{cross-sectional} mean reversion\footnote{Cross sectional mean reversion is the phenomenon that occures when relative returns to a basket tend to return to that of the basket }.  
+    From \href{http://en.wikipedia.org/wiki/Hurst_exponent}{Wikipedia}, the Hurst Exponent measures the memory of the time series.  
+    \begin{equation}
+    E[\frac{R(n)}{S(n)}] = C_n^H, \quad n \rightarrow \infty
+    \end{equation}
+
+where $R(n)$ is the range, $S(n)$ is the standard deviation and $n$ are the number of time series elements. There is a paper from McCauley, Bassler and Gunaratne (in other) that discusses the hurst exponent and long-run memory. 
+
+  If the variance of the geometric random walk is lilnear in the time interval, there is a random walk and the Hurst Exponent $(H)$ is given by $\tau^{2H}$ with $\tau$ as the time inteval and $H = 0.5$ if there is a random walk and $H < 0.5$ if there is mean reversion.  A \emph{variance ratio test} can be used to assess whether $H = 0$. 
+  
+  \section*{ADF tests}
+  \begin{equation}
+  \Delta y_t = \gamma y_{t-1} + \mu + \beta t + \sum_{j=1}^m \alpha \Delta y_{t-j} + \varepsilon
+  \end{equation}
+where the length of $j$ is determined with reference to some information criteria such as AIC or BIC.  The test of the null hypothesis that $\gamma$ is equal to zero uses the critical values taken from the distribution of the test statistic computed by Dickey and Fuller\footnote{The test is derived from $y_t = \rho y_{t-1}$ being equal to $y_t - y_{t-1} = \rho y_{t-1} - y_{t-1} \rightarrow \Delta y_{t-1} = (\rho - 1) y_{t-1}$ and therefore the test of $\gamma = 0$ is the test of $\rho - 1$.}.  
+ 
+
+<<CAD, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, fig.cap="USD-CAD Exchange rate", fig.pos="h",cache=TRUE>>=
+require(Quandl)
+da <- Quandl("BNP/USDCAD",authcode="mUCjthkJFQDsYVrFh4Gh", start_date = "2007-07-01", end_date = "2012-03-31")
+names(da) <- c("Date", "CAD")
+plot(da$Date, da$CAD, type = 'l', main = "USD/CAD", ylab = "CAD", xlab = "Date")
+
+@
+This does not look like a stationary series.  However, the test can be carried out  
+with the \lstinline{urca} package and the \lstinline{ur.df} test.  
+<<Unitroot, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
+library(urca)
+library(xtable)
+test <- ur.df(da$CAD, type = "none", selectlags = "AIC")
+testtable <- data.frame(test = test@teststat, Cv = test@cval)
+formatcolheads <- c("$\\tau$", "1", "2", "10")
+xtable(testtable, caption = "Test statistic and critical values", label = "tab")
+@
+Table \ref{tab} shows that the test is not sufficiently large to reject the null hyothesis of a unit root.  Therefore, the data are not stationary or mean-reverting. 
+
+\section*{Hurst exponent and variance ratio test}
+A statioinary series should difuse from its startig point more slowly than a geometric random walk. The nature of the price series can be determined by this diffusion. 
+
+\begin{equation}
+var_{\tau} = \sum_{j = 1}^n \frac{(z_{t + j} - z_t)^2}{n}
+\end{equation}
+where $z$ is the log of the price series. 
+\end{document}
