@@ -22,7 +22,7 @@
 \lstset{backgroundcolor=\color{mygrey}}
 \begin{document}
 \title{Mean reversion}
-\author{rob hayward}
+\author{Rob Hayward}
 %\date{\today}
 \maketitle
 %\begin{abstract}
@@ -50,6 +50,7 @@ where the length of $j$ is determined with reference to some information criteri
 require(Quandl)
 da <- Quandl("BNP/USDCAD",authcode="mUCjthkJFQDsYVrFh4Gh", start_date = "2007-07-01", end_date = "2012-03-31")
 names(da) <- c("Date", "CAD")
+da$lCAD <- log(da$CAD)
 plot(da$Date, da$CAD, type = 'l', main = "USD/CAD", ylab = "CAD", xlab = "Date")
 
 @
@@ -58,7 +59,7 @@ with the \lstinline{urca} package and the \lstinline{ur.df} test.
 <<Unitroot, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
 library(urca)
 library(xtable)
-test <- ur.df(da$CAD, type = "none", selectlags = "AIC")
+test <- ur.df(da$lCAD, type = "none", selectlags = "AIC")
 testtable <- data.frame(test = test@teststat, Cv = test@cval)
 formatcolheads <- c("$\\tau$", "1", "2", "10")
 xtable(testtable, caption = "Test statistic and critical values", label = "tab")
@@ -69,7 +70,39 @@ Table \ref{tab} shows that the test is not sufficiently large to reject the null
 A statioinary series should difuse from its startig point more slowly than a geometric random walk. The nature of the price series can be determined by this diffusion. 
 
 \begin{equation}
-var_{\tau} = \sum_{j = 1}^n \frac{(z_{t + j} - z_t)^2}{n}
+var_{\tau} = \sum_{t = 1}^n \frac{(z_{t + \tau} - z_t)^2}{n}
 \end{equation}
 where $z$ is the log of the price series. 
+
+for a geometric random walk we know that
+
+\begin{equation}\label{eqref:h1}
+\sum_{t = 1}^n \frac{z(t + \tau) - z)^2}{n} \sim \tau
+\end{equation}
+
+This means that for large samples, the two will converge. For a series that is not a random walk, Equation \ref{eqref:h1} becomes 
+
+\begin{equation}\label{eqref:h2}
+\sum_{t = 1}^n \frac{z(t + \tau) - z)^2}{n} \sim \tau^{2H}
+\end{equation}
+
+where $H$ is the \emph{Hurst Exponent} equal to 0.5 when there is a genmetric random walk, $0.5 > H > 1$ when there is a trending series and $0 > H > 0.5$ is a mean-reverting series. 
+<<Hurst, echo=FALSE, warning=FALSE, message=FALSE>>=
+library(pracma)
+a <- hurstexp(da$lCAD)
+@
+The Hurst component can also be computed in the \lstinline{fARMA package}. There are detailed methods and instructions.  This calculation here is very differnet from that achieved by the textbook.  It seems to suggest a trend but the picture does not showthat.  
+
+\section*{Variance ratio test}
+There is a good \href{http://quant.stackexchange.com/questions/7666/using-variance-ratios-to-test-for-mean-reversion}{stackoverflow} note on the variance ratio test. The package \lstinline{vrtest} can provide support. The \lstinline{Lo.Mac} function will compute the M1 and M2 statistics from \citet{lLoMacKinlay1988}.  The package also contains a large number of other tests. 
+<<lomc, echo=FALSE, warning=FALSE, message=FALSE>>=
+library(vrtest)
+a <- Lo.Mac(da$lCAD, c(2, 5, 10))
+a
+@
+
+
+
+\bibliography{../../../myrefs}
 \end{document}
+
