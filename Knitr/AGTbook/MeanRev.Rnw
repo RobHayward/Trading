@@ -59,8 +59,8 @@ with the \lstinline{urca} package and the \lstinline{ur.df} test.
 <<Unitroot, message=FALSE, echo=FALSE, warning=FALSE, results='asis'>>=
 library(urca)
 library(xtable)
-test <- ur.df(da$lCAD, type = "none", selectlags = "AIC")
-testtable <- data.frame(test = test@teststat, Cv = test@cval)
+test <- ur.df(da$lCAD, type = "drift", selectlags = "AIC")
+testtable <- data.frame(test = test@teststat[1], Cv = test@cval[1,])
 formatcolheads <- c("$\\tau$", "1", "2", "10")
 xtable(testtable, caption = "Test statistic and critical values", label = "tab")
 @
@@ -94,13 +94,15 @@ a <- hurstexp(da$lCAD)
 The Hurst component can also be computed in the \lstinline{fARMA package}. There are detailed methods and instructions.  This calculation here is very differnet from that achieved by the textbook.  It seems to suggest a trend but the picture does not showthat.  
 
 \section*{Variance ratio test}
-There is a good \href{http://quant.stackexchange.com/questions/7666/using-variance-ratios-to-test-for-mean-reversion}{stackoverflow} note on the variance ratio test. The package \lstinline{vrtest} can provide support. The \lstinline{Lo.Mac} function will compute the M1 and M2 statistics from \citet{lLoMacKinlay1988}.  The package also contains a large number of other tests. 
+There is a good \href{http://quant.stackexchange.com/questions/7666/using-variance-ratios-to-test-for-mean-reversion}{stackoverflow} note on the variance ratio test. The package \lstinline{vrtest} can provide support. The \lstinline{Lo.Mac} function will compute the M1 and M2 statistics from \citet{LoMacKinlay1988}.  The package also contains a large number of other tests. 
 <<lomc, echo=FALSE, warning=FALSE, message=FALSE>>=
 library(vrtest)
-a <- Lo.Mac(da$lCAD, c(2, 5, 10))
-a
+nob <- length(da$CAD)
+r <- log(da$CAD[2:nob])-log(da$CAD[1:(nob-1)])
+LM <- Lo.Mac(r, c(2, 5, 10))
+LM
 @
-
+The ratio is above one in all cases, suggesting that there is some exolostion. This is a contrast to the textbook findings. 
 
 
 \bibliography{../../../myrefs}
