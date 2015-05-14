@@ -29,7 +29,7 @@
 %erehrere
 %\end{abstract}
 \section*{introduction}
-    Mean reversion is a common occurance in nature.  To establish whether there is mean-reversion in practice, it is necessary to find whether price series are \emph{stationary}. Though there are few price series that are mean-reverting, it is often possile to combine assets together to create a portfolio that is mean-reverting.  The assets in the portfolio would be called \emph{cointegrated}. This is about \emph{time-series} mean reversion rather than \emph{cross-sectional} mean reversion\footnote{Cross sectional mean reversion is the phenomenon that occures when relative returns to a basket tend to return to that of the basket }.  
+    Mean reversion is a common occurrence in nature.  To establish whether there is mean-reversion in practice, it is necessary to find whether price series are \emph{stationary}. Though there are few price series that are mean-reverting, it is often possible to combine assets together to create a portfolio that is mean-reverting.  The assets in the portfolio would be called \emph{cointegrated}. This is about \emph{time-series} mean reversion rather than \emph{cross-sectional} mean reversion\footnote{Cross sectional mean reversion is the phenomenon that occurs when relative returns to a basket tend to return to that of the basket }.  
     From \href{http://en.wikipedia.org/wiki/Hurst_exponent}{Wikipedia}, the Hurst Exponent measures the memory of the time series.  
     \begin{equation}
     E[\frac{R(n)}{S(n)}] = C_n^H, \quad n \rightarrow \infty
@@ -37,13 +37,13 @@
 
 where $R(n)$ is the range, $S(n)$ is the standard deviation and $n$ are the number of time series elements. There is a paper from McCauley, Bassler and Gunaratne (in other) that discusses the hurst exponent and long-run memory. 
 
-  If the variance of the geometric random walk is lilnear in the time interval, there is a random walk and the Hurst Exponent $(H)$ is given by $\tau^{2H}$ with $\tau$ as the time inteval and $H = 0.5$ if there is a random walk and $H < 0.5$ if there is mean reversion.  A \emph{variance ratio test} can be used to assess whether $H = 0$. 
+  If the variance of the geometric random walk is linear in the time interval, there is a random walk and the Hurst Exponent $(H)$ is given by $\tau^{2H}$ with $\tau$ as the time interval and $H = 0.5$ if there is a random walk and $H < 0.5$ if there is mean reversion.  A \emph{variance ratio test} can be used to assess whether $H = 0$. 
   
   \section*{ADF tests}
-  \begin{equation}
+  \begin{equation}\label{eqref:adf}
   \Delta y_t = \gamma y_{t-1} + \mu + \beta t + \sum_{j=1}^m \alpha \Delta y_{t-j} + \varepsilon
   \end{equation}
-where the length of $j$ is determined with reference to some information criteria such as AIC or BIC.  The test of the null hypothesis that $\gamma$ is equal to zero uses the critical values taken from the distribution of the test statistic computed by Dickey and Fuller\footnote{The test is derived from $y_t = \rho y_{t-1}$ being equal to $y_t - y_{t-1} = \rho y_{t-1} - y_{t-1} \rightarrow \Delta y_{t-1} = (\rho - 1) y_{t-1}$ and therefore the test of $\gamma = 0$ is the test of $\rho - 1$.}.  
+where the length of $j$ is determined with reference to some information criteria such as AIC or BIC.  The test of the null hypothesis that $\gamma$ is equal to zero uses the critical values taken from the distribution of the test statistic computed by Dickey and Fuller\footnote{The test is derived from $y_t = \rho y_{t-1}$ being equal to $y_t - y_{t-1} = \rho y_{t-1} - y_{t-1} \rightarrow \Delta y_{t-1} = (\rho - 1) y_{t-1}$ and therefore the test of $\gamma = 0$ is the test of $\rho = 1$.}.  
  
 
 <<CAD, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, fig.cap="USD-CAD Exchange rate", fig.pos="h",cache=TRUE>>=
@@ -64,10 +64,10 @@ testtable <- data.frame(test = test@teststat[1], Cv = test@cval[1,])
 formatcolheads <- c("$\\tau$", "1", "2", "10")
 xtable(testtable, caption = "Test statistic and critical values", label = "tab")
 @
-Table \ref{tab} shows that the test is not sufficiently large to reject the null hyothesis of a unit root.  Therefore, the data are not stationary or mean-reverting. 
+Table \ref{tab} shows that the test is not sufficiently large to reject the null hypothesis of a unit root.  Therefore, the data are not stationary or mean-reverting. 
 
 \section*{Hurst exponent and variance ratio test}
-A statioinary series should difuse from its startig point more slowly than a geometric random walk. The nature of the price series can be determined by this diffusion. 
+A stationary series should diffuse from its starting point more slowly than a geometric random walk. The nature of the price series can be determined by this diffusion. 
 
 \begin{equation}
 var_{\tau} = \sum_{t = 1}^n \frac{(z_{t + \tau} - z_t)^2}{n}
@@ -86,15 +86,22 @@ This means that for large samples, the two will converge. For a series that is n
 \sum_{t = 1}^n \frac{z(t + \tau) - z)^2}{n} \sim \tau^{2H}
 \end{equation}
 
-where $H$ is the \emph{Hurst Exponent} equal to 0.5 when there is a genmetric random walk, $0.5 > H > 1$ when there is a trending series and $0 > H > 0.5$ is a mean-reverting series. 
+where $H$ is the \emph{Hurst Exponent} equal to 0.5 when there is a geometric random walk, $0.5 > H > 1$ when there is a trending series and $0 > H > 0.5$ is a mean-reverting series. 
 <<Hurst, echo=FALSE, warning=FALSE, message=FALSE>>=
 library(pracma)
 a <- hurstexp(da$lCAD)
 @
-The Hurst component can also be computed in the \lstinline{fARMA package}. There are detailed methods and instructions.  This calculation here is very differnet from that achieved by the textbook.  It seems to suggest a trend but the picture does not showthat.  
+The Hurst component can also be computed in the \lstinline{fARMA package}. There are detailed methods and instructions.  This calculation here is very different from that achieved by the textbook.  It seems to suggest a trend but the picture does not show that.  
 
 \section*{Variance ratio test}
-There is a good \href{http://quant.stackexchange.com/questions/7666/using-variance-ratios-to-test-for-mean-reversion}{stackoverflow} note on the variance ratio test. The package \lstinline{vrtest} can provide support. The \lstinline{Lo.Mac} function will compute the M1 and M2 statistics from \citet{LoMacKinlay1988}.  The package also contains a large number of other tests. 
+There is a good \href{http://quant.stackexchange.com/questions/7666/using-variance-ratios-to-test-for-mean-reversion}{stackoverflow} note on the variance ratio test. The package \lstinline{vrtest} can provide support. The \lstinline{Lo.Mac} function will compute the M1 and M2 statistics from \citet{LoMacKinlay1988}.  The package \lstinline{fARMA} also contains a large number of other tests.
+
+The variance ratio test is a test of 
+\begin{equation}
+\frac{Var(z(t) - z_{t - \tau})}{\tau Var(z(t) - z_{t - \tau})}
+\end{equation}
+
+If the variance increases linearly with time, there is a random walk that the ratio tends to unity.  If the variance gets larger at a slower rate, this means that there is some sort of mean-reversion.
 <<lomc, echo=FALSE, warning=FALSE, message=FALSE>>=
 library(vrtest)
 nob <- length(da$CAD)
@@ -102,9 +109,46 @@ r <- log(da$CAD[2:nob])-log(da$CAD[1:(nob-1)])
 LM <- Lo.Mac(r, c(2, 5, 10))
 LM
 @
-The ratio is above one in all cases, suggesting that there is some exolostion. This is a contrast to the textbook findings. 
+The ratio is above one in all cases, suggesting that there is some explosion. This is a contrast to the textbook findings which are that the ratio is about unity.
 
 
+\section*{Half-life of mean reversion}
+The fundamental equation for CAD is of the form. 
+\begin{equation}
+ y_t = + \alpha + \rho y_{t-1} + \varepsilon_t
+\end{equation}
+
+Therefore, assuming that the series has the value $y_0$ at point $t = 0$, the value of $y_1$ will be given by 
+
+\begin{equation}\label{eqref:diff1}
+y_1 = \alpha_1 + y_0 + \varepsilon_1
+\end{equation}
+
+and point $y_2$, where $t = 2$ will be
+\begin{equation}\label{eqref:diff2}
+y_2 = \alpha_2 + \rho y_1 + \varepsilon_2
+\end{equation}
+
+and putting Equations \ref{eqref:diff1} and Equation \ref{eqref:diff2} together, 
+
+\begin{equation}
+y_2 = \alpha_0 + \alpha_0 \alpha_1 + \alpha_1^2 y_0 + \alpha_1 \varepsilon_1 + \varepsilon_2
+\end{equation}
+
+
+<<HL, echo=FALSE, warning=FALSE, message=FALSE>>=
+nob <- length(da$CAD)
+r <- c(rep(0, nob))
+r[1:nob - 1] <- log(da$CAD[1:nob - 1])-log(da$CAD[2:nob])
+da$r <- r
+eq <- lm(da$r[1:nob - 1] ~ da$lCAD[2:nob])
+summary(eq)
+HL <- -log(2)/eq$coefficients[2]
+HL
+@
+This shows that the half life is estimated to be 257 days. this is much more than the 115 suggested by the book.
 \bibliography{../../../myrefs}
+
+
 \end{document}
 
