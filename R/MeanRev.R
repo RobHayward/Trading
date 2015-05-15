@@ -30,4 +30,27 @@ eq <- lm(da$r[1:nob - 1] ~ da$lCAD[2:nob])
 summary(eq)
 HL <- -log(2)/eq$coefficients[2]
 HL
-  
+# This is the cointegration
+da1 <- read.csv("Data/EWA.csv")
+da2 <- read.csv("Data/EWC.csv")
+da <- cbind(da1, da2, by = da1$Date)
+head(da)
+da <- da[,-c(8, 15)]
+colnames <- c("Date", "EWAO", "EWAH", "EWAL", "EWAC", "EWAV","EWAAC", 
+"EWCO", "EWCH", "EWCL", "EWCC", "EWCV","EWAAC")
+colnames(da) <- colnames
+da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+str(da)
+library(urca)
+plot(da$Date, da$EWAC, type = 'l', main = "Australian and Canadian ETF", 
+     xlab = "Date", ylab = "Price", col = "Dark green")
+lines(da$Date, da$EWCC, col = 'blue')
+eq1 <- lm(da$EWAC ~ da$EWCC)
+eq1$coefficients
+dims <- c("Intercept", "EWCC")
+print(eq1)
+
+table <- data.frame(eq1$coefficients, dims = dims)
+table
+plot(eq1$residuals)
+

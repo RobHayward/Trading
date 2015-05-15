@@ -1,5 +1,11 @@
 \begin{thebibliography}{xx}
 
+\harvarditem{Engle \harvardand\ Granger}{1987}{engle1987co}
+Engle, R.~F. \harvardand\ Granger, C.~W.  \harvardyearleft
+  1987\harvardyearright , `Co-integration and error correction: representation,
+  estimation, and testing', {\em Econometrica: journal of the Econometric
+  Society} pp.~251--276.
+
 \harvarditem{Lo \harvardand\ MacKinlay}{1988}{LoMacKinlay1988}
 Lo, A.~W. \harvardand\ MacKinlay, A.~C.  \harvardyearleft 1988\harvardyearright
   , `Stock market prices do not follow random walks: Evidence from

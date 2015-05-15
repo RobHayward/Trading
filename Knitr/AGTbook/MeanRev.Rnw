@@ -113,29 +113,17 @@ The ratio is above one in all cases, suggesting that there is some explosion. Th
 
 
 \section*{Half-life of mean reversion}
-The fundamental equation for CAD is of the form. 
+There is a \href{http://en.wikipedia.org/wiki/Ornstein-Uhlenbeck_process}{Wikipedia report} on the Ornstein-Uhlenbeck process. An Ornstein-Uhlenbeck process $x_1$ staisfied the following stochastic difference equation 
 \begin{equation}
- y_t = + \alpha + \rho y_{t-1} + \varepsilon_t
+dx_t = \theta(\mu = x_t)dt + \sigma dW_t
 \end{equation}
 
-Therefore, assuming that the series has the value $y_0$ at point $t = 0$, the value of $y_1$ will be given by 
+where $\theta > 0$, $\mu \text{and} \sigma > 0$ are parameters and $W_t$ represents a \emph{Wiener Process}. This is like a random walk but there is a drift back towards the average value $\mu$. This is a continuous-time version of an AR(1) process 
 
-\begin{equation}\label{eqref:diff1}
-y_1 = \alpha_1 + y_0 + \varepsilon_1
-\end{equation}
-
-and point $y_2$, where $t = 2$ will be
-\begin{equation}\label{eqref:diff2}
-y_2 = \alpha_2 + \rho y_1 + \varepsilon_2
-\end{equation}
-
-and putting Equations \ref{eqref:diff1} and Equation \ref{eqref:diff2} together, 
-
+The solution is that is given in Wikipedia is 
 \begin{equation}
-y_2 = \alpha_0 + \alpha_0 \alpha_1 + \alpha_1^2 y_0 + \alpha_1 \varepsilon_1 + \varepsilon_2
+E[x_t] = x_0e^{-\theta t} + \mu(1 - e^{-\theta t}) 
 \end{equation}
-
-
 <<HL, echo=FALSE, warning=FALSE, message=FALSE>>=
 nob <- length(da$CAD)
 r <- c(rep(0, nob))
@@ -147,8 +135,84 @@ HL <- -log(2)/eq$coefficients[2]
 HL
 @
 This shows that the half life is estimated to be 257 days. this is much more than the 115 suggested by the book.
+
+
+\section*{Cointegration}
+It is possible that some price series are non-stationary but are stationary when combined with other asset prices.  In that case it is possible  to test for \emph{contegration}.  This will allow the hedge ratio to be uncovered. The technique would be Engle-Granger \citet{engle1987co}. 
+
+This will be tested with two MSCI ETFs for Australia and Canada.  As they are each commodity producers, there should be some realtionship. 
+
+<<ETF1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>="
+da1 <- read.csv("../../Data/EWA.csv")
+da2 <- read.csv("../../Data/EWC.csv")
+da <- cbind(da1, da2, by = da1$Date)
+da <- da[,-c(8, 15)]
+colnames <- c("Date", "EWAO", "EWAH", "EWAL", "EWAC", "EWAV","EWAAC", 
+"EWCO", "EWCH", "EWCL", "EWCC", "EWCV","EWAAC")
+colnames(da) <- colnames
+da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+library(urca)
+plot(da$Date, da$EWAC, type = 'l', main = "Australian and Canadian ETF", 
+     xlab = "Date", ylab = "Price", col = "Dark green")
+lines(da$Date, da$EWCC, col = 'blue')
+@
+It is evident that there is a close connection between the two series. 
+<<etf2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
+plot(da$EWAC, da$EWCC, main = "Scatter of the price level")
+@
+The regresson of the price levels will provide the \emph{Optimal hedge ratio}.  
+<<etf3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, results='asis'>>=
+eq1 <- lm(da$EWAC ~ da$EWCC)
+xtable(summary(eq1))
+@
+
+The residuals from the regresssion are do not appears as stationary here as they do in the text. 
+
+<<etf4, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
+plot(da$Date, eq1$residuals, type = 'l', main = "Residuals of regression of EWA on EWC", xlab = "Date", ylab = "Residuals")
+@
+The Johanssen Method can also be used
+<<J, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
+library(vars)
+dat <- da[,c("EWAC", "EWCC")] 
+eq2 <- ca.jo(dat, type = "trace", ecdet = "const", K = 2)
+summary(eq2)
+@
+
 \bibliography{../../../myrefs}
 
 
 \end{document}
 
+# All of this is about the difference equation.  Not used.  My be useful in future. It comes from the first chapter of Enders. 
+The fundamental equation for CAD is of the form. 
+\begin{equation}
+ y_t = + \alpha_0 + \alpha_1 y_{t-1} + \varepsilon_t
+\end{equation}
+
+Therefore, assuming that the series has the value $y_0$ at point $t = 0$, the value of $y_1$ will be given by 
+
+\begin{equation}\label{eqref:diff1}
+y_1 = \alpha_0 + \alpha_1 y_0 + \varepsilon_1
+\end{equation}
+
+and point $y_2$, where $t = 2$ will be
+\begin{equation}\label{eqref:diff2}
+y_2 = \alpha_0 + \alpha_1 y_1 + \varepsilon_2
+\end{equation}
+
+and putting Equations \ref{eqref:diff1} and Equation \ref{eqref:diff2} together, 
+
+\begin{equation}
+y_2 = \alpha_0 + \alpha_0 \alpha_1 + \alpha_1^2 y_0 + \alpha_1 \varepsilon_1 + \varepsilon_2
+\end{equation}
+
+So that, more generally, 
+\begin{equation}
+y_t = \alpha_0 \sum_{i = 0}^{t-1} \alpha_1^i + \alpha_1^t y_0 + \sum_{i = 0}^{t-1} \alpha_1^i \varepsilon_{t-i}
+\end{equation}
+
+with no given starting point, an assumption that $| \alpha_1| < 1$ and using the knowledge that the infinite sum $1 + \alpha_1 + \alpha_1^2 \dots$ converges to $1/(1-\alpha_1)$, 
+\begin{equation}
+y_t = \frac{\alpha_0}{1 - \alpha_1} + \sum_{i = 0}^{\infty} \alpha_1^i \varepsilon_{t-i}
+\end{equation}
