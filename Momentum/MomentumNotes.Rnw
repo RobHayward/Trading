@@ -1,0 +1,15 @@
+\documentclass{hitec}
+\title{Momentum Trading}
+\author{Rob Hayward}
+\begin{document}
+\maketitle
+
+This comes from \href{http://quant.stackexchange.com/questions/19518/thesis-using-momentum-strategies-in-r-tips-on-good-books-guidelines-etc-on-how}{stack exchange}.  
+
+There is some practice in the momentum.R file. 
+
+The \href{https://r-forge.r-project.org/R/?group_id=316}{link to the R-forge page}
+
+
+
+\end{document}

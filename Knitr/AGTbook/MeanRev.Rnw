@@ -60,8 +60,9 @@ with the \lstinline{urca} package and the \lstinline{ur.df} test.
 library(urca)
 library(xtable)
 test <- ur.df(da$lCAD, type = "drift", selectlags = "AIC")
-testtable <- data.frame(test = test@teststat[1], Cv = test@cval[1,])
-formatcolheads <- c("$\\tau$", "1", "2", "10")
+dims <- list(rownames = "Unit root", colnames = c("Phi", "1pc", "5pc", "10pc"))
+testtable <- matrix(c(Test = test@teststat[1], Cv = test@cval[1,]), nrow = 1, 
+                    dimnames = dims)
 xtable(testtable, caption = "Test statistic and critical values", label = "tab")
 @
 Table \ref{tab} shows that the test is not sufficiently large to reject the null hypothesis of a unit root.  Therefore, the data are not stationary or mean-reverting. 
@@ -175,7 +176,7 @@ The Johanssen Method can also be used
 <<J, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
 library(vars)
 dat <- da[,c("EWAC", "EWCC")] 
-eq2 <- ca.jo(dat, type = "trace", ecdet = "const", K = 2)
+eq2 <- ca.jo(dat, type = "eigen", ecdet = "const", K = 2)
 summary(eq2)
 @
 

@@ -1,0 +1,12 @@
+library(stocks)
+data(zzz)
+head(zzz)
+prices.rate(zzz)
+prices.rate(zzz, xday.rate = 251)
+daily.ratios <- ratios(zzz)
+daily.ratios
+final.balance(zzz)
+sharpe(zzz)
+sortino(zzz)
+mdd(prices = zzz)
+rrr(zzz)

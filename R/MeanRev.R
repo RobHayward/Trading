@@ -18,7 +18,6 @@ dims <- list(rownames = "Unit root", colnames = c("Phi", "1pc", "5pc", "10pc"))
 testtable <- matrix(c(Test = test@teststat[1], Cv = test@cval[1,]), nrow = 1, 
                     dimnames = dims)
 testtable
-
 xtable(testtable, caption = "Test statistic and critical values", label = "tab")
 library(pracma)
 a <- hurstexp(da$lCAD)
@@ -49,8 +48,16 @@ eq1 <- lm(da$EWAC ~ da$EWCC)
 eq1$coefficients
 dims <- c("Intercept", "EWCC")
 print(eq1)
-
-table <- data.frame(eq1$coefficients, dims = dims)
-table
-plot(eq1$residuals)
+nob2 <- length(da$EWAC)
+EWACr <- c(rep(0, nob2))
+EWACr[1:nob2-1] <- log(da$EWAC[1:nob2 - 1])-log(da$EWAC[2:nob2])
+da$EWACr <- EWACr
+EWCCr <- c(rep(0, nob2))
+EWCCr[1:nob2-1] <- log(da$EWCC[1:nob2 - 1])-log(da$EWCC[2:nob2])
+da$EWCCr <- EWCCr
+eq2 <- lm(da$EWACr[seq(1,nob2 - 2, 1)] ~ da$EWCCr[seq(2,nob2 - 1, 1)] + 
+            da$EWACr[seq(2,nob2 - 1, 1)] + eq1$residuals[seq(2,nob2 - 1, 1)])
+summary(eq2)
+tail(diff(da$EWCC))
+# Engle model-----------------------
 

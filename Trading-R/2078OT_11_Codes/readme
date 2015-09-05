@@ -1,0 +1,30 @@
+This folder contains the R scripts and datasets for:
+Mastering R in Finance, Chapter 11: Asset and Liability Management
+
+Authors: Dániel Havran, István Margitai
+21 October 2014
+
+---------------------------------------
+The files:
+
+---------scripts:
+2078OT_01_11_ALMDemo.R      an R script that collects all command line scripts in the book	
+2078OT_01_11_bankALM.R      an R script that stores the pre-defined functions that it needs 
+                            to load to run ALMDemo.R
+
+---------datasets:
+portfolio.csv     csv data about a stylized bank asset and liability portfolio
+                  it is made by the authors for illustrative perspectives
+market.csv        csv data about a yield curve on the day of 30-Sept-2014, 
+                  provided by the European Central Bank, these kind of data 
+                  can be freely downloaded from the homepage of ECB Statistical 
+                  Data Warehouse
+ecb_nmd_data.csv  csv data, time series about yields, bank coupons and volume of 
+                  non-maturing depostits. It is provided by the European Central
+                  Bank, these kind of data can be freely downloaded from the 
+                  homepage of ECB Statistical Data Warehouse
+ecb_yc_data.csv   csv data, time series about yields with different maturities.
+                  It is provided by the European Central
+                  Bank, these kind of data can be freely downloaded from the 
+                  homepage of ECB Statistical Data Warehouse
+---------------------------------------
