@@ -10,6 +10,8 @@ There is some practice in the momentum.R file.
 
 The \href{https://r-forge.r-project.org/R/?group_id=316}{link to the R-forge page}
 
+This comes from \href{https://quantstrattrader.wordpress.com/2015/09/03/introduction-to-hypothesis-driven-development-overview-of-a-simple-strategy-and-indicator-hypotheses/}{qantstrattrader}. 
 
+Details are in QuantMoment.R
 
 \end{document}
