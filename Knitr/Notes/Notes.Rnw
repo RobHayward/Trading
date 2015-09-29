@@ -1,0 +1,196 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Trading}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+\section*{Introduction}
+\href{http://www.r-bloggers.com/simulating-backtests-of-stock-returns-using-monte-carlo-and-snowfall-in-parallel/}{DataShenanigans}
+A Monte Carlo backtest using snowfall for parallel computing. 
+
+<<data, message=FALSE, warning=FALSE>>=
+# load packages
+library(quantmod)
+
+# download DAX data from Yahoo
+dax <- getSymbols("^GDAXI", from = "2000-01-01", auto.assign = F)
+
+# create a data.frame called Sdata 
+Sdata <- data.frame(date = index(dax), price = as.numeric(Ad(dax)))
+# calculate returns
+Sdata$rets <- Sdata$price / c(NA, Sdata$price[1:nrow(Sdata) - 1]) -1
+head(Sdata)
+plot(x = Sdata$date, y = Sdata$price, type = 'l', main = "DAX index")
+@
+Now show a simulation case with a probability of 51\%. 
+
+<<simulation, message=FALSE, warning=FALSE>>=
+get.fprice <- function(rets, perc.right, init.price){
+  # 1. sample the goodness of the returns
+  good.forecast <- sample(x = c(T, F),
+                          size = length(rets),
+                          prob = c(perc.right, 1 - perc.right),
+                          replace = T)
+ 
+  # 2. get the forecasted directions, the same as the true rets if good.forecast = T
+  dir <- ifelse(rets > 0, 1, -1)
+  forecast.dir <- ifelse(good.forecast, dir, -dir)
+  # if the percentage sampled should be displayed
+  # mean(dir == forecast.dir, na.rm = T) 
+   
+  # 3. calculate the return of the forecast
+  forecast.ret <- forecast.dir * rets
+ 
+  # 4. calculate the prices
+  forecast.price <- cumprod(1 + forecast.ret[2:length(forecast.ret)]) * init.price
+  forecast.price <- c(init.price, forecast.price)
+  return(forecast.price)
+}
+
+@
+With this function, it is now possible to create a single simulation with one probability.  
+
+<<simulation2, message=FALSE, warning=FALSE>>=
+## set a seed for reproducability
+set.seed(42)
+ 
+# simulate one series of prices
+Sdata$fprice <- get.fprice(rets = Sdata$rets, perc.right = 0.51,
+                           init.price = Sdata$price[1])
+ 
+# plot the two developments
+plot(x = Sdata$date, y = Sdata$price, type = "l", 
+     main = "Dax vs. Forecast", xlab = "Date", ylab = "Price",
+     ylim = c(0, max(Sdata$price, Sdata$fprice)))
+lines(x = Sdata$date, y = Sdata$fprice, col = "red")
+legend("topleft", c("Dax", paste(perc.right, "forecast")), 
+       col = 1:2, lty = 1) 
+@
+
+
+\section*{ETF strategies}
+\href{http://www.r-programming.org/papers}{Quant Strat Notes}
+
+\href{http://www.r-bloggers.com/predicting-high-yield-with-spy-a-two-part-post/}{High yield strategy}.
+
+There are a number of funds:  VFISX (Short-term Treasury Fund); SHY (1 to 3 year Treasury Bond); (VWEHX (Vanguard high-yield corporate Fund); HYG (High yield corporate bond ETF); SPY (S\&P 500)
+
+<<Strategy, message=FALSE, warning=FALSE>>=
+library(quantmod)
+library(PerformanceAnalytics)
+library(quantstrat)
+getSymbols("VWEHX", from="1950-01-01")
+getSymbols("SPY", from="1900-01-01")
+getSymbols("HYG", from="1990-01-01")
+getSymbols("SHY", from="1990-01-01")
+getSymbols("VFISX", from="1990-01-01")
+spySma20Cl <- SMA(Cl(SPY), n=20)
+clSig <- Cl(SPY) > spySma20Cl
+clSig <- lag(clSig, 1)
+vwehxCloseRets <- Return.calculate(Cl(VWEHX))
+vfisxCloseRets <- Return.calculate(Cl(VFISX))
+vwehxAdjustRets <- Return.calculate(Ad(VWEHX))
+vfisxAdjustRets <- Return.calculate(Ad(VFISX))
+hygCloseRets <- Return.calculate(Cl(HYG))
+shyCloseRets <- Return.calculate(Cl(SHY))
+hygAdjustRets <- Return.calculate(Ad(HYG))
+shyAdjustRets <- Return.calculate(Ad(SHY))
+mutualAdRets <- vwehxAdjustRets*clSig + vfisxAdjustRets*(1-clSig)
+mutualClRets <- vwehxCloseRets*clSig + vfisxCloseRets*(1-clSig)
+etfAdRets <- hygAdjustRets*clSig + shyAdjustRets*(1-clSig)
+etfClRets <- hygCloseRets*clSig + shyCloseRets*(1-clSig)
+mutualFundBacktest <- merge(mutualAdRets, mutualClRets, join='inner')
+charts.PerformanceSummary(mutualFundBacktest)
+data.frame(t(rbind(Return.annualized(mutualFundBacktest)*100, 
+                   maxDrawdown(mutualFundBacktest)*100,
+                   SharpeRatio.annualized(mutualFundBacktest))))
+@
+
+<<Test, message=FALSE, warning=FALSE>>=
+etfBacktest <- merge(etfAdRets, etfClRets, join='inner')
+charts.PerformanceSummary(etfBacktest)
+data.frame(t(rbind(Return.annualized(etfBacktest)*100, 
+                   maxDrawdown(etfBacktest)*100,
+                   SharpeRatio.annualized(etfBacktest))))
+@                   
+
+<<Test2, message=FALSE, warning=FALSE>>=
+fundsAndETFs <- merge(mutualFundBacktest, etfBacktest, join='inner')
+charts.PerformanceSummary(fundsAndETFs)
+data.frame(t(rbind(Return.annualized(fundsAndETFs)*100, 
+                   maxDrawdown(fundsAndETFs)*100,
+                   SharpeRatio.annualized(fundsAndETFs))))
+@
+
+<<Test3, message=FALSE, warning=FALSE>>=
+###### BOILERPLATE FROM HERE
+require(quantstrat)
+
+currency('USD')
+Sys.setenv(TZ="UTC")
+symbols <- "HYG"
+stock(symbols, currency="USD", multiplier=1)
+initDate="1990-01-01"
+
+strategy.st <- portfolio.st <- account.st <- "preCalc"
+rm.strat(portfolio.st)
+rm.strat(strategy.st)
+initPortf(portfolio.st, symbols=symbols, initDate=initDate, currency='USD')
+initAcct(account.st, portfolios=portfolio.st, initDate=initDate, currency='USD')
+initOrders(portfolio.st, initDate=initDate)
+strategy(strategy.st, store=TRUE)
+######### TO HERE
+
+clSig <- Cl(SPY) > SMA(Cl(SPY), n=20)
+
+HYG <- merge(HYG, clSig, join='inner')
+names(HYG)[7] <- "precomputed_signal"
+@
+
+These functions do not exist in these two packages.  \lstinline{add.signal} and \lstinline{add.rule}
+<<Test4, message=FALSE, warning=FALSE>>=
+add.signal(strategy.st, name="sigThreshold",
+           arguments=list(column="precomputed_signal", threshold=.5, 
+                          relationship="gt", cross=TRUE),
+           label="longEntry")
+add.signal(strategy.st, name="sigThreshold",
+           arguments=list(column="precomputed_signal", threshold=.5, 
+                          relationship="lt", cross=TRUE),
+           label="longExit")
+add.rule(strategy.st, name="ruleSignal",
+         arguments=list(sigcol="longEntry", sigval=TRUE, orderqty=1, ordertype="market",
+                        orderside="long", replace=FALSE, prefer="Open"),
+         type="exit", path.dep=TRUE)
+add.rule(strategy.st, name="ruleSignal", 
+         arguments=list(sigcol="longExit", sigval=TRUE, orderqty="all", ordertype="market", orderside="long", replace=FALSE, prefer="Open"), 
+         type="exit", path.dep=TRUE)
+@
+
+\bibliography{../../../myrefs}
+
+
+\end{document}
