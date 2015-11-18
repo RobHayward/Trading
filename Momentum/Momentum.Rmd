@@ -1,0 +1,70 @@
+---
+title: "Momentum"
+author: "Rob Hayward"
+date: "18 November 2015"
+output: 
+  html_document: 
+    highlight: tango
+    theme: cosmo
+    toc: yes
+---
+
+##Autocorrelation
+This comes from [Quintuitive](http://www.quintuitive.com/2015/11/15/trading-autocorrelation)
+
+```{r, warning=FALSE, message=FALSE, cache = TRUE}
+require(quantmod)
+spy = getSymbols("SPY", from = "1900-01-01")
+spy.rets <- ROC(Ad(SPY), na.pad = F)
+aa <- acf(tail(spy.rets, 500), main = "ACF computed over last 500 days")
+head(aa)
+```
+Calculate a confidence level.  See note on *stationarity* in the *Other* folder for the estimation of the confidence intervals for the correlation coefficient  
+```{r}
+conf.level <- 0.95
+conf <- qnorm((1 + conf.level)/2)/sqrt(sum(!is.na(spy.rets)))
+```
+
+```{r}
+high.acf = function(xx, conf.level = 0.95, lag = 1){
+  aa = acf(xx, plot = F)
+  conf = qnorm((1 + conf.level)/2)/sqrt(sum(!is.na(xx)))
+  if(abs(aa$acf[lag + 1, 1, 1]) > conf) sign(aa$acf[lag + 1, 1, 1]) else 0
+}
+```
+Now test the high autocorrelation function
+```{r}
+backtest.acf = function(rets, n = 21, conf.level = 0.95, lag = 1, fade = F, 
+dates = "2004/2013"){
+  aa = na.trim(rollapply(rets, width = n + lag, FUN = high.acf, conf.level = 
+  conf.level, lag = lag))
+  bb = merge(rets, aa, all = F)
+  ind = sign(bb[, 1]*bb[, 2])
+  if(fade) ind = -ind
+  cc = merge(rets, lag.xts(ind), all = F)
+  dd = cc[, 1] * cc[, 2]
+  strat = dd[dates]
+  n.win = NROW(which(as.numeric(strat) > 0, arr.ind = T))
+  n.trades = NROW(which(as.numeric(strat) !=0, arr.ind = T))
+  str = paste(round(n.win/n.trades * 100, 2), "% [", n.win, "/", n.trades, "]", 
+  sep = "")
+  print(str)
+}
+```
+Now test
+```{r}
+backtest.acf(spy.rets, dates = "2004/2013", fade = T, n = 63)
+```
+
+Some profit but not many trades. 
+
+###Quant stackexchange 
+
+This comes from [stack  exchange](http://quant.stackexchange.com/questions/19518/thesis-using-momentum-strategies-in-r-tips-on-good-books-guidelines-etc-on-how).    There is some practice in the momentum.R file. 
+
+The [link to the R-forge page](https://r-forge.r-project.org/R/?group_id=316)
+
+
+This comes from [qantstrattrader](https://quantstrattrader.wordpress.com/2015/09/03/introduction-to-hypothesis-driven-development-overview-of-a-simple-strategy-and-indicator-hypotheses/). 
+
+Details are in QuantMoment.R
