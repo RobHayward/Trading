@@ -1,0 +1,21 @@
+---
+title: "Data and Databases"
+author: "Rob Hayward"
+date: "14 December 2015"
+output: html_document
+---
+
+# Maintaining a database
+[R-trader and databases](http://www.thertrader.com/2015/12/13/maintaining-a-database-of-price-files-in-r/).  This is based on one csv file per instrument. 
+
+## Initial download
+There are a list of R files
+
+* listOfInstruments.R
+* historicalData.R
+
+## Updating existing data
+* updateData.R
+
+Remember to add something to avoid the over-write (as identified by commentator)
+
