@@ -24,8 +24,8 @@ for(ii in theFiles){
     
     if(pos < nrow(recent)){
       dt = NULL
-      dt = rbind(data, recent[(post + 1):nrow(recent), ])
-      write.zoo(dt, paste(thePath, ii, sep = ""), sep = ",", rownames = FALSE)
+      dt = rbind(data, recent[(pos + 1):nrow(recent), ])
+      write.zoo(dt, paste(thePath, ii, sep = ""), sep = ",", row.names = FALSE)
     }
     
   }  
