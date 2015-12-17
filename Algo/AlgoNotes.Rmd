@@ -1,0 +1,23 @@
+---
+title: "Algo"
+author: "Rob Hayward"
+date: "17 December 2015"
+output: html_document
+---
+
+# Algo trading
+This is from [The FT](https://next.ft.com/content/a61eed46-8f9f-11e5-a549-b89a1dfede9b?ftcamp)
+
+The FT identifies a number of different types of algorithm
+
+* **Pricing algo**
+This will assess the price for the customer from the orders that are available.  It can presumably scour available orders to establish the price that can be achieved. 
+
+* **Risk-transfer algo**
+This is an algo that will transfer the order to a market-maker.  The *last-look* algo will make sure that the order is still valid before confirming the trade. This is to stop spoofers from withdrawing orders between the time that the order is made and the time that the order is executed.  
+
+* **Execution algo**
+This will execute the trade according to a specific pattern. The aim is to avoid the bid-ask spread and to reduce the size of the order to a size that is more easily managed in the market without *price-slippage*. 
+
+* **Liquidity-seeking algo**
+They will trade when liquidity is highest. They use datamining to predict the time when liquidity will be at its highest point. 
