@@ -36,16 +36,135 @@
 
 \section{What is trading?}
 \begin{frame}{What is trading?}
-\begin{itemize}
-\item Market-making
-\item Proprietary trading
+\begin{itemize}[<+-| alert@+>]
 \item Investment 
+\item Proprietary trading
+\item Market-making 
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Investment}
+\begin{itemize}[<+-| alert@+>]
+\item Long term 
+\item Managing others' funds
+\item Versions of \emph{Value Investment}
+\item Asset allocation or security selection
+\item Other activities to \emph{enhance} returns
+\begin{itemize}
+\item Securities lending
+\item Currency overlay
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Value Investment}
+\frametitle{Value investment}
+\begin{center}
+\includegraphics[height = 3.0in]{BGsmall}
+\end{center}
+\end{frame}
+
+\begin{frame}{Proprietary trading}
+\begin{itemize}[<+-| alert@+>]
+\item Using institution's capital 
+\item Risk-adjusted return relative to cost of funds
+\item Flavours of carry trade
+\item Arbitrage opportunities
+\item Use of \emph{inside information}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Proprietory trading: the carry trade}
+<<carry, echo=FALSE, warning=FALSE, message=FALSE, fig.height = 4.5>>=
+Jan2016 <- c(0.61, 1.02, 1.31, 1.73, 2.06, 2.24, 2.64, 2.98)
+Jan2014 <- c(0.48, 0.50, 0.75, 1.65, 2.05, 2.50, 3.50, 3.80)
+GRY <- c('1Y', '2Y', '3Y', '5Y', '7Y', '10Y', '20Y', '30Y')
+names(Jan2016) <- GRY
+names(Jan2014) <- GRY
+plot(Jan2016, type = 'l', xlab = "Maturity", ylab = "GRY", main = 
+       "US yield curve Jan 2016 and Jan 2014", ylim = c(0.0, 4.0), 
+     col = "green3", lwd = 2, lty = 2, xaxt = 'n')
+axis(1, at = 1:8, labels = GRY)
+lines(Jan2014, col = 'green4', lwd = 1, lty = 1)
+legend("topleft", legend = c("Jan 2016", "Jan 2014"), col = c("green3",
+                  "green4"), lwd = c(2,1), lty = c(2, 1))
+@
+\end{frame}
+
+\begin{frame}{Trading techniques}
+\begin{itemize}[<+-| alert@+>]
+\item Value investment
+\item Momentum
+\item Contrarianism
+\item Carry trade
+\item Pairs/Arbitrage
+\item Automation
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Momentum}
+\begin{center}
+\includegraphics[height = 3.2in, trim = 40 0 0 90]{aapl}
+\end{center}
+\end{frame}
+
+\begin{frame}{Momentum 2}
+What causes trends?  How can trends be identified and used?  
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item A number of factors may cause momentum
+\begin{itemize}
+\item \emph{Conservatism} and gradual reaction of people to new information
+\item The social element of information or belief
+\item Asynchronous trading
+\end{itemize}
+\item Trading methods used to take advantage of momentum
+\begin{itemize}
+\item Technical analysis:  trends and moving average
+\item Early identification of trend
+\item Indications that the trend is ending
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Contrarianism}
+Seeks to identify bursting bubbles
+\begin{itemize}[<+-| alert@+>]
+\item \emph{Representativeness} or \emph{Availability} heuristics
+\item Cases of mass hysteria, social dimension to knowledge
+\item Knowing when bubbles will burst is notoriously difficult
+\item Try to identify trigger points for extremes of sentiment
+\item Bollinger bands - standard deviation of movements
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Contrarianism}
+\begin{center}
+\includegraphics[height = 3.2in, trim = 20 0 20 40]{RR}
+\end{center}
+\end{frame}
+
+\begin{frame}{Carry trade}
+One of the most well-known carry trades takes place in the currency market
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Borrow low interest rate currency
+\item Exchange for high yield currency
+\item UIP does not seem to hold
+\item Risk? 
+\item Alternatives (Yield curve, CDO, bank lending)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Carry trade}
+\begin{center}
+\includegraphics[height = 3.3in, trim = 100 10 100 80]{hist1a}
+\end{center}
 \end{frame}
 
 \begin{frame}{Market-Making}
 There is a distinction between the \emph{primary} and \emph{secondary} markets
-\pause
+\\pause
 \begin{itemize}[<+-| alert@+>]
 \item Open-outcry
 \item Dealer (bid-ask)
@@ -107,6 +226,7 @@ There is a distinction between the \emph{primary} and \emph{secondary} markets
 \end{center}
 \end{frame}
 
+\section{Electronic order books}
 \begin{frame}{Electronic order market}
 Features of the order-driven market
 \pause
@@ -119,211 +239,7 @@ Features of the order-driven market
 \end{frame}
 
 
-\begin{frame}{Proprietary trading}
-\begin{itemize}[<+-| alert@+>]
-\item Using institution's capital 
-\item Risk-adjusted return relative to cost of funds
-\item Flavours of carry trade
-\item Arbitrage opportunities
-\end{itemize}
-\end{frame}
 
-\begin{frame}{Proprietary trading: Carry trade}
-\frametitle{Carry trade}
-\begin{center}
-\includegraphics[height = 3.1in, width = 4.9in, trim = 45 0 5 85]{yield}
-\end{center}
-\end{frame}
-
-\begin{frame}{Investment}
-\begin{itemize}[<+-| alert@+>]
-\item Long term 
-\item Managing others' funds
-\item Versions of \emph{Value Investment}
-\item Asset allocation or security selection
-\item Other activities to \emph{enhance} returns
-\begin{itemize}
-\item Securities lending
-\item Currency overlay
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\section{Institutional features}
-\begin{frame}{Institutional features}
-\begin{itemize}
-\item Commercial banks
-\item Investment banks
-\item Funds
-\item Exchanges
-\item Government
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Commercial banks}
-Not a large part of the story, but
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item Cheap and secure funding from 
-\begin{itemize}
-\item Depositors
-\item Central bank
-\end{itemize}
-\item Controversy over Investment banking-commercial banking link
-\item Divergence UK and Continental Europe
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Investment banks}
-Investment banks have become less significant
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item Proportion of market-making to proprietary trading will increase
-\begin{itemize}
-\item Effect of regulation
-\item Effect of funding costs
-\end{itemize}
-\item See Goldman, JP Morgan and others Q413 results
-\begin{itemize}
-\item Proportion of M\&A to FICC increased
-\item Goldman FICC down 15\% to \$1.7bn
-\end{itemize}
-\item \emph{The Volcker Rule}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Investment banks: The Volcker Rule}
-\frametitle{The Volcker Rule}
-\begin{center}
-\includegraphics[height = 3.1in]{Paulvolcker}
-\end{center}
-\end{frame}
-
-\begin{frame}{Funds}
-A variety of funds and other boutique and specialist financial institutions become more prominent in proprietary trading
-\begin{itemize}[<+-| alert@+>]
-\item Traditional funds: securities lending
-\item Hedge funds
-\item Small-scale prop and spec book
-\item OSTC 
-\item Brighton futures
-\end{itemize}
-\end{frame}
-
-\begin{frame}{NYSE}
-\begin{center}
-\includegraphics[height = 3.0in]{NYSE-floor}
-\end{center}
-\end{frame}
-
-\begin{frame}{Exchanges}
-Exchanges have become increasingly important
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item Natural monopolies: network effects
-\item Exchanges have shifted from being mutually owned to being public companies
-\item Aim to extend monopolistic power from trading to other activities such as settlement and custody
-\item Post-crisis regulation aims to push more trading onto exchanges
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Government}
-Mifid 2 is the latest European legislation
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item Rules are a by product of the interaction of 
-\begin{itemize}
-\item Countries
-\item Heads of State, Commission and EU Parliamenrt
-\item US and EU
-\end{itemize}
-\item Main Elements of Mifid 2
-\begin{itemize}
-\item HFT
-\item Commodity position limits
-\item Dark pools
-\item Exchange-clearing Silos
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\section{Trading techniques}
-\begin{frame}{Trading techniques}
-\begin{itemize}
-\item Value investment
-\item Momentum
-\item Contrarianism
-\item Carry trade
-\item Arbitrage
-\item Automation
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Momentum}
-\begin{center}
-\includegraphics[height = 3.2in, trim = 40 0 0 90]{aapl}
-\end{center}
-\end{frame}
-
-\begin{frame}{Momentum 2}
-What causes trends?  How can trends be identified and used?  
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item A number of factors may cause momentum
-\begin{itemize}
-\item \emph{Conservatism} and gradual reaction of people to new information
-\item The social element of information or belief
-\item Asynchronous trading
-\end{itemize}
-\item Trading methods used to take advantage of momentum
-\begin{itemize}
-\item Technical analysis:  trends and moving average
-\item Early identification of trend
-\item Indications that the trend is ending
-\end{itemize}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Contrarianism}
-Seeks to identify bursting bubbles
-\begin{itemize}[<+-| alert@+>]
-\item \emph{Representativeness} or \emph{Availability} heuristics
-\item Cases of mass hysteria, social dimension to knowledge
-\item Knowing when bubbles will burst is notoriously difficult
-\item Try to identify trigger points for extremes of sentiment
-\item Bollinger bands - standard deviation of movements
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Contrarianism}
-\begin{center}
-\includegraphics[height = 3.2in, trim = 20 0 20 40]{RR}
-\end{center}
-\end{frame}
-
-\begin{frame}{The Carry trade}
-\begin{center}
-\includegraphics[height = 3.1in, width = 4.9in, trim = 45 0 5 85]{yield}
-\end{center}
-\end{frame}
-
-\begin{frame}{Carry trade}
-One of the most well-known carry trades takes place in the currency market
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item Borrow low interest rate currency
-\item Exchange for high yield currency
-\item UIP does not seem to hold
-\item Risk? 
-\item Alternatives (Yield curve, CDO, bank lending)
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Carry trade}
-\begin{center}
-\includegraphics[height = 3.3in, trim = 100 10 100 80]{hist1a}
-\end{center}
-\end{frame}
 
 
 \begin{frame}{Automation}

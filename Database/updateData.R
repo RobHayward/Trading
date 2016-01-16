@@ -32,3 +32,4 @@ for(ii in theFiles){
 if(is.na(pos))
   print("Error: dates do not match")
 }
+

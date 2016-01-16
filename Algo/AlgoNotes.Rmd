@@ -21,3 +21,6 @@ This will execute the trade according to a specific pattern. The aim is to avoid
 
 * **Liquidity-seeking algo**
 They will trade when liquidity is highest. They use datamining to predict the time when liquidity will be at its highest point. 
+
+## Last look
+[Last look](https://next.ft.com/content/875640f0-a325-11e5-bc70-7ff6d4fd203a)
