@@ -67,84 +67,234 @@
 \begin{frame}{Proprietary trading}
 \begin{itemize}[<+-| alert@+>]
 \item Using institution's capital 
-\item Risk-adjusted return relative to cost of funds
-\item Flavours of carry trade
-\item Arbitrage opportunities
-\item Use of \emph{inside information}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Proprietory trading: the carry trade}
-<<carry, echo=FALSE, warning=FALSE, message=FALSE, fig.height = 4.5>>=
-Jan2016 <- c(0.61, 1.02, 1.31, 1.73, 2.06, 2.24, 2.64, 2.98)
-Jan2014 <- c(0.48, 0.50, 0.75, 1.65, 2.05, 2.50, 3.50, 3.80)
-GRY <- c('1Y', '2Y', '3Y', '5Y', '7Y', '10Y', '20Y', '30Y')
-names(Jan2016) <- GRY
-names(Jan2014) <- GRY
-plot(Jan2016, type = 'l', xlab = "Maturity", ylab = "GRY", main = 
-       "US yield curve Jan 2016 and Jan 2014", ylim = c(0.0, 4.0), 
-     col = "green3", lwd = 2, lty = 2, xaxt = 'n')
-axis(1, at = 1:8, labels = GRY)
-lines(Jan2014, col = 'green4', lwd = 1, lty = 1)
-legend("topleft", legend = c("Jan 2016", "Jan 2014"), col = c("green3",
-                  "green4"), lwd = c(2,1), lty = c(2, 1))
-@
-\end{frame}
-
-\begin{frame}{Trading techniques}
-\begin{itemize}[<+-| alert@+>]
 \item Value investment
 \item Momentum
 \item Contrarianism
 \item Carry trade
 \item Pairs/Arbitrage
 \item Automation
+\item Use of \emph{inside information}
 \end{itemize}
 \end{frame}
 
+
+
+\begin{frame}{Efficient reaction to information}
+<<info1, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Efficient reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+@
+\end{frame}
+
 \begin{frame}{Momentum}
+<<info2, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Under-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+lines(z3, lty = 2)
+text(2.4, 2, "Under-reaction")
+@
+\end{frame}
+
+  \begin{frame}{Momentum 2}
 \begin{center}
 \includegraphics[height = 3.2in, trim = 40 0 0 90]{aapl}
 \end{center}
 \end{frame}
 
 \begin{frame}{Momentum 2}
-What causes trends?  How can trends be identified and used?  
-\pause
 \begin{itemize}[<+-| alert@+>]
 \item A number of factors may cause momentum
 \begin{itemize}
-\item \emph{Conservatism} and gradual reaction of people to new information
-\item The social element of information or belief
+\item \emph{Conservatism} or gradual reaction of people to new information
+\item The social element of knowledge or belief
 \item Asynchronous trading
 \end{itemize}
 \item Trading methods used to take advantage of momentum
 \begin{itemize}
-\item Technical analysis:  trends and moving average
+\item Technical analysis:  trends,moving average etc.
 \item Early identification of trend
-\item Indications that the trend is ending
+  \item Also important - knowing when trend is ending
 \end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Building blocks}
+The standard chart to use is a high-low-close chart (RIT uses a candle alternative)
+\pause
+\begin{itemize}[<+-| alert@+> ]
+\item It records the high low and close
+\item If there is a
+\begin{itemize}
+\item higher open
+\item higher high
+\item higher low
+\item higher close
+\end{itemize}
+\end{itemize}
+\pause
+\begin{block}{}
+The tend is intact!
+\end{block}
+\pause
+Otherwise, there are doubts
+\end{frame}
+
+\begin{frame}{SP 500}
+<<hlc, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+library(tseries)
+da <- read.csv("../../EC381/BehaviouralFinance/Data/GSPC.csv")
+da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+da1 <- da[(da$Date  > as.Date("2014-12-25", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-02-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-12-25", ylab = "SP500", main = "Christmas 2014") 
+@
+\end{frame}  
+
+
+
+\begin{frame}{Other tools}
+There are a wide range of other tools that are used to try to identify evolving or eroding sentiment
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Trendlines
+\item Chart patterns
+\item Moving average
+\item Momentum indicators
+\item Divergence
+\item Volume indicators
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Trendlines}
+<<trend, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-03-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Trendline break") 
+x <- c(22, 195)
+y <- c(min(da1$Low), 1958) 
+lines(x,y, col = "DarkGreen")
+@
+\end{frame} 
+
+\begin{frame}{Trendline guidance}
+<<trend1, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-03-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Trendlne break") 
+x <- c(22, 350)
+y <- c(min(da1$Low), 1900) 
+lines(x,y, col = "DarkGreen")
+@
+\end{frame} 
+
+\begin{frame}{Moving average}
+A moving average will just take the average of closing prices and smooth to remove some of the noise
+\pause
+\begin{block}{}
+\begin{equation*}
+BAC_{MAn} = \frac{1}{n} \sum_{i = 0}^{n-1}(P_{t-i})
+\end{equation*}
+\end{block}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Different time periods
+\item Short MA or price crossing longer MA is a signal
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Moving average}
+<<MA, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+library(TTR)
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2014-11-30", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+da1$MA3 <- SMA(da1$Close, 3)
+da1$MA20 <- SMA(da1$Close, 20)
+dat <- as.ts(da1[,c(2:5, 8, 9)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+#lines(da1$MA3, col = "DarkGreen", lwd = 2)
+#lines(da1$MA4, col = "red", lwd = 2)
+@
+\end{frame}
+
+\begin{frame}{Moving average 2}
+<<MA2, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+lines(da1$MA3, col = "DarkGreen", lwd = 2)
+@
+\end{frame}
+
+\begin{frame}{Moving average 3}
+<<MA3, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+lines(da1$MA3, col = "DarkGreen", lwd = 2)
+lines(da1$MA20, col = "red", lwd = 2)
+legend("bottomright", legend = c("MA3", "MA20"), fill = c("DarkGReen", "red"))
+@
+\end{frame}
+
+\begin{frame}{Over-reaction to information}
+<<info3, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Over-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+lines(z4, lty = 2)
+text(2.4, 6, "Overshooting")
+@
+\end{frame}
+
 \begin{frame}{Contrarianism}
 Seeks to identify bursting bubbles
+\pause
 \begin{itemize}[<+-| alert@+>]
 \item \emph{Representativeness} or \emph{Availability} heuristics
-\item Cases of mass hysteria, social dimension to knowledge
+\item The social dimension to knowledge and even mass hysteria
+\end{itemize}
+\pause
+However, 
+\pause
+\begin{itemize}[<+-| alert@+>]
 \item Knowing when bubbles will burst is notoriously difficult
 \item Try to identify trigger points for extremes of sentiment
 \item Bollinger bands - standard deviation of movements
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Contrarianism}
-\begin{center}
-\includegraphics[height = 3.2in, trim = 20 0 20 40]{RR}
-\end{center}
-\end{frame}
+%\begin{frame}{Contrarianism}
+%\begin{center}
+%\includegraphics[height = 3.2in, trim = 20 0 20 40]{RR}
+%\end{center}
+%\end{frame}
 
-\begin{frame}{Carry trade}
+\begin{frame}{Carry trade: 1}
 One of the most well-known carry trades takes place in the currency market
 \pause
 \begin{itemize}[<+-| alert@+>]
@@ -156,15 +306,81 @@ One of the most well-known carry trades takes place in the currency market
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Carry trade}
+\begin{frame}{The carry trade: 2}
+<<carry, echo=FALSE, warning=FALSE, message=FALSE, fig.height = 4.5>>=
+Jan2016 <- c(0.61, 1.02, 1.31, 1.73, 2.06, 2.24, 2.64, 2.98)
+Jan2014 <- c(0.48, 0.50, 0.75, 1.65, 2.05, 2.50, 3.50, 3.80)
+GRY <- c('1Y', '2Y', '3Y', '5Y', '7Y', '10Y', '20Y', '30Y')
+names(Jan2016) <- GRY
+names(Jan2014) <- GRY
+plot(Jan2016, type = 'l', xlab = "Maturity", ylab = "GRY", main = 
+       "US yield curve Jan 2016 and Jan 2014", ylim = c(0.0, 4.0), 
+     col = "green3", lwd = 2, lty = 1, xaxt = 'n')
+axis(1, at = 1:8, labels = GRY)
+lines(Jan2014, col = 'green4', lwd = 1, lty = 2)
+legend("topleft", legend = c("Jan 2016", "Jan 2014"), col = c("green3",
+                  "green4"), lwd = c(2,1), lty = c(1, 2))
+@
+\end{frame}
+
+\begin{frame}{Carry trade: 3}
 \begin{center}
 \includegraphics[height = 3.3in, trim = 100 10 100 80]{hist1a}
 \end{center}
 \end{frame}
 
+\begin{frame}{Pairs trading/arbitrage}
+Identifying a \emph{standard relationship}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Arbitrage - same instrument
+\item Yield or credit spread
+\item Two stocks: BP and Shell
+\end{itemize}
+\pause
+Look for deviations from the relationship and expect a return to normal
+\end{frame}
+
+\begin{frame}{Pairs trading/arbitrage 2}
+This may use
+\begin{itemize}[<+-| alert@+>]
+\item Business knowledge
+\item Cointegration 
+\item Automated trading
+\end{itemize}
+\pause
+However, 
+\pause
+\begin{block}{}
+\textbf{Sometimes relationships change}
+\end{block}
+\pause
+Long-Term-Capital-Management used this technique
+\end{frame}
+
+\begin{frame}{Brent-WTI}
+<<bwt, message=FALSE, warning=FALSE, echo=FALSE,fig.height=4.6>>=
+da2 <- read.csv("../Data/brent-wti.csv")
+da2$Date <- as.Date(da2$Date, format = "%d/%m/%Y")
+# I cheated and just looked at the index numbers. There must be a better way
+plot(da2$Date[62:433], da2$Spread[62:433], type = 'l', col = 51, 
+     main = "Brent - WTI spread", ylab = "Spread", xlab = "Date")
+@
+\end{frame}
+
+\begin{frame}{Brent-WTI 2}
+<<bwt2, message=FALSE, warning=FALSE, echo=FALSE,fig.height=4.6>>=
+da2 <- read.csv("../Data/brent-wti.csv")
+da2$Date <- as.Date(da2$Date, format = "%d/%m/%Y")
+plot(da2$Date, da2$Spread, type = 'l', col = 51, 
+     main = "Brent - WTI spread", ylab = "Spread", xlab = "Date")
+@
+\end{frame}
+
+\section{Market-making}
 \begin{frame}{Market-Making}
 There is a distinction between the \emph{primary} and \emph{secondary} markets
-\\pause
+\pause
 \begin{itemize}[<+-| alert@+>]
 \item Open-outcry
 \item Dealer (bid-ask)
@@ -176,16 +392,16 @@ There is a distinction between the \emph{primary} and \emph{secondary} markets
 \begin{frame}{Market-making: Open outcry}
 \frametitle{Open Outcry}
 \begin{center}
-\includegraphics[height = 3.0in]{Open-Out-Cry}
+\includegraphics[height = 2.6in]{Open-Out-Cry}
 \end{center}
+\href{https://www.youtube.com/watch?v=1tmI867fAYU}{Trading Places}
 \end{frame}
 
 \begin{frame}{London Metal Exchange}
 \begin{center}
-\includegraphics[height = 3.0in]{LME}
+\includegraphics[height = 2.8in]{LME}
 \end{center}
 \end{frame}
-
 
 \begin{frame}{Market-making: Dealer}
 \begin{tikzpicture}[xscale = 1, yscale = 1]
@@ -226,7 +442,6 @@ There is a distinction between the \emph{primary} and \emph{secondary} markets
 \end{center}
 \end{frame}
 
-\section{Electronic order books}
 \begin{frame}{Electronic order market}
 Features of the order-driven market
 \pause
@@ -237,10 +452,88 @@ Features of the order-driven market
 \item Liquidity can be an issue
 \end{itemize}
 \end{frame}
+  
+\begin{frame}{Contemporary issues}
+There are a number of contemporary issues that surround the use of electronic order markets
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Regulation 
+\item liquidity 
+\item Automation and high frequency trading (HFT)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Post-crisis regulation}
+A number of scandals since the financial crisis have sought to increase transparency and reduce \emph{maker manipulation}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Increase capital for trading activity
+\item Increase surveillance of market positions
+\item Crackdown on \emph{insider trading} and other abuse
+\begin{itemize}
+\item LIBOR scandal
+\item FX fix
+\item 
+\end{itemize}
+\end{itemize}
+\end{frame}
 
 
+\begin{frame}{Regulation}
+There are three strands to the increased regulation
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Increased regulatory scrutiny
+\item Higher capital requirements
+\item Restrictions on principal model
+\begin{itemize}
+\item \emph{Volcker Rule}
+\item Use of information and sharp practice
+\end{itemize}
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Market-makers}
+There are two models of market-making
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item \textbf{Agency model}: buy and sell on behalf of customers.  Seek to has as little risk as possible by matching buyers and sellers
+\item \textbf{Principal model}: Hold on to securities or run short-positions and aim to make money from executing orders at best prices
+\end{itemize}
+\pause
+The second is risky, post-crisis regulation make it increasingly costly
+\end{frame}
 
+\begin{frame}{Measuring liquidity}
+There are a number of ways that liquidity can be measured
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Bid-ask spread
+\item Volume 
+\item Size of transactions
+\item Price impact (market-depth)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Liquidity and returns}
+Article on student central
+\vspace{1cm}
+\begin{block}{}
+Amihud, Y., (2002),\emph{Illiquidity and stock returns}, Journal of Financial Markets, \textbf{5} 1
+\end{block}
+\vspace{1cm}
+Lack of liquidity affect excess returns. 
+\end{frame}
+
+\begin{frame}{Measuring liquidity 2}
+Amihud proposes the following measure of liquidity
+\begin{block}{}
+\begin{equation*}
+L = \frac{|R_i|}{V_i}
+\end{equation*}
+\end{block}
+where $|R_i|$ is the \emph{absolute return} to stock i and $V_i$ is the dollar value of trading in stock $i$
+\end{frame}
 
 \begin{frame}{Automation}
 Automation of trading
@@ -259,14 +552,15 @@ Automation of trading
 \end{center}
 \end{frame}
 
-
-\section{Future directions}
-\begin{frame}{Future directions}
+\section{Take away}
+\begin{frame}{Take away}
 \begin{itemize}[<+-| alert@+>]
-\item Limits to automation and latency
-\item Regulation and standardisation
-\item Blurring of fund distinction
-\item Always looking for new inefficiencies
+\item Patterns in the random movement of prices
+\item Importance of liquidity 
+\item Interplay between regulation and liquidity 
+\item Automation and speed
 \end{itemize}
 \end{frame}
+
+
 \end{document}
