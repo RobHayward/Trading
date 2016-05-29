@@ -21,7 +21,7 @@
 \definecolor{mygrey}{gray}{0.95}
 \lstset{backgroundcolor=\color{mygrey}}
 \begin{document}
-\title{Backtesting}
+\title{Back-testing}
 \author{Rob Hayward}
 %\date{\today}
 \maketitle
@@ -29,28 +29,28 @@
 %erehrere
 %\end{abstract}
 \section*{Introduction}
-  These are my notes on Ernest Chan's book Agorithmic Trading.  These are his ideas. There are a number of data suppliers quoted \href{http://backdata.com}{backdata.com} and \href{http://tickdata.com}{tickdata.com}
-\section*{Backtesting}
-Backtesting will depend on the actual details of the way that the strategy is implemented.  For example, which market is the system implemented on; are limit or market orders used; futures or cash; bid or ask?  Thesea are things that are often glossed over in the focus on the investment idea. There are a number of pitfalls that people should be aware of.  These pitfalls will usually inflated the backtest performance. 
+  These are my notes on Ernest Chan's book Algorithmic Trading.  These are his ideas. There are a number of data suppliers quoted \href{http://backdata.com}{backdata.com} and \href{http://tickdata.com}{tickdata.com}
+\section*{Back-testing}
+Backtesting will depend on the actual details of the way that the strategy is implemented.  For example, which market is the system implemented on; are limit or market orders used; futures or cash; bid or ask?  These are things that are often glossed over in the focus on the investment idea. There are a number of pitfalls that people should be aware of.  These pitfalls will usually inflated the back-test performance. 
 
-Out-of-sample testing requires a model that has been published.  If the model has not been published, it is possible that there were tweaks to the model after the out-of-sample results were established.  This is not out-of-sample. The backtesting methods needs to be as close to the \emph{scientific method} as is possible. Start from a hypothesis about a strategy, ideally backed by theory, try to refute the hypothesis with backtesting. 
+Out-of-sample testing requires a model that has been published.  If the model has not been published, it is possible that there were tweaks to the model after the out-of-sample results were established.  This is not out-of-sample. The back-testing methods needs to be as close to the \emph{scientific method} as is possible. Start from a hypothesis about a strategy, ideally backed by theory, try to refute the hypothesis with back-testing. 
 
 Backtesting pitfalls
 \begin{itemize}
-\item \textbf{Look ahead bias}: this will use tomorrow's price to determine today's signals or any use of future information. If the backtesting programme and the live trading programme are the same, it is not possible to look ahead. 
-\item \textbf{Data snooping or over-fitting}: means usin too many explanatory variables to hit to the historic performance. This problem is solved by out-of-sample testing. Any tweaking of the module turns the out-of-sample into sample. It is possible to test the perofrmance on a number of different samples or sub-samples. To avoid over-fitting, model shoudl be as simple as possible with as few tradng rules as possible. Linear models are preferable to non-linear. Ultimately, the system must be tested on real data. 
-\item \textbf{Stock splits and dividend adjustments}: An N:1 stock split will result in the number of shares being multuiplied N times and the price being divided by N. The adjustment also needs to be made for dividend payments. 
-  \item \textbf{Survivorship bias}: if the database does not include stocks that died, buying a stock that fell 90\% will be successful because that firm will not have gone out of business (as most 90\% decliners would have). This is more of a problem for long positions than short positions.
-  \item \textbf{Primary vs consolidated prices}: Market-on-close (MOC) or Market-on-Open (MOC) prices will be routed through the primary market (say the NYSE).  The open and close prices of the primary exchange are the result of an autction, the consolidated prices from other exchanges are not. Outpying considated prices are likely to be followed by mean-reversion. The same is likely to be true for highs and lows.  
-  \item \textbf{Short-sale constraints}: sellign short is difficult in practice.  If there are a lot of shorts or there is limited free-float, borrowing may be expensive. Sales may also be affected by the \emph{uptick rule} (see page 12 for details).
-  \item \textbf{Futures rollover} the roll from front to back contract can be managed by adjusting the data.  However, this will useually mean that either the profit-and-loss (PL) or the return are correct, not both. If prices turn negative as a result of the adjustment, add a constant.  The adjustment process is more acute when trading contract spreads.  
-  \item \textbf{Settlement price and closing price}:  the exchange will provide a settlement price even if there have not been any trades in the contract.  The settlement price may, in other cases, be different from the closing price. THe last price may not be near the close.  This is important if trading spreads. Closing times of different markets may be different times.  
+\item \textbf{Look ahead bias}: this will use tomorrow's price to determine today's signals or any use of future information. If the back-testing programme and the live trading programme are the same, it is not possible to look ahead. 
+\item \textbf{Data snooping or over-fitting}: means using too many explanatory variables to hit to the historic performance. This problem is solved by out-of-sample testing. Any tweaking of the module turns the out-of-sample into sample. It is possible to test the performance on a number of different samples or sub-samples. To avoid over-fitting, model should be as simple as possible with as few trading rules as possible. Linear models are preferable to non-linear. Ultimately, the system must be tested on real data. 
+\item \textbf{Stock splits and dividend adjustments}: An N:1 stock split will result in the number of shares being multiplied N times and the price being divided by N. The adjustment also needs to be made for dividend payments. 
+  \item \textbf{Survivor ship bias}: if the database does not include stocks that died, buying a stock that fell 90\% will be successful because that firm will not have gone out of business (as most 90\% decliners would have). This is more of a problem for long positions than short positions.
+  \item \textbf{Primary vs consolidated prices}: Market-on-close (MOC) or Market-on-Open (MOC) prices will be routed through the primary market (say the NYSE).  The open and close prices of the primary exchange are the result of an auction, the consolidated prices from other exchanges are not. Outlying consolidated prices are likely to be followed by mean-reversion. The same is likely to be true for highs and lows.  
+  \item \textbf{Short-sale constraints}: selling short is difficult in practice.  If there are a lot of shorts or there is limited free-float, borrowing may be expensive. Sales may also be affected by the \emph{up-tick rule} (see page 12 for details).
+  \item \textbf{Futures roll-over} the roll from front to back contract can be managed by adjusting the data.  However, this will usually mean that either the profit-and-loss (PL) or the return are correct, not both. If prices turn negative as a result of the adjustment, add a constant.  The adjustment process is more acute when trading contract spreads.  
+  \item \textbf{Settlement price and closing price}:  the exchange will provide a settlement price even if there have not been any trades in the contract.  The settlement price may, in other cases, be different from the closing price. The last price may not be near the close.  This is important if trading spreads. Closing times of different markets may be different times.  
 \end{itemize}
 \section*{Evaluation}
-It is important to assess whether strategy successs is the result of the random sample. There are three main ways that performance can be evaluated: 
+It is important to assess whether strategy success is the result of the random sample. There are three main ways that performance can be evaluated: 
 \begin{itemize}
 \item Using traditional statistical tests of the null hypothesis that the actual return is equal to zero
-\item Using monte carlo simulations of the date to test the strategy. 
+\item Using Monte Carlo simulations of the date to test the strategy. 
 \item Using random trades on the same dataset (Lo, Mamasky and Wang). 
 \end{itemize}
 
@@ -60,33 +60,33 @@ The trading strategy is tested against the null hypothesis that the return is ze
 H0_{r = 0} = E[r]/sd_r
 \end{equation}
 
-It is also tested on a \emph{monte carlo} simulation of these returns with the same mean, standard deviation, skew and kurtosis.  There is no serial correlation. If there is a positive return from this stratetgy, it means that it is a function of the distribution rather than the momentum that was the aim of the study. Simulate the returns, calculate the prices test the strategy and repeated 10,000 times.  Count how many of those times the strategy get a return greater than the original.  
+It is also tested on a \emph{Monte Carlo} simulation of these returns with the same mean, standard deviation, skew and kurtosis.  There is no serial correlation. If there is a positive return from this strategy, it means that it is a function of the distribution rather than the momentum that was the aim of the study. Simulate the returns, calculate the prices test the strategy and repeated 10,000 times.  Count how many of those times the strategy get a return greater than the original.  
 
 Finally, randomly buy and sell for 1 month.  Repeat this random buy and sell for the price series and, again, count the number of times that the random strategy out-performs the chosen strategy. 
 
-The null hypothesis will change for each of the tests.  Therefore, it is not surprise that there are different outcomes for different tests. There is also an argument that suggests that the test should be of the probability of observing the test statistic given the null hypoethsis $P(H0|R)$. The previous case was $P(R|H0)$. 
- One issue that is apparent here is that any momentum trading strategy is likely to appear successsful when returns exhibit high kurtosis. 
+The null hypothesis will change for each of the tests.  Therefore, it is not surprise that there are different outcomes for different tests. There is also an argument that suggests that the test should be of the probability of observing the test statistic given the null hypothesis $P(H0|R)$. The previous case was $P(R|H0)$. 
+ One issue that is apparent here is that any momentum trading strategy is likely to appear successful when returns exhibit high kurtosis. 
 
 \section*{Draw down}
-There is a discssion on Stack Exchange of the expected value of the draw down \href{http://quant.stackexchange.com/questions/17589/expectation-of-maximum-draw-down-in-the-brownian-motion-case?newsletter=1&nlcode=365849%7c1e0c}{Expected Draw Down}. There is R code for the example. 
+There is a discussion on Stack Exchange of the expected value of the draw down \href{http://quant.stackexchange.com/questions/17589/expectation-of-maximum-draw-down-in-the-brownian-motion-case?newsletter=1&nlcode=365849%7c1e0c}{Expected Draw Down}. There is R code for the example. 
 
 It is usually not worth testing a strategy with a large draw down.  Even if the expected returns are high, it is unlikely that investors will be able to stomach the pain.
  
-   It is also important to make sure that the strategy is tested against the apprpriate benchmark. If a oil strategy is no better than buying and holding oil, there is no reason to backtest.  It is essential to look at the Information ratio rather tha the Sharpe ratio in this case. 
+   It is also important to make sure that the strategy is tested against the appropriate benchmark. If a oil strategy is no better than buying and holding oil, there is no reason to back-test.  It is essential to look at the Information ratio rather than the Sharpe ratio in this case. 
    
    It is also important to be careful about high-frequency trades.  In these cases, the order itself can change the market.  
    
-   If the strategy appears to work, it is also necessary to be very careful about underlying changes that may affect its performance.  Amongst the changes that hav been experienced. 
+   If the strategy appears to work, it is also necessary to be very careful about underlying changes that may affect its performance.  Amongst the changes that have been experienced. 
    
    \begin{itemize}
-   \item Decimilisation of US stock prices. This reduced liquidity. 
+   \item Decimalisation of US stock prices. This reduced liquidity. 
    \item Post-financial crisis fall in liquidity. 
    \item Regulatory reduction in average trade size
-   \item Removal of old uptick rule
+   \item Removal of old up-tick rule
    \end{itemize}
 \section*{Programming}
 There are a number of platforms that will provide the drag-and-drop for the programming of strategies. However, these will be fairly limited. It is also possible to use excel (combined with visual basic).  This is slow and inefficient.  
 
-\href{http://Pracplay/}{Prac Play} offers links from R and python to a number of exchanges. It is often good to combine backesting and implementaiton.  It will be particuarly useful if the strategy is high frequency as the the backtesting then requires ticks rather than prices taken at arbitrary time intervals\footnote{The tick data is based on new orders while the standard data just collects the price at the end of the alloted time. The first is more consistent with the actual trades that will be put into the market.}. 
+\href{http://Pracplay/}{Prac Play} offers links from R and python to a number of exchanges. It is often good to combine back-testing and implementation.  It will be particularly useful if the strategy is high frequency as the the back-testing then requires ticks rather than prices taken at arbitrary time intervals\footnote{The tick data is based on new orders while the standard data just collects the price at the end of the allotted time. The first is more consistent with the actual trades that will be put into the market.}. 
 \end{document}
 

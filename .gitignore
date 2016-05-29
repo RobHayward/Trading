@@ -1,7 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
-Other/
-*pdf
-*cache
-Database/*.csv
+.Ruserdata
+*.pdf

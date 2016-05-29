@@ -1,0 +1,358 @@
+
+    
+    
+    
+.ToolbarButtonImage			{height:16px;width:16px;border:0px;}
+.ToolbarButtonAnchor		{
+	text-decoration:none; 
+	font-family:tahoma; 
+	font-size:8pt;
+	unicode-bidi:embed;}
+.ToolbarViewDropdown		{
+	text-decoration:none; 
+	font-family:tahoma; 
+	font-size:8pt;}
+.ToolbarViewDropdownSelect
+{
+	font-family:tahoma; 
+	font-size:8pt;
+}
+.ToolbarSeparator			{border:0px;height:16px;width:2px;margin-right:5px;margin-left:5px;}
+.ToolbarButton				{white-space:nowrap;cursor:pointer;cursor:hand;}
+.ToolbarButton a:link		{text-decoration:none;color:black;}
+.ToolbarButton a:visited	{text-decoration:none;color:black;}
+.ToolbarButton a:hover		{text-decoration:underline;color:black;}
+.ToolbarButton a:active		{text-decoration:none;color:black;}
+.ErrorPageShortMessage
+{ 
+	margin-top:12pt;
+	font-family:tahoma; 
+	font-size:8pt;}
+.ErrorPageButton
+{
+	margin-top:12pt 
+}
+.ButtonAccessKey
+{
+	border-bottom: 1px solid
+}
+.ErrorPageNormalText
+{
+	padding: 0px 2px 0px 2px;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:13px;
+	font-weight: normal; padding-bottom:8px
+}
+.ErrorPageHyperlinkText,
+.ErrorPageHyperlinkText:visited
+{
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	color: #666666;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+.ErrorPageHyperlinkText:hover
+{
+	color: #0072C6;
+	text-decoration: none;
+}
+.ErrorPageEmphasisText
+{
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:8pt;
+	font-weight:bold;
+}
+.ErrorPageDetailsTable
+{
+	border: 1px solid; table-layout:fixed; width:100%;
+}
+.ErrorPageDetailsText
+{
+	width:399px;height:100px;margin-top:3px;border:1px solid #c6c6c6;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:8pt;
+	padding:2px;color:#444444;overflow:auto;-ms-word-wrap:break-word;word-wrap:break-word;
+}
+.ErrorPageDescriptionHeader
+{
+	font-family:tahoma; 
+	font-size:8pt;
+	font-weight:bold;
+	text-decoration: underline; text-align:center;
+}
+.ErrorPageSmallText
+{
+	font-family:tahoma; 
+	font-size:8pt;
+	font-weight: normal
+}
+.ErrorPageSmallLabel
+{
+	font-family:tahoma; 
+	font-size:8pt;
+	font-weight:bold;
+}
+.ErrorLargeText
+{
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:11pt;
+	font-weight:bold;
+	font-style:italic;
+}
+.DialogContainerIFrame
+{
+	z-index:101; border:3px blue dashed; background-color:green; position:absolute; left:0px; top:0px; width:0px; height:0px; display:none; 
+}
+.invalid
+{
+	BORDER: red 1px dashed; margin-top: 0px; margin-bottom: 0px; margin-right: 1px; margin-left: 1px;
+}
+.errorDiv
+{
+	z-index:100;position:absolute;top:0px;left:0px;display:none;padding:3px 6px;
+	border:1px solid #caac09;background:#fff7b4;color:#4b3904;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif; 
+	font-size:10pt;
+	text-decoration:none;font-weight:normal;
+}
+.errorDivClickable
+{
+	z-index:100;position:absolute;top:0px;left:0px;display:none;padding:3px 6px;
+	border:1px solid #caac09;background:#fff7b4;color:blue;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif;
+ 	font-size:10pt;
+	cursor:pointer;cursor:hand;text-decoration:underline;font-weight:normal;
+}
+.errorMore
+{
+	cursor:pointer;cursor:hand;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:10pt;
+	color:blue;
+}
+.errorText
+{
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:10pt;
+	color:#B22828;
+}
+.signatureIcon
+{
+	z-index:200;position:absolute;top:0px;left:0px;display:none;width:12px;height:12px;border:none;
+}
+.menuItem_ltr
+{
+	direction:ltr;text-align:left;cursor:pointer;cursor:hand;padding:0px 0px 0px 25px;overflow:hidden; BORDER: solid 0px silver;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif; 
+	font-size:8pt;
+}
+.menuItem_rtl
+{
+	direction:rtl;text-align:right;cursor:pointer;cursor:hand;padding:0px 25px 0px 0px; overflow:hidden;BORDER: solid 0px silver;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif; 
+	font-size:8pt;
+}
+.menuItemHover_ltr
+{
+	direction:ltr;text-align:left;cursor:pointer;cursor:hand;padding:0px 0px 0px 24px;background:#FDEEB3;border:solid 1px #F1C43F;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif; 
+	font-size:8pt;
+}
+.menuItemHover_rtl
+{
+	direction:rtl;text-align:right;cursor:pointer;cursor:hand;padding:0px 24px 0px 0px;background:#FDEEB3;border:solid 1px #F1C43F;
+	font-family:Segoe UI, Tahoma, Verdana, Arial, Sans-Serif; 
+	font-size:8pt;
+}
+.menuItemA_ltr
+{
+	padding:4px 16px 4px 5px;background-color:white;color:#23272C;display:block;text-decoration:none;outline:none;
+}
+.menuItemA_rtl
+{
+	padding:4px 5px 4px 16px;background-color:white;color:#23272C;display:block;text-decoration:none;outline:none;
+}
+.menuItemA:visited
+{
+	color: #23272C;
+}
+.menuItemAHover_ltr
+{
+	padding:3px 15px 3px 5px;background-color:transparent;color:black;display:block;text-decoration:none;outline:none;
+}
+.menuItemAHover_rtl
+{
+	padding:3px 5px 3px 15px;background-color:transparent;color:black;display:block;text-decoration:none;outline:none;
+}
+.menuItemAHover:visited
+{
+	color: #23272C;
+}
+.menuUnsortedList
+{
+	margin:0; padding:1px; list-style:none;
+}
+.webPartInfoBar
+{
+	background:			#fdf289 url("/_layouts/15/images/bgximg.png?rev=43") repeat-x -0px -260px;
+	color:				#4b3904;
+	border-color:		#caac09;
+	border-top:			1px solid;
+	border-left:		1px solid;
+	border-right:		1px solid;
+	border-bottom:		0px none;
+	padding-bottom:		5px;
+	padding-left:		10px;
+	padding-right:		5px;
+	padding-top:		4px;
+}
+.DialogContainer 
+{
+	width:447px; border:1px; rgb(255,255,255); solid; display:none;text-align:left; vertical-align:top;
+	box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.47);
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:13px;
+}
+.FinalMessageDialog 
+{
+	padding:20px; text-align:center; vertical-align:middle; border:1px #DBDBDB solid; background-color:white;color:gray;
+	font-family:Tahoma; 
+	font-size:11pt;
+	font-weight:bold;
+	font-style:italic;
+}
+.ProgressDialogBorder {background-color:#ffffff;width:300px;border:1px #DBDBDB solid;}
+.ProgressDialogTableCell {padding:16px;text-align:center; vertical-align:middle;}
+.Translucent {background:url("/_layouts/15/inc/translucent.png") repeat;}
+.TranslucentWssDialog {background:url("/_layouts/15/inc/blank.gif") repeat;}
+.SolidWhite { background-color:white; }
+.DialogFrame {display:none;position:absolute;left:0px;top:0px;margin:0px;padding:0px;z-index:150;}
+.Dialog {background-color:white;border:0px solid Silver;padding:0px;margin:0px;}
+.DialogLayoutTable 
+{
+	width:100%;
+	font-family:Tahoma; 
+	font-size:10pt;
+}
+.DialogButton 
+{
+	padding-left:5px;padding-right:5px;
+	font-family:Tahoma; 
+	font-size:10pt;
+}
+.StandardDialogMainTable
+{
+	width:447px;
+	border:1px solid #c6c6c6;
+	padding: 11px 17px 35px;
+}
+.StandardDialogTitle
+{
+	width:293px;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:8pt;
+	white-space: nowrap;
+	cursor: move;
+	overflow: hidden;
+}
+.StandardDialogTitleText
+{
+	margin: 0px 2px 0px 2px;
+	font-weight: 200;
+	font-family:Segoe UI Semilight, Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif;
+	font-size: 1.8em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #444444;
+	vertical-align: middle;
+}
+.StandardDialogBody			
+{
+	padding: 10px 0px 14px 0px;
+	vertical-align:top;color:#444444;background-color:white;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:0.9em;
+}
+.StandardDialogButtonArea	
+{
+	padding: 0px 3px 0px 3px;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:11px;
+}
+.DialogButton				
+{
+	padding:7px 10px 7px 10px;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:11px;
+}
+.DialogLayoutTable			
+{
+	width:100%;
+	font-family:Segoe UI, Segoe, Tahoma, Helvetica, Arial, sans-serif; 
+	font-size:8pt;
+}
+.WebPartInitialUITitle
+{
+	width:100%;
+	font-family:Segoe UI; 
+	font-size:16pt;
+	color: #3b3b3b;
+}
+.WebPartInitialUIBody
+{
+	font-family:Segoe UI; 
+	font-size:8pt;
+	color: #3b3b3b;
+	vertical-align:top;
+}
+.ms-hidden
+{
+  position:absolute;
+  top:-2000px;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  z-index:3;
+}
+.StandardAnchor a:link
+{
+	text-decoration:underline;color:black;
+}
+.StandardAnchor a:visited 
+{
+	text-decoration:underline;color:black;
+}
+.StandardAnchor a:hover 
+{
+	text-decoration:underline;
+}
+.StandardAnchor a:active 
+{
+	text-decoration:underline;
+}
+.IndocUI
+{
+	font-family:Tahoma; 
+	font-size:9pt;
+}
+.IndocUI:link
+{
+	text-decoration:none;color:black;
+}
+.IndocUI:visited 
+{
+	text-decoration:none;color:black;
+}
+.IndocUI:hover 
+{
+	text-decoration:underline;
+}
+.IndocUI:active 
+{
+	text-decoration:underline;
+}
+.ms-dialog .ms-bodyareacell {min-height: 380px !important; }
+.inheritFontFamily
+{
+	font-family: inherit;
+}

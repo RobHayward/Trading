@@ -1,0 +1,264 @@
+---
+title: "Quantlab"
+author: "Rob Hayward"
+date: "2 February 2016"
+output: html_document
+---
+
+###Notes
+These notes begin with a [StackOverflow](http://quant.stackexchange.com/questions/22902/r-backtesters-quantstrat-vs-sit?newsletter=1&nlcode=365849%7c1e0c) discussion.  The starting point is this [Willya Kipnis](https://www.youtube.com/watch?v=61_F2fcvrsw) You Tube video. It start with some basis data manipulation. There is also a list of references to blotter in R-bloggers (http://www.r-bloggers.com/search/blotter)[here]. There is an overview of blotter (http://artax.karlin.mff.cuni.cz/r-help/library/blotter/html/00Index.html)[here].  There is a link to (http://www.r-programming.org/papers)[Guy Yollin] and some notes on R and quantmod,  Here is another example of a  (https://r-forge.r-project.org/scm/viewvc.php/pkg/blotter/demo/longtrend.R?view=markup&root=blotter)[MA strategy] 
+
+```{r, message=FALSE, warning=FALSE, cache=TRUE}
+require(quantmod)
+getSymbols("SPY", from = "2000-01-01", to = "2015-12-31")
+head(SPY)
+```
+
+This constains the full database of open, high, low close. 
+
+```{r, fig.height=4.6}
+library(quantmod)
+chart_Series(SPY)
+```
+
+It is possible to zoom in and zoom out. 
+
+```{r, fig.heigh=4.6}
+zoom_Chart("2008")
+```
+
+Or choose a particular part
+```{r, fig.height=4.6}
+zoom_Chart("2008-01-01::2008-01-31")
+```
+
+##Indicators
+It is possible to calculate simple indicators in R.  For example, the simple, moving average, 
+
+```{r}
+sma <- SMA(x = Cl(SPY), n = 200)
+tail(sma)
+```
+
+There are a lot of indicators that come from R functions. 
+
+```{r, fig.height=4.6}
+chart_Series(SPY)
+add_TA(sma, on=1, lwd = 1.5, col = 'blue')
+```
+```{r,fig.height=4.6}
+chart_Series(SPY, subset = "2008-01-01::2009-12-31")
+add_TA(sma, on = 1, col = "blue")
+```
+
+Add an RSI. 
+
+```{r, fig.height = 4.6}
+testRSI <- RSI(Cl(SPY), n = 2)
+chart_Series(SPY, subset = "2008-01-01::2009-12-31")
+add_TA(testRSI, col = 'green')
+```
+
+##Build a trading system
+The basis of the trading system will be 
+
+* The close must be above the 200 moving average
+* Buy when RSI2 crosses under 10
+* Buy again when RSI crosses under 6
+* Close when the price closes above the SMA5. 
+
+This is a Larry Connors trading system. 
+
+```{r, fig.height=4.6}
+library(quantstrat)
+library(IKTrading)
+options("getSymbols.warning4.0=FALSE")
+rm(list=ls(.blotter), envir = .blotter)
+currency('USD')
+Symbols = 'SPY'
+suppressMessages(getSymbols(symbols, from = "1998-01-01", to = "2012-12-31"))
+stock(symbols, currency = 'USD', multiplier = 1)
+initDate = "1990-01-01"
+tradeSize = 10000
+initEq = tradeSize*length(Symbols)
+
+rm.strat(portfolio.st)
+rm.strat(strategy.st)
+# i this that these go here to make sure that tehre is a clean environemnt.
+strategy.st <- portfolio.st <- account.st <- 'RSI_10_6'
+# they are all called 'RSI_10_6`
+initPortf(portfolio.st, symbols = symbols, initDate=initDate, currency='USD')
+initAcct(account.st, portfolios=portfolio.st,initDate = initDate, currency = 'USD', initEq=initEq)
+initOrders(portfolio.st, initDate=initDate)
+strategy(strategy.st, store = TRUE)
+
+#parameters
+nRSI = 2
+thresh1 = 10
+thresh2 = 6
+
+nSMAexit = 5
+nSMAfilter = 200
+
+period = 10
+pctATR = 0.02
+# This is the trade size.  It is linked to volatility and is designed
+# to make sure that the risk is stable. There are larger trades when there
+# are larger moves. 
+maxpct = 0.04
+# indicators
+add.indicator(strategy.st, name ="lagATR", 
+#lagATR is in the IKTrading library.  It will calculate the ATR and it will 
+# lag it so that we have yesterday's ATR to use for today.
+              arguments = list(HLC=quote(mktdata)), n = period, 
+# ATR will take the high, low close and the label will allow this to be 
+# used later.
+              label = "atrx")
+
+add.indicator(strategy.st, name = "RSI", 
+              arguments = list(price = quote(Cl(mkdata)), n = nRSI), 
+                               label = "rsi")
+# quantmode convention says that the price must be a 'quote'
+add.indicator(strategy.st, name = 'SMA', 
+              arguments = list(price = quote(Cl(mkdata)), n = nSMAexit),
+              label = 'quickSMA')
+add.indicator(strategy.st, name = 'SMA', 
+              arguments = list(price = quote(Cl(mkdata)), n = nSMAfilter), 
+              label = 'filterMA')
+```
+
+###Signals
+There are four types of signal that are important
+
+* `sigComparison` compares two values (ie close is above the 200 MA)
+* `sigCrossover` looks for a one-time change in a relationship (ie, 2 day MA crosses the 5 day MA)
+* `sigThreshold` whether a value is greater or less than a specific value (ie. RSI2 is under 10)
+* `sigAND` (from IKTrading) - compare whether both signals are true. The pattern is similar to the strategty. 
+
+```{r, fig.height=5}
+add.signal(strategy.st, name = 'sigComparison', 
+           arguments = list(column = c('rsi', 'filterMA'), 
+           relationship = 'gt'), label = 'pptrend')
+# gt stands for greater than.  There are a few of these
+add.signal(strategy.st, name = 'sigThreshold', 
+           arguments = list(column = 'rsi', threshold = 'thresh1',
+                                   relationship = 'lt', cross = FALSE), 
+                            label = 'rsiThresh1')
+# cross is false because we want a trigger even if there is a 
+add.signal(strategy.st, name = 'sigThreshold', 
+           arguments = list(column = 'rsi', threshold = 'thresh2',
+                            relationship = 'lt', cross = FALSE), 
+           label = 'rsiThresh2')
+# These strategies only trigger if all the components are true. 
+add.signal(strategy.st, name = 'sigAND', 
+           arguments = list(columns = c('rsiThresh1', 'upTrend'), 
+                            cross = TRUE), label = 'longEntry1')
+add.signal(strategy.st, name = 'sigAND',
+           arguments = list(columns = c('rsiThresh2', 'upTrend'), 
+                            cross = TRUE),
+           label = 'longEntry2')
+add.signal(strategy.st, name = 'sigCrossover', 
+           arguments = list(columns = c('Close', 'quickMA'), 
+                            relationship = 'gt'), 
+           label = 'exitLonNormal')
+add.signal(strategy.st, name = 'sigCrossover', 
+           arguments = list(columns = c('close', 'filterMA'), 
+                            relationship = 'lt'), 
+           label = 'exitLongFilter')
+#This is an exit if the close is back below the 200 day MA. 
+```
+
+### Rules
+There is really only one type of rule.  However, the rules have a whole range of arguments. 
+
+```{r}
+add.rule(strategy.st, name = 'ruleSignal', 
+         arguments = list(sigcol = 'longEntry1', 
+                          sigval = TRUE, 
+                          # this will usually be the case
+                          ordertype = 'market',
+                          #it is possibe to have limit and stop
+                          orderside = 'long',
+                          replace = FALSE, 
+                          # true will overide other rules for the day
+                          prefer = 'open',
+                          # this it to ensure that you trade after the signal
+                          OSFUN = osDollarATR, 
+                          # ordersize function.  Can be constant but..
+                          # this comes from the IKTrading package
+                          # it will look for a ATR column pctATR in our case
+                          # and use that to calculate the size of order
+                          tradesize = tradeSize,
+                          pctATR = pctATR, 
+                          maxpctATR = pctATR,
+                          # this will limit the size of the overall position
+                          atrMod = 'X'), 
+         type = 'enter', path.dep = TRUE, label = 'enterLong1')
+# this label refers to the label for the signal. 
+add.rule(strategy.st, name = 'ruleSignal',
+         arguments = list(sfgcol = 'longEntry2', 
+                          sigval = TRUE,
+                          ordertype = 'long',
+                          replace = FALSE, 
+                          prefer = 'open',
+                          OSFUN = osDollarATR, 
+                          tradeSize = tradeSize, 
+                          pctATR = pctATR, 
+                          maxpcATR = maxpct, 
+                          atrMod = 'X'), 
+         type = 'enter', path.dep = TRUE, label = 'enterLong2')
+
+add.rule(strategy.st, name = 'ruleSignal', 
+         arguments = list(sigcol = 'exitLongNormal', 
+                          sigval = TRUE, 
+                          orderqty = 'all', 
+                          # get rid of all the position
+                          # does not try to scale the order
+                          ordertype = 'market', 
+                          orderside = 'long', 
+                          replace = FALSE, 
+                          prefer = 'open'), 
+         type = 'exit', path.dep = TRUE, label = 'normalExitLong')
+# type will just exit.  It is possible to rebalance, but that is not used here
+
+add.rule(strategy.st, name = 'ruleSignal', 
+         arguments = list(sigcol = 'exitLongFilter', 
+                          sigval = TRUE, 
+                          orderqty = 'all',
+                          ordertype = 'market',
+                          orderside = 'long', 
+                          replace = FALSE, 
+                          prefer = 'open'), 
+         type = 'exit', path.dep = TRUE, label = 'filterExitLong')
+# labels are important in quantstrat.  These are not neede dhere but are 
+# important if using stock loss. 
+```{r}
+t1 <- Sys.time()
+out <- applyStrategy(strategy = strategy.st, portfolios = portfolio.st)
+t2 <- Sys.time()
+print(t2-t1)
+# set up analytics
+updatePortf(portfolio.st)
+dateRange <- time(getPortfolio(portfolio.st)$summary)[-1]
+updateAcct(portfolio.st, dateRange)
+updateEndEq(account.st)
+```
+##Apply the strategy
+
+```
+         
+ 56.23                         
+                          
+                          
+                          
+
+
+
+
+
+Quantstrat has its own syntax.    
+
+
+Book is code complete
+
+````

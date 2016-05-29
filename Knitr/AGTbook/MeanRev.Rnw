@@ -30,7 +30,7 @@
 %\end{abstract}
 \section*{introduction}
     Mean reversion is a common occurrence in nature.  To establish whether there is mean-reversion in practice, it is necessary to find whether price series are \emph{stationary}. Though there are few price series that are mean-reverting, it is often possible to combine assets together to create a portfolio that is mean-reverting.  The assets in the portfolio would be called \emph{cointegrated}. This is about \emph{time-series} mean reversion rather than \emph{cross-sectional} mean reversion\footnote{Cross sectional mean reversion is the phenomenon that occurs when relative returns to a basket tend to return to that of the basket }.  
-    From \href{http://en.wikipedia.org/wiki/Hurst_exponent}{Wikipedia}, the Hurst Exponent measures the memory of the time series.  
+    From \href{http://en.Wikipedia.org/wiki/Hurst_exponent}{Wikipedia}, the Hurst Exponent measures the memory of the time series.  
     \begin{equation}
     E[\frac{R(n)}{S(n)}] = C_n^H, \quad n \rightarrow \infty
     \end{equation}
@@ -114,12 +114,12 @@ The ratio is above one in all cases, suggesting that there is some explosion. Th
 
 
 \section*{Half-life of mean reversion}
-There is a \href{http://en.wikipedia.org/wiki/Ornstein-Uhlenbeck_process}{Wikipedia report} on the Ornstein-Uhlenbeck process. An Ornstein-Uhlenbeck process $x_1$ staisfied the following stochastic difference equation 
+There is a \href{http://en.Wikipedia.org/wiki/Ornstein-Uhlenbeck_process}{Wikipedia report} on the Ornstein-Uhlenbeck process. An Ornstein-Uhlenbeck process $x_1$ satisfied the following stochastic difference equation 
 \begin{equation}
 dx_t = \theta(\mu = x_t)dt + \sigma dW_t
 \end{equation}
 
-where $\theta > 0$, $\mu \text{and} \sigma > 0$ are parameters and $W_t$ represents a \emph{Wiener Process}. This is like a random walk but there is a drift back towards the average value $\mu$. This is a continuous-time version of an AR(1) process 
+where $\theta > 0$, $\mu \text{and} \sigma > 0$ are parameters and $W_t$ represents a \emph{Weiner Process}. This is like a random walk but there is a drift back towards the average value $\mu$. This is a continuous-time version of an AR(1) process 
 
 The solution is that is given in Wikipedia is 
 \begin{equation}
@@ -139,9 +139,9 @@ This shows that the half life is estimated to be 257 days. this is much more tha
 
 
 \section*{Cointegration}
-It is possible that some price series are non-stationary but are stationary when combined with other asset prices.  In that case it is possible  to test for \emph{contegration}.  This will allow the hedge ratio to be uncovered. The technique would be Engle-Granger \citet{engle1987co}. 
+It is possible that some price series are non-stationary but are stationary when combined with other asset prices.  In that case it is possible  to test for \emph{cointegration}.  This will allow the hedge ratio to be uncovered. The technique would be Engle-Granger \citet{engle1987co}. 
 
-This will be tested with two MSCI ETFs for Australia and Canada.  As they are each commodity producers, there should be some realtionship. 
+This will be tested with two MSCI ETFs for Australia and Canada.  As they are each commodity producers, there should be some relationship. 
 
 <<ETF1, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>="
 da1 <- read.csv("../../Data/EWA.csv")
@@ -161,13 +161,13 @@ It is evident that there is a close connection between the two series.
 <<etf2, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
 plot(da$EWAC, da$EWCC, main = "Scatter of the price level")
 @
-The regresson of the price levels will provide the \emph{Optimal hedge ratio}.  
+The regression of the price levels will provide the \emph{Optimal hedge ratio}.  
 <<etf3, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5, results='asis'>>=
 eq1 <- lm(da$EWAC ~ da$EWCC)
 xtable(summary(eq1))
 @
 
-The residuals from the regresssion are do not appears as stationary here as they do in the text. 
+The residuals from the regression are do not appears as stationary here as they do in the text. 
 
 <<etf4, echo=FALSE, warning=FALSE, message=FALSE, fig.height=4.5>>=
 plot(da$Date, eq1$residuals, type = 'l', main = "Residuals of regression of EWA on EWC", xlab = "Date", ylab = "Residuals")
