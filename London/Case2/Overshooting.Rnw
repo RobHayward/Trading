@@ -1,0 +1,48 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{textpos}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{tikz}
+ \usetikzlibrary{arrows,positioning}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Overshooting}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+Overshooting is a feature of financial markets, particularly foreign exchange. This overshooting may be a function of the behavioural decision-making or institutional features.  Your task is to evaluate the relative importance of these two features and to identify some methods that can be used to take advantage of this inefficiency.  Please use the resources below and any other materials to build your case.  The presentation should be approximately 10 minutes with time for questions. 
+
+\citet{DeBondtOver} find over-reaction in stock prices which they attribute to the \emph{representativeness heuristic}. From the abstract: 
+\begin{quotation}
+Research in experimental psychology suggests that, in violation of Bayes' rule, most people tend to "overreact" to unexpected and dramatic news events. This study of market efficiency investigates whether such behavior affects stock prices. The empirical evidence, based on CRSP monthly return data, is consistent with the overreaction hypothesis. Substantial weak form market inefficiencies are discovered. The results also shed new light on the January returns earned by prior "winners" and "losers." Portfolios of losers experience exceptionally large January returns as late as five years after portfolio formation.
+\end{quotation}
+
+\section*{Issues to consider}
+\begin{enumerate}
+\item What evidence is there for overshooting in exchange rates?   How is intrinsic value determined?   
+\item Are there any signals that may tell us that exchange rates are at extreme levels?  Many market pacticipants try to use inside information about the positions held by speculators.  There is some information on this from the US regulatory body the CFTC.  Search for the \emph{commitment of traders}. 
+\item Extreme moves may be an indicators.  The spreadsheet contains a model for testing extreme moves of a random walk.  Can this be applied to foreign exchange rates? 
+\end{enumerate}
+
+\bibliography{../../../myrefs}
+\end{document}

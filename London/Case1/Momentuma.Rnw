@@ -1,0 +1,52 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{textpos}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{tikz}
+ \usetikzlibrary{arrows,positioning}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Momentum}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+Serial correlation is a feature of financial markets, particularly foreign exchange. This serial correlation may be a function of the behavioural decision-making or institutional features.  Your task is to evaluate the relative importance of these two features and to identify some methods that can be used to take advantage of this inefficiency.  Please use the resources below and any other materials to build your case.  The presentation should be approximately 10 minutes with time for questions. 
+
+\citet{Jagadeesh} find momentum in stock prices. From the abstract: 
+\begin{quotation}
+This paper documents that strategies which buy stocks that have performed well in the past and sell stocks that have performed poorly in the past generate significant positive returns over 3- to 12-month holding periods. We find that the profitability of these strategies are not due to their systematic risk or to delayed stock price reactions to common factors. However, part of the abnormal returns generated in the first year after portfolio formation dissipates in the following two years. A similar pattern of returns around the earnings announcements of past winners and losers is also documented.
+\end{quotation}
+
+\citet{NarayanMoment} find that momentum trading strategies in a number of emerging economies have been successful.  
+\begin{quotation}
+We test whether exchange rate trading is profitable in the emerging markets of Brazil, China, India, and South Africa. Using momentum trading strategies applied to high frequency data, we discover that: (a) momentum-based trading strategies lead to statistically significant profits from the currencies of all four emerging markets; (b) the South African Rand is generally the most profitable, followed by the Brazilian Real and the Indian Rupee; (c) profits are persistent during the day and increase substantially from 1-minute trade to 120-minute trade; and (d) during the period of the global financial crisis currency profits were maximised
+\end{quotation}
+
+\section*{Issues to consider}
+\begin{enumerate}
+\item Moving average strategies are frequently used to test momentum.  A simple moving average strategies is implemented for a random walk in the random walk spreadsheet.  
+\item One criticism of this approach says that returns achieved are a compensation for taking risk.  How can you assess risk? How is risk assessed in the two papers? Is that adequate?
+\end{enumerate}
+
+\bibliography{../../../myrefs}
+\end{document}

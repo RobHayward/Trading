@@ -1,0 +1,42 @@
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{textpos}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+\usepackage[flushleft]{threeparttable}
+\usepackage{multirow}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{tikz}
+ \usetikzlibrary{arrows,positioning}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+  \title{Over-confidence}
+\author{Rob Hayward}
+%\date{\today}
+\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+Over-confidence is one of the main findings from a range of behvioural studies.  \citet{JohnsonConfidence} show how over-confidence can be useful from an evolutionary perspective: it increases ambition, moral, resolve and persistence.  However, it also leads to faulty assumptions, unrealistic expectations and hazardous decisions and may contribute to hubris, speculative bubbles, finacial collapse, policy failures and costly wars. 
+
+\citet{Ben-DavidOverconfidence} confirm these findings in the foreign exchange market. Successful traders take their gains as evidence that they are good traders and they trade more, increaes their trade size and raise their risk.  From the abstract: 
+\begin{quotation}
+We document evidence consistent with retail day traders in the Forex market attributing random success to their own skill and, as a consequence, increasing risk taking. Although past performance does not predict future success for these traders, traders increase trade sizes, trade size variability, and number of trades with gains, and less with losses. There is a large discontinuity in all of these trading variables around zero past week returns: e.g., traders increase their trade size dramatically following winning weeks, relative to losing weeks. The effects are stronger for novice traders, consistent with more intense “learning” in early trading periods.
+\end{quotation}
+
+
+\bibliography{../../../myrefs}
+\end{document}
