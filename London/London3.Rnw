@@ -4,12 +4,10 @@
 \usetheme{Madrid}
 % See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
 \usepackage{caption}
-\usepackage[comma, sort&compress]{natbib}
-\usepackage{tikz}
-\usepackage{graphicx}
-\graphicspath{{./Pictures/}}
+\usepackage{listing}
 \usepackage{amsmath}
-\bibliographystyle{agsm}
+\usepackage{tikz}
+\usepackage{caption}
 % Specify base color
 \usecolortheme[named=OliveGreen]{structure}
 % See http://goo.gl/p0Phn for other colors
@@ -19,9 +17,8 @@
 \setbeamertemplate{items}[square]
 
 % Title and author information
-\title{Introduction: Behavioural finance vs expected utility and market efficiency}
+\title{Technical Analysis}
 \author{Rob Hayward}
-
 
 \begin{document}
 
@@ -29,23 +26,360 @@
 \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-\tableofcontents
+\begin{frame}{Introduction}
+We have seen
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item There is some evidence that investment decision-making diverges from the idea of \emph{expected utility theory}
+\item There is some evidence of \emph{serial correlation} and \emph{reversal} in asset prices
+\end{itemize}
+\pause
+\begin{block}{}
+These are not newly discovered: investors and traders have been trying to identify trends and reversals for years
+\end{block}
+\end{frame}
+\begin{frame}{Efficient reaction to information}
+<<info1, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Efficient reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+@
+\end{frame}
+
+\begin{frame}{Under-reaction to information}
+<<info2, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Under-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+lines(z3, lty = 2)
+text(2.4, 2, "Under-reaction")
+@
+\end{frame}
+
+\begin{frame}{Over-reaction to information}
+<<info3, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Over-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+lines(z4, lty = 2)
+text(2.4, 6, "Overshooting")
+@
+\end{frame}
+
+\begin{frame}{Technical Analysis}
+Technical analysis
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Has been around for hundreds of year (Japanese rice markets)
+\item Seeks to identify trends
+\begin{itemize}
+\item ``The trend is your friend"
+\end{itemize}
+\item Seeks to identify the bursting of a bubble
+\item All the news, information, sentiment and positioning is in the price and the evolution of price to this point
+\item Edwards and Magee, 1981, "Technical Analysis of Stock Trends"
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Identifying trends}
+``The trend is your friend"
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Evolution of sentiment
+\item Bubble building 
+\item Stay with trend/bubble until there is some sign that things are changing
+\item Look for confirmation of signals
+\end{itemize}
 \end{frame}
 
 
-\section{Introduction}
-\section{Expected utility}
-\section{Market efficiency}
-\section{Behavioural ideas}
+\begin{frame}{Building blocks}
+The standard chart to use is a high-low-close chart
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item It records the high low and close
+\item If there is a
+\begin{itemize}
+\item higher open
+\item higher high
+\item higher low
+\item higher close
+\end{itemize}
+\end{itemize}
+\pause
+\begin{block}{}
+The tend is intact!
+\end{block}
+\pause
+Otherwise, there are doubts
+\end{frame}
 
 
+\begin{frame}{Support and resistance}
+Highs and lows are very important: they show where buying and selling pressure was sufficient to change direction
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item At the high
+\begin{itemize}
+\item There was more selling than buying
+\item Those willing to bet that the security was over-valued had more fire-power than those willing to bet that it was undervalued
+\end{itemize}
+\item At the low
+\begin{itemize}
+\item There was more buying than selling
+ Those willing to bet that the securities was undervalued had more fire-power than those willing to bet that was overvalued
+\end{itemize}
+\item There was a change of direction that these points
+\end{itemize}
+\end{frame}
+
+\begin{frame}{SP 500}
+<<hlc, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+library(tseries)
+da <- read.csv("./Data/GSPC.csv")
+da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+da1 <- da[(da$Date  > as.Date("2014-12-25", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-02-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-12-25", ylab = "SP500", main = "Christmas 2014") 
+@
+
+\end{frame}  
+\begin{frame}{Use of support and resistance}
+As a result, support at resistance are used for 
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Identifying when sentiment has changed
+\item Setting \textbf{Take-profit}
+\item Setting \textbf{Stop-loss} 
+\end{itemize}
+\pause
+However, 
+\pause
+\begin{block}{}
+This can mean that they are self-fulfilling: stops and take-profits are triggered at particular points
+\end{block}
+\pause
+Support and resistance may also relate to fundamental levels (GRY for bonds, PE ratios for stocks, parities for exchange rates, big numbers on commodities)
+\end{frame}
+
+\begin{frame}{SP 500}
+<<hlc1, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+library(tseries)
+da <- read.csv("./Data/GSPC.csv")
+da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+da1 <- da[(da$Date  > as.Date("2014-12-25", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-02-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-12-25", ylab = "SP500", main = "Support at 1980") 
+@
+\end{frame}  
+
+\begin{frame}{Other tools}
+There are a wide range of other tools that are used to try to identify evolving or eroding sentiment
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Trendlines
+\item Chart patterns
+\item Moving average
+\item Momentum indicators
+\item Divergence
+\item Volume indicators
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Trendlines}
+<<trend, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-03-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Trendlne break") 
+x <- c(22, 195)
+y <- c(min(da1$Low), 1958) 
+lines(x,y, col = "DarkGreen")
+@
+\end{frame} 
+
+\begin{frame}{Trendline guidance}
+<<trend1, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2015-03-15", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+dat <- as.ts(da1[,c(2:5)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Trendlne break") 
+x <- c(22, 350)
+y <- c(min(da1$Low), 1900) 
+lines(x,y, col = "DarkGreen")
+@
+\end{frame} 
+
+\begin{frame}{Moving average}
+A moving average will just take the average of closing prices and smooth to remove some of the noise
+\pause
+\begin{block}{}
+\begin{equation*}
+MA3 = \frac{1}{3} \sum_{i = -3}^{i=0}(P_{t-i})
+\end{equation*}
+\end{block}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Different time periods
+\item Short MA or price crossing longer MA is a signal
+\item May be tailored to the market or contemporary conditions
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Exponentially-weighted moving average}
+The longer the moving average the more of the past that is taken account of.  However, it may make sense to weight the recent past more highly than that which is far gone. 
+\pause
+\begin{block}{}
+\begin{equation*}
+EWA_t = \alpha P_t + (1 - \alpha) EWA_{t-1}
+\end{equation*}
+\end{block}
+\pause
+Where $\alpha$ is a smoothing factor between 0 and 1.  A higher value put more weight on the present. This must be initialised by setting $EMA_t = P_t$. 
+\end{frame}
+
+\begin{frame}{Moving average}
+<<MA, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+library(TTR)
+da1 <- da[(da$Date  > as.Date("2014-01-01", format = "%Y-%m-%d") 
+              & da$Date < as.Date("2014-11-30", format = "%Y-%m-%d")),]
+da1 <- da1[rev(rownames(da1)),]
+da1$MA3 <- SMA(da1$Close, 3)
+da1$MA20 <- SMA(da1$Close, 20)
+dat <- as.ts(da1[,c(2:5, 8, 9)])
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+#lines(da1$MA3, col = "DarkGreen", lwd = 2)
+#lines(da1$MA4, col = "red", lwd = 2)
+@
+\end{frame}
+
+\begin{frame}{Moving average 2}
+<<MA2, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+lines(da1$MA3, col = "DarkGreen", lwd = 2)
+@
+\end{frame}
+
+\begin{frame}{Moving average 3}
+<<MA3, echo = FALSE, fig.height=4.6, message=FALSE, warning=FALSE>>=
+plotOHLC(dat, origin = "2014-01-01", ylab = "SP500", main = "Moving Average") 
+lines(da1$MA3, col = "DarkGreen", lwd = 2)
+lines(da1$MA20, col = "red", lwd = 2)
+legend("bottomright", legend = c("MA3", "MA20"), fill = c("DarkGReen", "red"))
+@
+\end{frame}
 
 
+\begin{frame}{Momentum}
+If sentiment is becoming less positive, there is a risk that it can suddenly reverse.  
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item We have seen that sentiment is \emph{fragile}
+\item Numerous ways of trying to measure this
+\begin{itemize}
+\item Moving average
+\item Divergence indicators
+\begin{itemize}
+\item Speed of rise/fall
+\item Distance that price has moved
+\item Volume behind the trade
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\pause
+Technical trading handbook - part of your case study
+\end{frame}
 
+\begin{frame}{Other indicators}
+There are a range of other indicators that you will find in the handbook.  You can try to implement and test any of these
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Net Change Oscillator (NCO)
+\item Rate of Change (NC)
+\item Relative Strength Indicator (RSI)
+\item Stochastics
+\item Moving Average Convergence-Divergence (MACD)
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Net change oscillator}
+Example: \emph{Rate of change Oscillator}
+\pause
+\begin{block}{}
+\begin{equation*}
+ROC = \frac{\text{Last closing price}}{\text{Close price 10 days ago}}*100) - 100
+\end{equation*}
+\end{block}
+\pause
+\vskip 1cm
+Shows the percentage gained.  Can be plotted against the graph
+\end{frame}
 
+\begin{frame}{Net Change Oscillator}
+<<nco, warning=FALSE, message=FALSE, fig.height=4.6, echo=FALSE>>=
+library(quantmod)
+da1$NC <- da1$Close / Lag(da1$Close, k = 1) *100 - 100
+dat <- as.ts(da1[,c(2:5)])
+# to create one graph on top of the other and extend the margins.
+par(mfrow = c(2, 1), mar = c(2, 4, 2, 2))
+plotOHLC(dat, origin = "2014-12-25", ylab = "SP500", main = "SP500", xlab = "", xaxt = "n") 
+plot(da1$Date, da1$NC, type = 'l', ylab = "Net Change Oscillator", xlab = "Date")
+abline(h = 1, col = 'red', lty = 2)
+abline(h = -1, col = 'red', lty = 2)
+@
+\end{frame}
 
+\begin{frame}{RSI}
+The 14-day RIS is calculated as
+\pause
+\begin{block}{}
+\begin{equation*}
+RSI = 100 - \left ( \frac{100}{1 + RS} \right )
+\end{equation*}
+\end{block}
+\pause
+where
+\begin{block}{}
+\begin{equation*}
+RS = \frac{\text{Average of last 14 positive closes}}{\text{Average of last 14 negative closes}}
+\end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Technical trading rules}
+Three themes
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Momentum or trend with moving average
+\item Over-shooting with standard deviation
+\item Support and resistance with maximum and minimum
+\end{itemize}
+\end{frame}
 
 \end{document}
-
