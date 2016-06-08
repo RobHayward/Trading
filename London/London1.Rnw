@@ -44,19 +44,18 @@
 \end{frame}
 % maybe takt this frame and place at the very end. 
 
-\begin{frame}{Using behavioural ideas}
-It is probably best, not to think in binary terms of expected utility theory vs behavioural theories but
-\begin{itemize}[<+-| alert@+>]
-\pause
-\item A general theory vs one that is suited to particular circumstantes
-\item A tractable model relative to a set of ideas that can be useful 
-\item A long-run solution vs short-run outcome
-\end{itemize}
-\end{frame}
+  %\begin{frame}{Using behavioural ideas}
+%It is probably best, not to think in binary terms of expected utility theory vs behavioural theories but
+%\begin{itemize}[<+-| alert@+>]
+%q\pause\item A general theory vs one that is suited to particular circumstantes
+%\item A tractable model relative to a set of ideas that can be useful \item A long-run solution vs short-run outcome
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Map}
 This is where we will go
 \begin{itemize}[<+-| alert@+>]
+\pause
 \item Introduction
 \item Behavioural Finance 
 \item Foreign exchange and technical analysis
@@ -66,17 +65,34 @@ This is where we will go
 
 \begin{frame}{Behavioural bias}
 \centering
-\includegraphics{./Pictures/leeson2}
+\includegraphics[scale = 0.8]{./Pictures/leeson2}
 \end{frame}
 
 \begin{frame}{Behavioural bias}
 \centering
-\includegraphics[scale = 0.7]{"./Pictures/Guardian"}
+\includegraphics[scale = 0.5]{./Pictures/Guardian}
 \end{frame}
 
 \begin{frame}{Financial Crisis}
 \centering
-\includegraphics[scale = 0.3]{"./Pictures/Iceland"}
+\includegraphics[scale = 0.3]{./Pictures/Iceland}
+\end{frame}
+
+\begin{frame}{Thinking Fast and Slow}
+\centering
+\includegraphics[scale = 0.05]{./Pictures/Thinking}
+\end{frame}
+
+\begin{frame}{Algorithmic Trading}
+\centering
+\includegraphics[scale = 0.05]{./Pictures/Algo}
+\end{frame}
+
+\begin{frame}{Journal articles}
+\begin{itemize}[<+-| alert@+>]
+\item D. Kahneman and A. Tversky, Prospect Theory: An Analysis of Decision Under Risk, \emph{Econometrica}, 47 (2) 1979
+\item A. Tversky and D. Kahneman, Judgement under Uncertainty: Heuristics  and Biases, Science, 185, 4157, 1974.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Utility function diagram}
@@ -88,242 +104,291 @@ plot(w, u, type = 'l', main = "Square-root utility function", xlab = "Wealth",
 @
 \end{frame}
 
-\begin{frame}{Expected utility theory}
-\emph{Expected utility theory} provides a way of systematically analysing choice under uncertainty.  
-\pause
-While expected value is
-\begin{block}{}
-\begin{equation}
-E[X] = \sum_{i = i}^{n} p_i x_i
-\end{equation}
-\end{block}
-\pause
-Expected utility is 
-\begin{block}{}
-\begin{equation}
-E[U(X)] = \sum_{i=1}^n p_i \times U(x_i)
-\end{equation}
-\end{block}
-\end{frame}
+%\begin{frame}{Expected utility theory}
+%\emph{Expected utility theory} provides a way of systematically analysing choice under uncertainty.  
+%\pause
+%While expected value is
+%\begin{block}{}
+%\begin{equation}
+%E[X] = \sum_{i = i}^{n} p_i x_i
+%\end{equation}
+%\end{block}
+%\pause
+%Expected utility is 
+%\begin{block}{}
+%\begin{equation}
+%E[U(X)] = \sum_{i=1}^n p_i \times U(x_i)
+%\end{equation}
+%\end{block}
+%\end{frame}
+%
+%\begin{frame}{Expected utility and risk 1}
+%With root utility, starting from a position of \$5, if X is a prospect or lottery that will win \$4 with a probability of 50\% or lose \$4 with a probability of 50\%.
+%
+%The utility of the expected value is 
+%\begin{block}{}
+%\begin{align*}
+%U(E[X]) &= U(\sum_i^{i=n} p_i x_i) \\
+%U(E[X]) &= U(0.5 \times 1 + 0.5 \times 9))\\
+%U(E[X]) &= U(5)\\
+%U(E(X)) &= \sqrt{5}\\
+%U(E[X11]) &= 2.24
+%\end{align*}
+%\end{block}
+%\end{frame}
+%
+%\begin{frame}{Expected utility and risk 2}
+%However, expected utility is 
+%\begin{block}{}
+%\begin{align*}
+%E[U] =& \sum_i^{i = n} p_i U(x_i)\\ 
+%    =& 0.5 \times \sqrt{1} + 0.5 \times \sqrt{9}\\
+%    =& 2
+%\end{align*}
+%\end{block}
+%\end{frame}
 
-\begin{frame}{Expected utility and risk 1}
-With root utility, starting from a position of \$5, if X is a prospect or lottery that will win \$4 with a probability of 50\% or lose \$4 with a probability of 50\%.
+%\begin{frame}{Expected utility and risk 3}
+%<<utility2, fig.height=4, echo=FALSE, fig.align='center', fig.cap="Expected utility under prospect X">>=
+%w <- seq(from = 0, to = 10, by = 0.1)
+%u <- w^0.5
+%plot(w, u, type = 'l', main = "Expected utility with uncertain outcome", 
+%     xlab = "Wealth", ylab = "Utility")
+%segments(5, 0, 5, 5^0.5, lty = 2)
+%text(5, 2.5, "W = 5") 
+%segments(1, 1^0.5, 9, 9^0.5, lty = 2, col = 'red')
+%segments(1, 0, 1, 1^0.5, lty = 2)
+%segments(9, 0, 9, 9^0.5, lty = 2)
+%segments(0, 5^0.5, 5, 5^0.5, lty = 2)
+%text(0.3, 2.5, "U = 2.2")
+%segments(0, 2, 5, 2.0, lty = 2)
+%text(0.3, 1.8, "U = 2.0")
+%@
+%\end{frame}
+%
+%\begin{frame}{Risk aversion}
+%The curvature of the function determines the amount of risk-aversion
+%\pause
+%\begin{itemize}[<+-| alert@+>]
+%\item \emph{Concave} to x-axis is \emph{risk averse}
+%\item \emph{Convex} to the x-axis is \emph{risk-loving}
+%\item Straight-line is \emph{risk-neutral}
+%\end{itemize}
+%\end{frame}
+%
+%\section{Market efficiency}
+%\begin{frame}{EMH}
+%The efficient market hypothesis
+%\begin{itemize}[<+-| alert@+>]
+%\pause
+%\item Information is processed efficiently
+%\item There may be under-reaction and over-reaction but on average it will be about right
+%\item There is no systematic bias
+%\item Returns follow a \emph{random walk (with drift)}
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{EMH}
+%Random walk 
+%\begin{block}{}
+%\begin{align*}
+%P_{t+1} &= P_{t} + \varepsilon\\
+%P_{t+1} - P_{t}&= \varepsilon\\
+%\Delta P_t &=\varepsilon
+%\end{align*}
+%\end{block}
+%\pause
+%\vspace{1cm}
+%where $\varepsilon \sim N(0, \sigma^2)$
+%\end{frame}
+%
+%%\begin{frame}{Price plot 1}
+%%<<emh, echo=FALSE, fig.height=4.5>>=
+%%%set.seed(2)
+%%e <- rnorm(100)
+%%x <- rep(NA, 100)
+%%x[1] = 100
+%%for(i in 2:length(x)){
+%%  x[i] = x[i - 1] + e[i]
+%%}
+%%plot(x, type = 'l', main = "Plot 1")
+%%@
+%%\end{frame}
+%
+%%\begin{frame}{Price plot 2}
+%%<<emh2, echo = FALSE, fig.height = 4.5>>=
+%%BAC <- read.csv("./Data/BAC.csv")
+%%BAC <- BAC[rev(rownames(BAC)),]
+%%plot(BAC[1:100, 2], type = 'l', main = "Plot 2", ylab = "x")
+%%@
+%%\end{frame}
+%
+%%\begin{frame}{Return plot 1}  
+%%<<emh3, echo = FALSE, fig.height = 4.5>>=
+%%Rx <- diff(x) / x[-length(x)] 
+%%plot(Rx, type = 'l', main = "Plot 3", ylab = "Rx")
+%%@
+%%\end{frame}
+%%
+%%\begin{frame}{Return plot 2}
+%%<<emh4, echo = FALSE, fig.height = 4.5>>=
+%%BACR <- diff(BAC[,2]) / BAC[-length(BAC), 2] 
+%%plot(BACR[1:100], type = 'l', main = "Plot 4", ylab = "Rx")
+%%@
+%%\end{frame}
+%%
+%%\begin{frame}{Return Bank of America}
+%%<<emh5, echo = FALSE, fig.height = 4.5>>=
+%%plot(BACR, type = 'l', main = "Plot 5", ylab = "BACR")
+%%@
+%%\end{frame}
+%%
+%\begin{frame}{Fama}
+%Eugene Fama
+%\begin{itemize}[<+-| alert@+>]
+%\pause
+%\item \emph{Weak form efficiency}: cannot use past price to determine next price
+%\item \emph{Semi-strong form efficiency}: cannot use public information to determine next price
+%%\item \emph{Strong form}: cannot use private information to determine next price
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{The evidence 1}
+%The evidence for weak form market efficiency
+%\begin{itemize}[<+-| alert@+>]
+%\pause
+%\item Weak form: there is evidence of serial correlation and reversal
+%\item \emph{Technical analysis} looks for trends and reversals
+%\item Mixed evidence for whether this is profitable after transaction costs
+%\item Behavioural biases lead to trends and overshooting
+%\end{itemize}
+%\end{frame}
 
-The utility of the expected value is 
-\begin{block}{}
-\begin{align*}
-U(E[X]) &= U(\sum_i^{i=n} p_i x_i) \\
-U(E[X]) &= U(0.5 \times 1 + 0.5 \times 9))\\
-U(E[X]) &= U(5)\\
-U(E(X)) &= \sqrt{5}\\
-U(E[X11]) &= 2.24
-\end{align*}
-\end{block}
-\end{frame}
-
-\begin{frame}{Expected utility and risk 2}
-However, expected utility is 
-\begin{block}{}
-\begin{align*}
-E[U] =& \sum_i^{i = n} p_i U(x_i)\\ 
-    =& 0.5 \times \sqrt{1} + 0.5 \times \sqrt{9}\\
-    =& 2
-\end{align*}
-\end{block}
-\end{frame}
-
-\begin{frame}{Expected utility and risk 3}
-<<utility2, fig.height=4, echo=FALSE, fig.align='center', fig.cap="Expected utility under prospect X">>=
-w <- seq(from = 0, to = 10, by = 0.1)
-u <- w^0.5
-plot(w, u, type = 'l', main = "Expected utility with uncertain outcome", 
-     xlab = "Wealth", ylab = "Utility")
-segments(5, 0, 5, 5^0.5, lty = 2)
-text(5, 2.5, "W = 5") 
-segments(1, 1^0.5, 9, 9^0.5, lty = 2, col = 'red')
-segments(1, 0, 1, 1^0.5, lty = 2)
-segments(9, 0, 9, 9^0.5, lty = 2)
-segments(0, 5^0.5, 5, 5^0.5, lty = 2)
-text(0.3, 2.5, "U = 2.2")
-segments(0, 2, 5, 2.0, lty = 2)
-text(0.3, 1.8, "U = 2.0")
-@
-\end{frame}
-
-\section{Risk aversion}
-\begin{frame}{Risk aversion}
-The curvature of the function determines the amount of risk-aversion
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item \emph{Concave} to x-axis is \emph{risk averse}
-\item \emph{Convex} to the x-axis is \emph{risk-loving}
-\item Straight-line is \emph{risk-neutral}
-\end{itemize}
-\end{frame}
-
-\section{Market efficiency}
-\begin{frame}{EMH}
-The efficient market hypothesis
-\begin{itemize}[<+-| alert@+>]
-\pause
-\item Information is processed efficiently
-\item There may be under-reaction and over-reaction but on average it will be about right
-\item There is no systematic bias
-\item Returns follow a \emph{random walk (with drift)}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{EMH}
-Random walk 
-\begin{block}{}
-\begin{align*}
-P_{t+1} &= P_{t} + \varepsilon\\
-P_{t+1} - P_{t}&= \varepsilon\\
-\Delta P_t &=\varepsilon
-\end{align*}
-\end{block}
-\pause
-\vspace{1cm}
-where $\varepsilon \sim N(0, \sigma^2)$
-\end{frame}
-
-\begin{frame}{Price plot 1}
-<<emh, echo=FALSE, fig.height=4.5>>=
-set.seed(2)
-e <- rnorm(100)
-x <- rep(NA, 100)
-x[1] = 100
-for(i in 2:length(x)){
-  x[i] = x[i - 1] + e[i]
-}
-plot(x, type = 'l', main = "Plot 1")
-@
-\end{frame}
-
-\begin{frame}{Price plot 2}
-<<emh2, echo = FALSE, fig.height = 4.5>>=
-BAC <- read.csv("./Data/BAC.csv")
-BAC <- BAC[rev(rownames(BAC)),]
-plot(BAC[1:100, 2], type = 'l', main = "Plot 2", ylab = "x")
-@
-\end{frame}
-
-\begin{frame}{Return plot 1}  
-<<emh3, echo = FALSE, fig.height = 4.5>>=
-Rx <- diff(x) / x[-length(x)] 
-plot(Rx, type = 'l', main = "Plot 3", ylab = "Rx")
-@
-\end{frame}
-
-\begin{frame}{Return plot 2}
-<<emh4, echo = FALSE, fig.height = 4.5>>=
-BACR <- diff(BAC[,2]) / BAC[-length(BAC), 2] 
-plot(BACR[1:100], type = 'l', main = "Plot 4", ylab = "Rx")
-@
-\end{frame}
-
-\begin{frame}{Return Bank of America}
-<<emh5, echo = FALSE, fig.height = 4.5>>=
-plot(BACR, type = 'l', main = "Plot 5", ylab = "BACR")
-@
-\end{frame}
-
-\begin{frame}{Fama}
-Eugene Fama
-\begin{itemize}[<+-| alert@+>]
-\pause
-\item \emph{Weak form efficiency}: cannot use past price to determine next price
-\item \emph{Semi-strong form efficiency}: cannot use public information to determine next price
-\item \emph{Strong form}: cannot use private information to determine next price
-\end{itemize}
-\end{frame}
-
-\begin{frame}{The evidence 1}
-The evidence for weak form market efficiency
-\begin{itemize}[<+-| alert@+>]
-\pause
-\item Weak form: there is evidence of serial correlation and reversal
-\item \emph{Technical analysis} looks for trends and reversals
-\item Mixed evidence for whether this is profitable after transaction costs
-\item Behavioural biases lead to trends and overshooting
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Efficient reaction to information}
-<<info1, echo=FALSE, fig.height=4.8>>=
-x <- seq(-5, 5, 1)
-y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
-plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
-     main = "Efficient reaction to good news")
-# set up matrix of points for the additional lines
-z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
-z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
-lines(z1)
-lines(z2)
-@
-\end{frame}
-
-\begin{frame}{Under-reaction to information}
-<<info2, echo=FALSE, fig.height=4.8>>=
-x <- seq(-5, 5, 1)
-y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
-plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
-     main = "Under-reaction to good news")
-# set up matrix of points for the additional lines
-z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
-z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
-lines(z1)
-lines(z2)
-z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
-lines(z3, lty = 2)
-text(2.4, 2, "Under-reaction")
-@
-\end{frame}
-
-\begin{frame}{Over-reaction to information}
-<<info3, echo=FALSE, fig.height=4.8>>=
-x <- seq(-5, 5, 1)
-y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
-plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
-     main = "Over-reaction to good news")
-# set up matrix of points for the additional lines
-z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
-z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
-lines(z1)
-lines(z2)
-z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
-lines(z4, lty = 2)
-text(2.4, 6, "Overshooting")
-@
-\end{frame}
-
-
-\begin{frame}{Evidence on semi-strong form efficiency}
-\begin{itemize}[<+-| alert@+>]
-\item There is some evidence of a \emph{January effect}. Does it still exist? 
-\item The \emph{small company effect}
-\item \emph{Price to book ratio}
-\item \emph{PE ratio}
-\item Value vs growth
-\end{itemize}
-\pause
-It is inconclusive.  However, some of these anomalies are consistent with behavioural theories. 
-\end{frame}
-
-\begin{frame}{Price-to-Book ratio}
-Company returns for each P/B decile (1962 to 1989)
+%\begin{frame}{Efficient reaction to information}
+%<<info1, echo=FALSE, fig.height=4.8>>=
+%x <- seq(-5, 5, 1)
+%y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+%plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+%     main = "Efficient reaction to good news")
+%# set up matrix of points for the additional lines
+%z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+%z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+%lines(z1)
+%lines(z2)
+%@
+%\end{frame}
+%
+%\begin{frame}{Under-reaction to information}
+%<<info2, echo=FALSE, fig.height=4.8>>=
+%x <- seq(-5, 5, 1)
+%y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+%plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+%     main = "Under-reaction to good news")
+%# set up matrix of points for the additional lines
+%z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+%z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+%lines(z1)
+%lines(z2)
+%z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+%lines(z3, lty = 2)
+%text(2.4, 2, "Under-reaction")
+%@
+%\end{frame}
+%
+%\begin{frame}{Over-reaction to information}
+%<<info3, echo=FALSE, fig.height=4.8>>=
+%x <- seq(-5, 5, 1)
+%y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+%plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+%     main = "Over-reaction to good news")
+%# set up matrix of points for the additional lines
+%z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+%z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+%lines(z1)
+%lines(z2)
+%z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+%lines(z4, lty = 2)
+%text(2.4, 6, "Overshooting")
+%@
+%\end{frame}
+%
+%
+%\begin{frame}{Evidence on semi-strong form efficiency}
+%\begin{itemize}[<+-| alert@+>]
+%\item There is some evidence of a \emph{January effect}. Does it still exist? 
+%\item The \emph{small company effect}
+%\item \emph{Price to book ratio}
+%\item \emph{PE ratio}
+%\item Value vs growth
+%\end{itemize}
+%\pause
+%It is inconclusive.  However, some of these anomalies are consistent with behavioural theories. 
+%\end{frame}
+%
+%\begin{frame}{Price-to-Book ratio}
+%Company returns for each P/B decile (1962 to 1989)
+%\begin{center}
+%\includegraphics[width = 4.3in, height = 2.4in]{"./Pictures/book"}
+%\end{center}
+%\tiny Fama \& French, "The Cross Section of Expected Stock Returns", \emph{Journal of Finance}, 46 (1992)
+%\end{frame}
+%
+%\begin{frame}{Evidence on strong form}
+%\begin{itemize}[<+-| alert@+>]
+%\item Can \emph{private information} achieve \emph{abnormal returns}?
+%\item Laws on \emph{insider trading}
+%\item Abnormal trading ahead of 49\% of N.American deals (80\% hotel and Casino deals and 52\% of banking deals)
+%\item Greece and ERM
+%\end{itemize}
+%\end{frame}
+%
+\section{Foreign Exchange}
+\begin{frame}{BIS survey}
+\begin{table}[h!]
 \begin{center}
-\includegraphics[width = 4.3in, height = 2.4in]{"./Pictures/book"}
+\begin{tabular}{l r r r r r r }
+Instrument & 1998 & 2001 & 2004 & 2007 & 2010 & 2013\\
+\hline
+FX & & & & & & \\
+- Spot & 1527 & 1239 & 1934 & 3324 & 3971 & 5345\\
+- Forward & 568 & 386 & 631 & 1005 & 1488 & 2046\\
+- Swaps & 744 & 663 & 975 & 1745 & 1802 & 2282 \\
+- Options & 87 & 60 &119 & 212 & 207 & 337\\
+\hline
+\end{tabular}
 \end{center}
-\tiny Fama \& French, "The Cross Section of Expected Stock Returns", \emph{Journal of Finance}, 46 (1992)
+\caption{BIS 2013 Foreign Exchange Survey (USD bn)}
+\label{tabref:bisfx}
+\end{table}
+\href{http://www.bis.org/publ/rpfxf13t.htm}{BIS FX Survey 2013}
 \end{frame}
 
-\begin{frame}{Evidence on strong form}
+\begin{frame}{BIS}
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{p{4cm} r r r r r }
+\textbf{Counterparty}
+&  2001 & 2004 & 2007 & 2010 & 2013\\
+\hline
+Spot Transactions  & 386 & 631 & 1005 & 1488 & 2046\\
+- Reporting dealers  & 216 & 310 & 426 & 517 & 675\\
+- Other financial   & 111 & 212 & 394 & 754 & 1183\\
+- Non-financial  & 58 & 108 & 184 & 217 & 188 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{BIS 2013 Foreign Exchange Survey (USD bn)}
+\label{tabref:bisfx}
+\end{table}
+\end{frame}
+
+\begin{frame}{Major investment ideas}
 \begin{itemize}[<+-| alert@+>]
-\item Can \emph{private information} achieve \emph{abnormal returns}?
-\item Laws on \emph{insider trading}
-\item Abnormal trading ahead of 49\% of N.American deals (80\% hotel and Casino deals and 52\% of banking deals)
-\item Greece and ERM
+\item PPP and fundamental value
+\item Current account and imbalances
+\item Special situations (UK and EU, elections etc, devaluations)
+\item Momentum: find the trend and determine the exit point
+\item Carry-trade: borrow low interest and deposit in the high interest.
 \end{itemize}
 \end{frame}
 

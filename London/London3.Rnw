@@ -372,13 +372,13 @@ RS = \frac{\text{Average of last 14 positive closes}}{\text{Average of last 14 n
 \end{block}
 \end{frame}
 
-\begin{frame}{Technical trading rules}
+\begin{frame}{Three cases}
 Three themes
 \pause
 \begin{itemize}[<+-| alert@+>]
-\item Momentum or trend with moving average
-\item Over-shooting with standard deviation
-\item Support and resistance with maximum and minimum
+\item \emph{Overconfidence}: What is it? what are its effects?
+  \item \emph{Momentum}: What are the behavioural causes?  How can it be used in foreign exchange? 
+\item \emph{Overshooting}: what are the behavioural causes?  How can it be used in foreign exchange? 
 \end{itemize}
 \end{frame}
 

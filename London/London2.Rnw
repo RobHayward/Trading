@@ -78,7 +78,7 @@ There are three levels to the criticisms that are raised against EMH
 \begin{itemize}
 \item What was the thinking at the time? 
 \item Next Microsoft, housing requirements
-\item \emph{Confirmation or heindsight bias}
+\item \emph{Confirmation or hindsight bias}
 \item \emph{Rational bubble}
 \end{itemize}
 \end{itemize}
@@ -124,12 +124,14 @@ In words,
 
 \begin{frame}{Example:Carry trade and UIP}
 A very good example of this is the \emph{carry trade}
+\pause
+\pause
 \begin{itemize}[<+-| alert@+>]
 \item This is based on deviations from Uncovered Interest Parity (UIP)
 \item Purchase the low interest rate \emph{funding currency} (Yen, EUR, CHF) and buy high yielding \emph{investment currency} (HUF, RUB, ZAR)
 \item Depends on no or limited appreciation of the funding currency against the investment currency. 
-\item Returns are chararterised by a large, negative skew
-\item Picking up nickles in front of a steam roller
+\item Returns are characterised by a large, negative skew
+\item Picking up nickels in front of a steam roller
 \end{itemize}
 \end{frame}
 
@@ -399,7 +401,7 @@ However, noise-trader risk may limit arbitrage
 \item De-Long et al. (1990)
 \item Three period model with noise traders and informed traders
 \item Informed traders may limit their arbitrage because there is a risk that noise traders may drive the price further away from fundamental value
-\item Tony Dye (2000)
+\item UK fund manager Tony Dye was fired in March 2000 for being under-weight technology stocks
 \end{itemize}
 \end{frame}
 
