@@ -30,7 +30,7 @@
 %\begin{abstract}
 %erehrere
 %\end{abstract}
-Overshooting is a feature of financial markets, particularly foreign exchange. There are two aspects to your task: discuss the root causes of overshooting; creating a trading tool that can be used to take advantage of overshooting.  You may concentrate on either of these parts of the task or a combination of the two.  The presentation should be approximately 10 minutes with time for questions. 
+Overshooting is a feature of financial markets, particularly foreign exchange. There are two aspects to your task: discuss the root causes of overshooting; create a trading tool that can be used to take advantage of overshooting.  You may concentrate on either of these tasks or a combination of the two.  The presentation should be approximately 10 minutes with time for questions. 
 
 % add a gap between the text
 \vspace{1cm}
@@ -41,13 +41,13 @@ Overshooting is a feature of financial markets, particularly foreign exchange. T
 
 \citet{DeBondtOver} find over-reaction in stock prices which they attribute to the \emph{representativeness heuristic}. From the abstract: 
 \begin{quotation}
-Research in experimental psychology suggests that, in violation of Bayes' rule, most people tend to "overreact" to unexpected and dramatic news events. This study of market efficiency investigates whether such behavior affects stock prices. The empirical evidence, based on CRSP monthly return data, is consistent with the overreaction hypothesis. Substantial weak form market inefficiencies are discovered. The results also shed new light on the January returns earned by prior "winners" and "losers." Portfolios of losers experience exceptionally large January returns as late as five years after portfolio formation.
+Research in experimental psychology suggests that, in violation of Bayes' rule, most people tend to "overreact" to unexpected and dramatic news events. This study of market efficiency investigates whether such behaviour affects stock prices. The empirical evidence, based on CRSP monthly return data, is consistent with the overreaction hypothesis. Substantial weak form market inefficiencies are discovered. The results also shed new light on the January returns earned by prior "winners" and "losers." Portfolios of losers experience exceptionally large January returns as late as five years after portfolio formation.
 \end{quotation}
 
 \section*{Issues to consider}
 \begin{enumerate}
 \item What evidence is there for overshooting in exchange rates?   How is intrinsic value determined?   
-\item Are there any signals that may tell us that exchange rates are at extreme levels?  Many market pacticipants try to use inside information about the positions held by speculators.  There is some information on this from the US regulatory body the CFTC.  Search for the \emph{commitment of traders}. 
+\item Are there any signals that may tell us that exchange rates are at extreme levels?  Many market participants try to use inside information about the positions held by speculators.  There is some information on this from the US regulatory body the CFTC.  Search for the \emph{commitment of traders}. 
 \item Extreme moves may be an indicators.  The spreadsheet contains a model for testing extreme moves of a random walk.  Can this be applied to foreign exchange rates? 
 \end{enumerate}
 

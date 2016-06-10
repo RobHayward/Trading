@@ -1,0 +1,412 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage{listing}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{caption}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+% Title and author information
+\title{Behavioural Finance}
+\author{Rob Hayward}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Introduction}
+The main themes
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item People do not make decisions like machines
+\begin{itemize}
+\item Chess and \emph{Deep Blue}
+\item Poker machines
+\end{itemize}
+\item People use short-cuts or \emph{heuristics} to simplify decision-making task
+\begin{itemize}
+\item Heuristics have been identified by psychologists in field experiments
+\item These heuristics can cause bias in decision-making
+\end{itemize}
+\item Decisions may cause foreign exchange prices to differ from the efficient outcome
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The assault on EMH}
+There are three levels to the criticisms that are raised against EMH
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item People are not \emph{rational}
+\item The irrational behaviour that is seen is not random
+\item Arbitrage will swiftly eliminate any deviation from fundamental value
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Irrationality}
+\begin{itemize}[<+-| alert@+>]
+\item This appears easy but is difficult
+\begin{itemize}
+\item Walking down the street
+\item Tulip mania
+\item Housing booms
+\end{itemize}
+\item Some random noise amidst rational behaviour
+\item Apparently irrational behaviour may be rational
+\begin{itemize}
+\item What was the thinking at the time? 
+\item Next Microsoft, housing requirements
+\item \emph{Confirmation or hindsight bias}
+\item \emph{Rational bubble}
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Rational Bubble}
+The expected return
+\begin{block}{}
+\begin{equation*}
+E[R_i] = \frac{P_{t+1} - P_t}{P_t}
+\end{equation*}
+\end{block}
+\pause
+However,
+\begin{block}{}
+If: 
+\begin{equation*}
+E[P_{t+1}] > 0; E[R_t] > 0
+\end{equation*}
+and, if
+\begin{equation*}
+E[P_{t+1}] < 0; E[R_t] > 0
+\end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Greater fool}
+In words, 
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Even though I may know that the exchange rate is over-valued at $P_t$
+\begin{itemize}
+\item It is still rational to buy if I can sell to someone else for a higher price at $P_{t+1}$
+\item It is still rational to buy if I can find a \emph{Greater fool} to pay more
+\end{itemize}
+\item This makes the market very \textbf{fragile}
+\begin{itemize}
+\item A change in expectations about $P_{t+1}$ can dramatically change the market
+\item Whether I believe that I can sell to someone at a higher price depends on what I think that others think
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Example:Carry trade and UIP}
+A very good example of this is the \emph{carry trade}
+\pause
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item This is based on deviations from Uncovered Interest Parity (UIP)
+\item Purchase the low interest rate \emph{funding currency} (Yen, EUR, CHF) and buy high yielding \emph{investment currency} (HUF, RUB, ZAR)
+\item Depends on no or limited appreciation of the funding currency against the investment currency. 
+\item Returns are characterised by a large, negative skew
+\item Picking up nickels in front of a steam roller
+\end{itemize}
+\end{frame}
+
+%put the carry slies here. 
+
+%\begin{frame}{Bad day wall street}
+%<<SP, fig.height=4.6, echo=FALSE>>=
+%da <- read.csv("./Data/GSPC.csv")
+%da$Date <- as.Date(da$Date, format = "%d/%m/%Y")
+%head(da)
+%@
+%\end{frame}
+
+\begin{frame}{Behavioural Finance}
+\begin{itemize}[<+-| alert@+>]
+\item Kahneman and Tversky
+\begin{itemize}
+\item Psychologists conducting experiments on decision-making
+\item \emph{Prospect theory} vs \emph{Expected utility theory}
+\end{itemize}
+\item Their findings, 
+\begin{itemize}
+\item Framing
+\item The use and nature of heuristics
+\item There are \emph{systematic biases}
+\item 'Irrationality' is not random
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Framing}
+\begin{block}{One question}
+There is an accident that will kill 600 people without intervention.  There are two choices of action that you can take
+\end{block}
+\begin{itemize}
+\uncover<2, 3, 6>{
+\item A: 200 are saved
+\item B: One third chance that 600 saved and two thirds that none are saved
+}
+\uncover<3>{
+\item 72\% choose A
+}
+\uncover<4, 5, 6>{
+\item C: 400 will die
+\item D: 1/3 chance that no one will die; 2/3 chance that 600 will die
+}
+\uncover<5>{
+\item 78\% choose D
+}
+\uncover<6>{
+}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Framing 2}
+Decisions will be different depending on the way that the question is \textbf{framed}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item People are risk-averse with good things (Choose A) 
+\item People are risk-seeking with bad things (Choose D)
+\item This is important for investment and trading
+\begin{itemize}
+\item People \emph{take-profits} too quickly
+\item People \emph{stop losses} too slowly
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Framing}
+\begin{figure}
+\begin{tikzpicture}[scale = 0.7];
+\draw [help lines] (-5, -5) grid (5, 5);
+\draw [<->, thick] (-5, 0) -- (5, 0); 
+\draw [<->, thick] (0, 5) -- (0, -5); 
+\draw [<->, thin] (0, 0) to [bend left = 35] (5, 5);
+\draw [<->, thin] (0, 0) to [bend left = 35] (-5, -5);
+\node [below right] at (0, 5) {$U$}; 
+\node [above] at (5, 0) {$\Delta W$};
+\end{tikzpicture}
+\label{figref:pt}
+\caption{Prospect theory}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Heuristics}
+There are a large number of heuristics.  We will look at two:
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \textbf{Conservatism}
+\begin{itemize} 
+\item If what you are doing works, don't change
+\item People need a lot of information to change their mind
+\item Securities prices adapt gradually to new information
+\end{itemize}
+\item \textbf{Representativeness}
+\begin{itemize}
+\item People focus on how representative something is of a particular group and neglect the probability of the group
+\item Examples, 30\% computer science and 70\% finance but a shy, quiet, socially awkward person is deemed more likely to be a CS student
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Taxi problem}
+\begin{block}{}
+A crash in a town with two taxi companies (Green - 85\%; blue - 15\%). Witness identifies cab as blue.  Court tests accuracy of witness as 80\%. What is the probability that the cab involved in the crash was blue?
+\end{block}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Most suggest that the probability is over 50\%
+\item The actual probability is 41\%
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Share of taxis in town}
+<<mosaic, echo=FALSE, fig.height=4.6>>=
+library(RColorBrewer)
+colours <- brewer.pal(n = 4, "Greens")
+GreenCab <- rep("Green", 20*17)
+BlueCab <- rep("Blue", 3*20)
+da1 <- (c(GreenCab, BlueCab))
+x <- table(da1)
+# off will determine the split between the two categories
+mosaicplot(x, color = colours, xlab = "", 
+           main = "Proportion of cars in town", off = 0)
+@
+\end{frame}
+
+\begin{frame}{Correctly identified taxis}
+<<Mosaic2, echo=FALSE, fig.height=4.6>>=
+ID <- rep(1, length(da1))
+da2 <- data.frame(da1, ID)
+for(i in 1:51){
+  da2$ID[i] <- 0
+} 
+for(i in 341:349){
+  da2$ID[i] <- 0
+}
+x2 <- table(da2)
+mosaicplot(x2, main = "Blue and Green Cabs correct and incorrect identification",              xlab = "Cab colour", ylab = "Identification", color = colours)
+@
+\end{frame}
+
+\begin{frame}{Probability that taxi is blue}
+When the car has been identified, what is the probability that it was correctly identified? 
+\pause
+\begin{block}{Bayes Rule}
+\begin{equation*}
+P(B|I) = \frac{P(I|B)P(B)}{P(I)}
+\end{equation*}
+\end{block}
+Plug in the numbers
+\end{frame}
+
+\begin{frame}{Probability that taxi is blue}
+\begin{block}{Bayes Rule}
+\begin{align*}
+P(I|B) &= 0.80\\
+P(B) &= 0.15\\
+P(I|B)P(B) &= 0.12\\
+P(I) &= P(I|B)P(B) + P(I|G)P(G)\\
+P(I) &= 0.12 + 0.17 = 0.29\\
+P(B|I) &= \frac{0.12}{0.29} = 0.41
+\end{align*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Importance of heuristics}
+These heuristics explain two features that are commonly found in financial markets: 
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \textbf{Serial correlation}: if prices went up last time, they are more likely to go up this time. Jagadeesh Titman (1993)
+\item \textbf{Reversals}: prices tend to overshoot. De Bondt and Thaler (1985)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Serial correlation}
+Jagadeesh and Titman (1993)
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Buy winners and sell losers
+\item Looked at stock performance over periods between 3 months and 12 months
+\item Use 6 month as the gauge and follow the trend for 6 months.
+\item Positive return in 67\% of months
+\item 1.7\% excess return
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Reversal}
+De Bondt and Thaler (1985)
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Two portfolio of 35 stocks
+\item Extreme winners and losers from the last  three years
+\item Past losers gained 19.6\% compared to the market
+\item Past winners lost 5\% compared to the market
+\item Overall return of 24.6\%
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Efficient reaction to information}
+<<info1, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Efficient reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+@
+\end{frame}
+
+\begin{frame}{Under-reaction to information}
+<<info2, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Under-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+lines(z3, lty = 2)
+text(2.4, 2, "Under-reaction")
+@
+\end{frame}
+
+\begin{frame}{Over-reaction to information}
+<<info3, echo=FALSE, fig.height=4.8>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Over-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+lines(z4, lty = 2)
+text(2.4, 6, "Overshooting")
+@
+\end{frame}
+
+
+\begin{frame}{Arbitrage}
+Friedman (1953)
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Even if there is systematic deviation from intrinsic value
+\begin{itemize}
+\item Arbitrage will swiftly bring prices back towards the appropriate level
+\item \textbf{Informed speculators} will make money
+\item \textbf{Noise traders} will lose money
+\item Darwinian survival will favour informed speculators
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Noise-trader risk}
+However, noise-trader risk may limit arbitrage
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item De-Long et al. (1990)
+\item Three period model with noise traders and informed traders
+\item Informed traders may limit their arbitrage because there is a risk that noise traders may drive the price further away from fundamental value
+\item UK fund manager Tony Dye was fired in March 2000 for being under-weight technology stocks
+\end{itemize}
+\end{frame}
+
+
+\end{document}
+
+
+  

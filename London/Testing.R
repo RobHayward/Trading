@@ -5,10 +5,8 @@ tail(da)
 # To use quantmod chart
 #da$VALUE <- as.xts(da$VALUE, order.by = da$DATE)
 #chartSeries(da$VALUE, TA = "EMA")
-plot(da, type = 'l', ylab = "Dollars per EUR")
+plot(da, type = 'l', ylab = "Dollars per EUR", main ="EUR-USD")
 x <- c(as.Date("2008-07-30"), as.Date("2016-05-20"))
 y <- c(1.5730, 1.31)
 lines(x, y, col = "DarkGreen")
-da$MA3 <- SMA(da$VALUE, 3)
-da$MA10 <- SMA(da$VALUE, 10)
-lines(da$MA10, col = "DarkGreen", lwd = 2)
+

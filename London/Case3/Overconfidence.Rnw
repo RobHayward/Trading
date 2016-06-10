@@ -30,7 +30,7 @@
 %\begin{abstract}
 %erehrere
 %\end{abstract}
-Over-confidence is one of the main findings from a range of behavioural studies.  \citet{JohnsonConfidence} show how over-confidence can be useful from an evolutionary perspective: it increases ambition, moral, resolve and persistence.  However, it also leads to faulty assumptions, unrealistic expectations and hazardous decisions and may contribute to hubris, speculative bubbles, financial collapse, policy failures and costly wars.  Your task is discuss \emph{overconfidence} in financial institutions: particularly in the area of foreign exchange.  You should try to assess how overconfidence can be identified and discuss some measures that could be used to try to limit its influence. The presentation should be approximately 10 minutes with time for questions.  
+Over-confidence is one of the main findings from a range of behavioural studies.  \citet{JohnsonConfidence} show how over-confidence can be useful from an evolutionary perspective: it increases ambition, moral, resolve and persistence.  However, it also leads to faulty assumptions, unrealistic expectations and hazardous decisions and may contribute to hubris, speculative bubbles, financial collapse, policy failures and costly wars.  Your task is discuss \emph{overconfidence} in financial institutions: particularly in the area of foreign exchange.  You should try to assess how overconfidence can be identified and discuss measures that could be used to try to limit its influence. The presentation should be approximately 10 minutes with time for questions.  
 
 % add a gap between the text
 \vspace{1cm}

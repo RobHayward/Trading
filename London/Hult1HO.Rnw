@@ -1,4 +1,4 @@
-\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table,handout]{beamer}
 
 % Specify theme
 \usetheme{Madrid}
