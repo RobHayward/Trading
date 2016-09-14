@@ -17,3 +17,4 @@ theInstruments <- c("^GSPC",
 # GLD gold index
 # IGE:  North America natural resources. 
 # VXX: Vix futures
+# TLT:  20 year US bond index
