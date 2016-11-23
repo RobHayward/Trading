@@ -1,6 +1,6 @@
 # Update datafiles
 library(quantmod)
-lookback = 60
+lookback = 100
 startDate = Sys.Date() - lookback
 thePath = "C://Users/Toshiba/Google Drive/Research/GIT/Trading/Database/"
 # the list.files lists all the files in the directory with the pattern .csv"
