@@ -12,6 +12,10 @@ theInstruments <- c("^GSPC",
 # EWJ is MSCI Japan
 # DDM is two times the Dow Jone Industrial Average. 
 # EFA is large and mid-size capitalised developed equity markets (excluding US and Canada).  MSCI EAFE index
+# EEM MSCI emerging markets
+# VBMFX Investment grade bonds
+# AUNZ Australia and New Zealand bond index
+# JGL Japanese bond index
 # EWA MSCI Australia. 
 # WEC MSCI Canada
 # GLD gold index

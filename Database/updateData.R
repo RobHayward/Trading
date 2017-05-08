@@ -1,8 +1,9 @@
 # Update datafiles
 library(quantmod)
-lookback = 60
+lookback = 100
 startDate = Sys.Date() - lookback
 thePath = "C://Users/Toshiba/Google Drive/Research/GIT/Trading/Database/"
+# the list.files lists all the files in the directory with the pattern .csv"
 theFiles = list.files(path = thePath, pattern = ".csv")
 
 for(ii in theFiles){
@@ -11,6 +12,7 @@ for(ii in theFiles){
              order.by = as.Date(data[,"Index"], format = "%Y-%m-%d"))
   lastHistoricalDate = index(data[nrow(data), ])
   
+# substr will extract a substring of the Symbol (taking off ".csv")  
   recent = getSymbols(Symbols = substr(ii, 1, nchar(ii) -4), 
                       scr = "yahoo", 
                       from = startDate, 
