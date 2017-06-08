@@ -5,6 +5,62 @@ date: "14 December 2015"
 output: html_document
 ---
 
+# Creading  database
+[Pulling and displaying ETF data](https://www.rstudio.com/rviews/2016/12/14/reproducible-finance-with-r-pulling-and-displaying-etf-data/). 
+
+```{r} 
+# Let's build a dataframe to store these ticker symbols, country names and YTD numbers.
+library(dplyr)
+
+ticker <-  c("EWJ",  "EWZ",  "INDA", "FXI",  "EWG",  "EWC",  "EWY",  "EWT",  "EWU",  "EWH",  "EWA",
+             "EWW",  "EWL",  "EWP", "EWS",  "EWI",  "EIDO", "ERUS", "ECH",  "EZA",  "THD",  "TUR",
+             "EWD",  "EWQ",  "EWM",  "EPU",  "EWN",  "EPOL", "EPHE", "ENZL", "EIRL", "EWK",  "EIS",
+             "EWO", "EDEN", "QAT", "UAE", "EFNL", "ENOR", "ICOL", "HEWY", "KSA")
+
+name <-   c("Japan", "Brazil" ,"India", "China", "Germany" , "Canada", "Korea", "Taiwan", 
+              "United Kingdom", "Hong Kong", "Australia", "Mexico", "Switzerland", "Spain", 
+              "Singapore", "Italy", "Indonesia", "Russia", "Chile", "South Africa", "Thailand",  
+              "Turkey", "Sweden", "France", "Malaysia", "Peru", "Netherlands", "Poland",
+              "Philippines", "New Zealand", "Ireland", "Belgium", "Israel", "Austria","Denmark",
+              "Qatar", "United Arab Emirates", "Finland", "Norway", "Colombia", "South Korea", 
+              "Saudi Arabia")
+
+ytd <- c(0.0358, 0.6314, -0.0140,  0.0721, -0.0289, 0.2198,  0.0729,  0.2029, -0.0467,  0.0897,
+         0.0944, -0.1045, -0.0623, -0.0916,  0.0305, -0.1857,  0.1309,  0.3828,  0.1987,  0.1219,
+         0.2458, -0.1053, -0.0052, -0.0199, -0.0410,  0.6015,  0.0017, -0.0481, -0.0408,  0.1394,
+         -0.1183, -0.0428, -0.0432,  0.0462, -0.1078, -0.0244, 0.0570,  0.6397, -0.0146,  0.1424,
+         0.1313,  0.0751) * 100
+
+etf_ticker_country <- data_frame(ticker, name, ytd)
+
+etf_ticker_country
+```
+```{r}
+# getSymbols is part of the 'quantmod' package.
+
+library(quantmod)
+
+# Using getSymbols to import the ETF price histories will take a minute or two or 
+# five - 42 time series is a lot of data. 
+
+invisible(getSymbols(etf_ticker_country$ticker, auto.assign = TRUE, warnings = FALSE))
+
+# Let select just the closing prices of the ETFs and merge them into a list.
+# We'll use lapply for that purpose. Again, this is for testing purposes. It's not 
+# going into production in our app.
+
+etf_prices <- do.call(merge, lapply(etf_ticker_country$ticker, function(x) Cl(get(x))))
+
+#Change the column names to the country names from our dataframe above.
+
+colnames(etf_prices) <- etf_ticker_country$name
+
+# Take a peek at the last 5 rows of each of the time series, 
+# just to make sure it looks complete.
+
+tail(etf_prices, n = 5)
+```
+
 # Maintaining a database
 [R-trader and databases](http://www.thertrader.com/2015/12/13/maintaining-a-database-of-price-files-in-r/).  This is based on one csv file per instrument. 
 

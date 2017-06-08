@@ -2,7 +2,7 @@
 library(quantmod)
 lookback = 100
 startDate = Sys.Date() - lookback
-thePath = "C://Users/Toshiba/Google Drive/Research/GIT/Trading/Database/"
+thePath = "~/robohay@gmail.com/Research/GIT/Trading/Database/"
 # the list.files lists all the files in the directory with the pattern .csv"
 theFiles = list.files(path = thePath, pattern = ".csv")
 
