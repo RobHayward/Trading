@@ -1,0 +1,164 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\graphicspath{{./Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+% Title and author information
+\title{Introduction to the Trading Room}
+\author{Rob Hayward}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Two aims}
+Two aims today
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Get an experience of what it is like to be a trader in a financial market
+\item Learn something about \emph{market-microstructure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Microstructure}
+There are three major aspects of microstructure that we will look at today
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item the institutional structure and its effect
+\item liquidity
+\item \emph{price discovery} 
+\end{itemize}
+\pause
+\vspace{1cm}
+They are connected
+\end{frame}
+
+\section{Institutional Structures}
+\begin{frame}{Institutional structures}
+There are three major ways that financial markets can be organised
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \emph{open outcry}
+\item dealer-orientated or market-maker systems
+\item electronic order markets
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Open outcry}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
+\end{frame}
+
+\begin{frame}{Market-making}
+\begin{tikzpicture}[xscale = 1, yscale = 1]
+\draw [blue] (1,1) rectangle (3, 2);
+\node at (2, 1.5) {Fund};
+\draw [blue] (6,5) rectangle (8, 6);
+\node at (7, 5.5) {Firm};
+\draw [blue] (11,1) rectangle (13, 2);
+\node at (12, 1.5) {Fund};
+\pause
+\draw [red] (5,3) circle [radius = 0.5];
+\node at (5, 3) {mm};
+\draw [red] (7,2) circle [radius = 0.5];
+\node at (7,2) {mm};
+\draw [red] (4,0) circle [radius = 0.5];
+\node at (4,0) {mm};
+\draw [red] (8,4) circle [radius = 0.5];
+\node at (8, 4) {mm};
+\draw [red] (9,0) circle [radius = 0.5];
+\node at (9, 0) {mm};
+\pause
+\draw [thick] [->] (3,2) -- (4.5,2.8);
+\draw [thick] [->] (8.5, 4) -- (11,2);
+\pause
+\draw [<->] (4.1, 0.6) -- (4.8, 2.5);
+\draw [<->] (4.5, 0) -- (8.5, 0);
+\draw [<->] (8.8, 0.4) -- (7.5, 2);
+\draw [<->] (9, 0.5) -- (8.1, 3.5);
+\draw [<->] (4.2, 0.5) -- (6.4, 2);
+\draw [<->] (7.4, 2.5) -- (7.9, 3.5);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Electronic order markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Picture2.png}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+\begin{frame}{Terms to be aware of}
+Terms to be aware of
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Bid and Ask
+\item Long and short
+\item Market and Limit
+\end{itemize}
+\end{frame}
+
+\section{Liquidity}
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
+\begin{frame}{Margin}
+Margin means that you do not have to put up all the money immediately
+\begin{block}{}
+\begin{itemize}
+\item if margin requirement is 50\%
+\item you can buy \$2 million stock with your \$1 million
+\item if shorts are 150\%
+\item you can sell \$2 million stock with your \$1 million
+\end{itemize}
+\end{block}
+\pause
+Margin will change with the risk and liquidity of the market and collateral
+\end{frame}
+
+\begin{frame}{Transaction costs}
+The exchanges are public companies
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item There is a payment to the exchange for each transaction
+\item Exchanges may compete via transaction costs
+\item Rebates can be offered to those institutions willing to provide liquidity
+\end{itemize}
+\end{frame}
+
+\end{document}
