@@ -18,6 +18,17 @@
 \setbeamercolor{alerted text}{fg=Maroon}
 \setbeamertemplate{items}[square]
 
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
 % Title and author information
 \title{Introduction to the Trading Room}
 \author{Rob Hayward}
