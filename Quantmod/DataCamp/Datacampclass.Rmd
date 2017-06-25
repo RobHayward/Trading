@@ -1,0 +1,368 @@
+---
+title: "DataCampTradingModule"
+author: "RobHayward"
+date: "16 June 2017"
+output: html_document
+---
+
+[Data Camp](https://campus.datacamp.com/courses/financial-trading-in-r/trading-basics?ex=1) course. 
+
+* Buying and selling securities, assets and commodities will allow investors to make money and hedge positions. 
+
+* The aim of the quantitative trading strategie is to make a calculated guess about when to buy and sell
+
+==Trading strategies==
+Strategies developed through ``quantstrat`` are made up of 
+
+* **indicators** that are developed from market data
+* **signals** triggered by certain events
+* **rules** that are acted on by certain signals.
+
+```{r}
+require(quantmod)
+getSymbols("SPY", from = "2000-01-01", to = "2016-06-30", adjust = TRUE)
+plot(Cl(SPY))
+```
+
+==Trading Indicators==
+The `TTR` has a package of technical indicators. For example, the 200 day MA. This is an indication of what has happened over the last 10 months. 
+
+```{r}
+getSymbols("LQD", from = "2000-01-01, to = 2016-06-30")
+sma = SMA(Cl(LQD), n = 200)
+plot(Cl(LQD))
+lines(sma, col = 'red')
+```
+     
+     
+     
+===Setting up a strategy===
+Define the boilerplate code. 
+Reqired parts for a back-test
+
+* initialisatrion date (must come before the start date)
+* start date
+* end date
+
+Standard format date strings ``Sys.sentenv(Tx = "UTC")
+
+``stock()`` will tell ``quantrqtrat`` that stocks are being used for the simulation. For example, 
+
+```
+requrie("quantstrat")
+getSymbols("SPY", from = "2000-01-01", to = "2013-12-31", scr = "yahoo", adjust = True)
+stock("SPY", currency = "USD")
+```
+
+
+
+===Trade size and initial equity===
+```
+tradesize <- 100000
+initialeq <- 1000000
+```
+
+Working in return space allows the use of the `PerforamnceAnalytics` library. 
+
+There also three important objects to be named: 
+
+* the account 
+* the portfolio 
+* the strategy
+
+The account can contain more than one portfolio, the poirtfolio can contain more than one strategy. 
+
+```
+strategy.st = portfolio.st = accoount.st <- "firststrat"
+```
+
+If a strategy already exists in the global environment, it cannot be re-run. If you want to modify, it should be removed first. 
+
+You need to initialise the 
+
+* portfolio
+* account 
+* orders
+* strategy objects
+
+
+
+
+===Portfolio===
+The portfolio is a set of assets and a date for initialisation
+
+This is done with ``initPortf()``. This will require a name, symbols (inside the portfoplio) initialisation date and currency. 
+
+```
+initPort(portfolio.st, symbols = "LQD", initDate = initdate, currency = "USD")
+```
+
+Now initialise the account wtih ``initAcct()``, this requires an account name, portfolios (inside the account), initialisation date, currency and initial equity. 
+
+```
+initAcct(account.st, portfolios = portfolio.st, initDate = initdate, currency = "USD", initEq = initeq)
+```
+
+Next initislise the orders with ``initOrders()``, this will take the name of the portfolio and the initiation date. 
+
+```
+initOrders(portfolio = portfolio.st, initDate = initdate)
+```
+
+Finally initiate the strategy with ``strategy()`` using the arguments name and store)
+
+```
+strategy(strategy.st, store = TRYE)
+```
+
+These elements should be stored in an initialiseation masterfile that can be modified. 
+
+
+
+stock("GDX", currency = "USD")``
+
+Set the currency ()
+
+
+
+
+==Indicators==
+Transformation of data that make a trade =-off between lag for smoothness.
+
+Examples
+* 2-hundresd day moving average (closeing price)
+* RSI indicator (oscillating indicator). Takes values beteen zero an 1 or between -1 and +1. 
+
+This strategy will combine a basic moving average as a filter with a moving average oscillator to determine when to enter positions. 
+
+
+
+
+===RSI and MA examples==
+```
+SMA(x = Cl(GDX), n = 50)
+RSI(price = Cl(GDX), n = 50)
+```
+
+
+==Indicator mechanics==
+There are five parts to adding an indicator. 
+
+1. Write ``add.indicator()`` function
+2. supply the strategy name (``strategyu.st`` for example)
+3. The name of te function to be called (ie. "SMA")
+4. Supply the inputs into the function as a list
+5. Label the function (i.e. `SMA200`)
+
+Here is the code
+```
+add.indicator(strategy = strategy.st, 
+  name = 'SMA', 
+  arguments = list(x = quote(Cl(mkdata)), n - 200), 
+  label = 'SMA200')
+```
+
+Indicators are similar to R's `apply` family of functions. 
+
+It is good to be as descriptive with indicator names as possible. 
+
+The ``applyindicators`` function allows you to take some data and to create an intermediate data set containing market data and indicatirs that can be assessed independently. In quantstrat, indicator labels take the form original name, a dot and the label. 
+
+* the ``HLC`` function will provide jsut the high, low and close. 
+
+* Data can be sub-set by using ``object[date/date]``
+
+
+==David Vardi Oscillator==
+
+* compute a rato between the closing price and the average of the high and low prices
+* take a moving average of that ratio
+* ``runPercentRank()`` function will calculate the percent rank for the look back period. 
+ 
+```
+# add DVD strategy
+add.indicator(strategy = strategy.st, name = "DVO", 
+  arguments = list(HLC = quote(HLC(mkdata)), navg = 2, percentlookback = 126), 
+  label = "DVD_2_126")
+#use applyindicatos to test strategy
+test <- appplyIndicators(strategy = strategy.st, mktdata = UOHLC(SPY))
+
+# Subset the data between Sep 1 and Sep 5 opf 2013
+test_subst <- test["2013-09-01/2013-09-05"]
+```
+
+==Signals==
+These are made from the interaction of indicators wtih prices or the interaction of indicators with other indicators. They give signals about buying and selling assets. 
+These will be added in the same way as indicators with ``add.signal()`` function. The structure will be very similar to indicators. 
+
+```
+add.signal(strateg.st, 
+  name = "function", 
+  arguments = list(arguments), 
+  label = "label")
+```
+
+Similar to the apply function in R. 
+
+Four types of signal 
+
+* sigComparison: relationship between two signals (returns 1 if true)
+
+* sigCrosssover: returns 1 on first occurance
+
+* sigThreshold: compares a range-bound quantity to a static indicator
+
+* sigFormua; allows the creation of complex signals by combining signals.
+
+==Trend Signals==
+Use ``sigCrossover`` and ``sigComparison``. 
+```
+add.signal(strategy.st, 
+  name = "sigComparison", 
+  arguments = list(columns = c("str1", "str2"),
+  relationship = "lt"), 
+  label = "siglabel")
+
+add.signal(strategy.st, 
+  name = "sigCrossover",
+  arguments = list(columns = c("str1", "str2"),
+  relationship = "eq"),
+  label = "siglabel")
+```
+Use "gt", "lt", "eq", "lte", "gte" to indicate greater, lsss, equal etc.
+
+These signals need a label so that they can be added to the rules that we look at in the next chapter. 
+
+``sigThreshold()`` can be used to assess things like the level of RSI and other indicators, probability values or rolling ratios. 
+
+Structure
+```
+add.signal(strategy.st, 
+  name = "sigTreshold", 
+  arguments = list(column = "str1",
+                    thresold = 20, 
+                    cross = TRUE, 
+                    relationship = "lt"), 
+  label = "siglabel")
+```
+cross = TRUE minimcs sigCrossover' cross = FALSE = sigComparison
+
+Here are some examples. 
+```
+add.signal(strateg.st, 
+  name = "sigThreshold", 
+  arguments = list(columns = "DVO_2_126", 
+                    threshold = 20, 
+                    cross = FALSE, 
+                    relationship = "lt"), 
+  lanel = "thresholdfilter")
+
+add.signal(strateg.st, 
+  name = "signThreshold", 
+  arguments = list(column = "DVO_2_126", 
+                  threshold = 20, 
+                  corss = TRUE, 
+                  relationship = "gt"), 
+  label = "theresholdfilter"
+```
+
+The first of thse will give a signal whenever the signal is below a particular point, the second will indicate when teh first cross is made. 
+
+``sigFormula`` is a cathc all to create own signals. 
+
+This allows signals that are a combination of other signals
+
+The structure
+```
+add.signal(strategy.st, 
+  name = "sigFormula", 
+  arguments = list(formula = "regular logical statement inside a statement", 
+                  cross = TRUE), 
+  label = "yourlabel")
+```
+The statement that is passed if the same sort of thing that is passed in an if type statement. 
+
+Here is an example, 
+```
+add.signal(strateg.st, 
+  name = "sigformula", 
+  arguments = list(formula = "longThreshold & longFilter"), 
+                  cross = TRUE), 
+  label = "longentry")
+```
+
+Make sure that the columns are in the strategy. This is why you need unique and descriptive labels for the indicators. 
+
+
+==Rules==
+How do you operationalise the signals
+
+Rules are more complex and more sutomisable. 
+
+``add.Rule()``
+
+There are two basic rules:  enter and exit
+
+```
+add.rule(strategy = strategy.st, name = "rulesSignal", 
+      arguments = list(sigcol = "filterexit", sigval = TRUE, ...), 
+      type = "exit")
+```
+Rules just depend on one function (a rule signal).  Most of the arguments for a rule serve an inputs into a rule signal. Signal columns and signvale point to columns and values for these columns respectively. 
+
+```
+# Fill in the rule's type as exit
+add.rule(strategy.st, name = "ruleSignal", 
+         arguments = list(sigcol = "filterexit", sigval = TRUE, orderqty = "all", 
+                        ordertype = "market", orderside = "long", 
+                        replace = FALSE, prefer = "Open"), 
+         type = "exit")
+ ```
+ 
+You can see that there are three more elements to the rule 
+
+* orderqty:  a number that specifices number of securities to buy or sell. It can also be `all` to close a trade. 
+
+* ordertype:  market or limit. 
+
+* orderside: classifies different rules (long, short)
+
+* replace: determines whether the execution of an order will cancel all other orders that day (TRUE) or not (FALSE)
+
+* prefe: what itme. Entry is delayed by one bar (OHLC), the default is to buy at the end of the next day. This can be overridden.
+
+
+==Order=sizing functions==
+
+Here is an example, 
+```
+add.rule(strategy.st, name = "rulesSignal", 
+      arguments = list(sigcol = "filterexit", saigval = TRUE, 
+      orderqty = "all", ordertype = "market", 
+      orderside = "long", replace = FALSE, prefer = "open", 
+      osFUN = ..., tradeSize = ..., maxSize = ...), 
+      type = exit)
+```
+the orderqty is replaced by osFuun, tradeSize and masSize. The osFun argument passes in the order size function. The order size function is like a nested apply statement. The arguments to this trade size rule are put into the function with the arguments to the add.rule (as above). 
+
+In our example, the ``osFun`` is called ``osMaxDollar``.  This is passed to the add.rule as an object. 
+
+```
+# Add a rule that uses an osFUN to size an entry position
+add.rule(strategy = strategy.st, name = "ruleSignal",
+         arguments = list(sigcol = "longentry", sigval = TRUE, ordertype = "market",
+                          orderside = "long", replace = FALSE, prefer = "Open",
+                          
+                          # Use the osFUN called osMaxDollar
+                          osFUN = osMaxDollar,
+                          
+                          # The tradeSize argument should be equal to tradesize (defined earlier)
+                          tradeSize = tradeSize
+                          
+                          # The maxSize argument should be equal to tradesize as well
+                          maxSize = tradeSize),
+         type = "enter")
+111
+
+
+
