@@ -81,7 +81,7 @@ There are three major ways that financial markets can be organised
 
 \begin{frame}{Open outcry}
 \begin{center}
-%\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
 % trim is left, lower, right, upper
 \end{center}
 \href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
