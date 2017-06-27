@@ -1,4 +1,4 @@
-\documentclass[12pt, a4paper, oneside]{article} % Paper size, default font size and one-sided paper
+\documentclass[12pt, a4paper, oneside]{hitec} % Paper size, default font size and one-sided paper
 %\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
 %\usepackage[dcucite]{harvard}
 \usepackage{rotating}
@@ -36,6 +36,11 @@ You have 10 minutes to present your idea for investment \$1 million, 1 week inve
 \item pension funds and mutual funds may take some risk
 \item hedge funds and other alternative investment vehicles will take higher levels of risk
 \end{itemize}
+
+\vspace{8 mm}
+You chose the level of risk. 
+
+\vspace{8 mm}
 
 
 Required: 
