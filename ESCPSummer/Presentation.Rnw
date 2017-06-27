@@ -1,0 +1,53 @@
+\documentclass[12pt, a4paper, oneside]{article} % Paper size, default font size and one-sided paper
+%\graphicspath{{./Figures/}} % Specifies the directory where pictures are stored
+%\usepackage[dcucite]{harvard}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{pdflscape}
+%\usepackage[flushleft]{threeparttable}
+%\usepackage{multirow}
+\usepackage{tikz}
+\usepackage[comma, sort&compress]{natbib}% Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+\usepackage{graphicx}
+%\bibliographystyle{plainnat}
+\bibliographystyle{agsm}
+\usepackage[colorlinks = true, citecolor = blue, linkcolor = blue]{hyperref}
+%\hypersetup{urlcolor=blue, colorlinks=true} % Colors hyperlinks in blue - change to black if annoying
+%\renewcommand[\harvardurl]{URL: \url}
+ \usepackage{listings}
+ \usepackage{color}
+ \graphicspath{{../Pictures/}}
+\definecolor{mygrey}{gray}{0.95}
+\lstset{backgroundcolor=\color{mygrey}}
+\begin{document}
+\title{Presentation of investment idea}
+\author{Rob Hayward}
+%\date{\today}
+%\maketitle
+%\begin{abstract}
+%erehrere
+%\end{abstract}
+\section*{Wednesday 28th June}
+You have 10 minutes to present your idea for investment \$1 million, 1 week investment. You should assume that you have a client with a specific pre-determined level of risk appetite: 
+
+\begin{itemize}
+\item firms will want a very low level of risk
+\item pension funds and mutual funds may take some risk
+\item hedge funds and other alternative investment vehicles will take higher levels of risk
+\end{itemize}
+
+
+Required: 
+\begin{itemize}
+\item an assessment of the risk that is to be taken
+\item some idea of the sort of return that you expect to make
+\item evidence to support what you have to say
+\end{itemize}
+
+
+
+\bibliography{../../../../myrefs}
+
+
+\end{document}
