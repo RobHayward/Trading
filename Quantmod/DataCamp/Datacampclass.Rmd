@@ -362,7 +362,98 @@ add.rule(strategy = strategy.st, name = "ruleSignal",
                           # The maxSize argument should be equal to tradesize as well
                           maxSize = tradeSize),
          type = "enter")
-111
+```
+
+
+
+==Analysing the strategy==
+The overall strategy is based on buying when the 50-day moving average is above the 200-day moving average; sell when the DVO is above 80 or when the 50-day moving average moves below the 200-day moving average. 
+
+To analyise Apply Strategy 
+
+```
+applyStrategy(strategy - strategy.st, portfolio = portfolio.st)
+```
+
+Update Portfolio
+```
+updatePortfolio(portfolio.st)
+datarange <- time(getPortfolio(portfolio.st)$summary)[-1]
+```
+
+Update the Account
+```
+updateAcct(account.st, datarange)
+updateEndFq(account.st)
+```
+
+The trade statistics table will give an overview of what happened. 
+
+```
+tstats <- tradeStats(Portfolio = portfolio.st)
+```
+The important statstics are:
+
+1. number of trades
+2. percent positive
+3. average, median and win-loss ratios
+
+
+==Characteristics of trading systems==
+Moving average trading systems tend to be characterised by 
+
+1. less than half the trade as winners 
+2. winning trades as larger than losers
+
+However, trades based on oscillation systems tend to 
+
+1. have more than half the trades a winnders
+2. win-to-loss ratio of less than one
+
+The strategy will buy when the 50-day moving average moves above the 200-day moving aveage and the DVO_2_126 indicator is below 20; it will sell when either the 50-day moving average passes under the 200-day moving average or the DVO_2_126 indicator is above 80. 
+
+The following signals are required.
+
+1. `sigComparison` for SMA50 to be above SMA200
+2. `sigThreshold` with cross set to FALSE for DVO_2_126 less than 20
+3. `sigFormula` to tie them together and set cross to TRUE
+4. `sigCrossover` with SMA50 less than SMA200
+5. `sigThreshold` with cross set to TRUE for DVO_2_126 greater than 80. 
+
+
+==Visualisation==
+To look a the trade, use the `chart.Posn`` function
+
+```
+chart.Posn(portfolio = portfolio.st, Symbol = "LQD")
+```
+
+This will bring up a chart of the price as well as the positions that have been taken out. It also has the equity and the draw-down. 
+
+It is also possible to add indicators to the chart. You must recalculate the indicator and then ``add_TA(sma50, on = 1, col = 'blue')``.  The `on` means that the indicator is ploted on top of the existing price data, otherwise it will be plotted in a new chart. ``zoo_chart`` will allow a focus on a particular part of the chart.  This may allow some analysis of the system. 
+
+==Additional analytics==
+To generate the profit and loss time series. This requieres accessing the data from `blotter` so that it can be used in Performance Analytics. 
+
+```
+portPL <- .blotter$portfolio.first£Strat$summary$Net.Trading.PL
+head(portPL)
+```
+
+This will allow the calculations of things like the `Sharpe Ratio`. 
+
+```
+SharpeRatio.annualized(portPL, geometric = FALSE)
+```
+These are not continuously compounded returns. 
+
+Returns in a quantstrat simulation are defined as the ratio between the gains and loss relative to the initial equity. Use `PortfReturns` command
+
+```
+instrets <- PortfReturns(account.st)
+head(instrets)
+```
+Once you have the returns, the `PerformanceAnalytics` package can be used for more analysis. 
 
 
 
