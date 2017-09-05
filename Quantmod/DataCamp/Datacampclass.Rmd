@@ -11,6 +11,7 @@ output: html_document
 
 * The aim of the quantitative trading strategie is to make a calculated guess about when to buy and sell
 
+
 ==Trading strategies==
 Strategies developed through ``quantstrat`` are made up of 
 
@@ -18,11 +19,13 @@ Strategies developed through ``quantstrat`` are made up of
 * **signals** triggered by certain events
 * **rules** that are acted on by certain signals.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 require(quantmod)
 getSymbols("SPY", from = "2000-01-01", to = "2016-06-30", adjust = TRUE)
 plot(Cl(SPY))
 ```
+
+
 
 ==Trading Indicators==
 The `TTR` has a package of technical indicators. For example, the 200 day MA. This is an indication of what has happened over the last 10 months. 
@@ -37,6 +40,7 @@ lines(sma, col = 'red')
      
      
 ===Setting up a strategy===
+
 Define the boilerplate code. 
 Reqired parts for a back-test
 
@@ -56,7 +60,10 @@ stock("SPY", currency = "USD")
 
 
 
+
 ===Trade size and initial equity===
+
+
 ```
 tradesize <- 100000
 initialeq <- 1000000
@@ -89,6 +96,8 @@ You need to initialise the
 
 
 ===Portfolio===
+
+
 The portfolio is a set of assets and a date for initialisation
 
 This is done with ``initPortf()``. This will require a name, symbols (inside the portfoplio) initialisation date and currency. 
@@ -139,6 +148,7 @@ This strategy will combine a basic moving average as a filter with a moving aver
 
 
 ===RSI and MA examples==
+
 ```
 SMA(x = Cl(GDX), n = 50)
 RSI(price = Cl(GDX), n = 50)
@@ -146,6 +156,7 @@ RSI(price = Cl(GDX), n = 50)
 
 
 ==Indicator mechanics==
+
 There are five parts to adding an indicator. 
 
 1. Write ``add.indicator()`` function
@@ -192,6 +203,7 @@ test_subst <- test["2013-09-01/2013-09-05"]
 ```
 
 ==Signals==
+
 These are made from the interaction of indicators wtih prices or the interaction of indicators with other indicators. They give signals about buying and selling assets. 
 These will be added in the same way as indicators with ``add.signal()`` function. The structure will be very similar to indicators. 
 
@@ -215,6 +227,8 @@ Four types of signal
 * sigFormua; allows the creation of complex signals by combining signals.
 
 ==Trend Signals==
+
+
 Use ``sigCrossover`` and ``sigComparison``. 
 ```
 add.signal(strategy.st, 
@@ -295,6 +309,8 @@ Make sure that the columns are in the strategy. This is why you need unique and 
 
 
 ==Rules==
+
+
 How do you operationalise the signals
 
 Rules are more complex and more sutomisable. 
@@ -333,6 +349,7 @@ You can see that there are three more elements to the rule
 
 
 ==Order=sizing functions==
+
 
 Here is an example, 
 ```
