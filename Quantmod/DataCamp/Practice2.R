@@ -7,10 +7,10 @@ initdate = "1999-01-01"
 from = "2003-01-01"
 to = "2015-12-31"
 currency("USD")
-stock("LQD", currency = "USD", multiplier = 1)
-getSymbols("LQD", from = "2000-01-01", src = "google", to = "2016-06-30", adjust = TRUE)
+stock("SPY", currency = "USD", multiplier = 1)
+getSymbols("SPY", from = "2000-01-01", src = "google", to = "2016-06-30", adjust = TRUE)
 # remove any NAs
-LQD <- LQD[!is.na(LQD$LQD.Open), ]
+SPY <- SPY[!is.na(SPY$SPY.Open), ]
 #===============
 tradesize = 1000000
 initeq = 1000000
@@ -20,7 +20,7 @@ strategy.st = portfolio.st = account.st <- "firststrat"
 rm.strat(strategy.st)
 # each account can contain one or more portfolio and each portfolio can contain one or more strategy
 # Initiate portfolio
-initPortf(portfolio.st, symbols = "LQD", initDate = initdate, currency = "USD")
+initPortf(portfolio.st, symbols = "SPY", initDate = initdate, currency = "USD")
 initAcct(account.st, portfolios = portfolio.st, initDate = initdate, currency = "USD", initEq = initeq)
 initOrders(portfolio.st, initDate = initdate)
 strategy(strategy.st, store = TRUE)
@@ -28,15 +28,16 @@ strategy(strategy.st, store = TRUE)
 # Indicators
 #There are five steps to calling indicators
 # add.indicator(), strategy name, function for calculation (SMA), inputs for function as list, label indicator.
+add.indicator(strategy = strategy.st, name = "SMA", arguments = list(x = quote(Cl(mktdata)), n = 500), label = "SMA500")
 add.indicator(strategy = strategy.st, name = "SMA", arguments = list(x = quote(Cl(mktdata)), n = 200), label = "SMA200")
 # apply indicators to check
-test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(LQD))
+test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(SPY))
 head(test, n = 3)
 tail(test, n = 5)
 # indicator names take their names from the original name a dot and then the label. 
-head(HLC(LQD))
+head(HLC(SPY))
 #dates can be narrowe4d by using the following form
-HLC(LQD["2012-01-01/2012-01-07"])
+HLC(SPY["2012-01-01/2012-01-07"])
 #===============Add own strategy
 DVO <- function(HLC, navg = 2, percentlookback = 126) {
   
@@ -53,10 +54,10 @@ DVO <- function(HLC, navg = 2, percentlookback = 126) {
 }
 add.indicator(strategy = strategy.st, name = "DVO", arguments = list(HLC = quote(HLC(mktdata)), navg = 2, percentlookback = 126), 
               label = "DVO_2_126")
-test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(LQD))
+test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(SPY))
 # this does not work.  No conformable.  Is this the change to data? 
 # However, if I run it myself the strategy works
-a <- DVO(HLC = LQD, navg = 2, percentlookback = 126)
+a <- DVO(HLC = SPY, navg = 2, percentlookback = 126)
 plot(a)
 # WTF
 # copied from course page. 
@@ -66,7 +67,7 @@ add.indicator(strategy = strategy.st, name = "DVO",
               label = "DVO_2_126")
 
 # Use applyIndicators to test out your indicators
-test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(LQD))
+test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(SPY))
 
 # Subset your data between Sep. 1 and Sep. 5 of 2013
 test_subset <- test["2013-09-01/2013-09-05"]
@@ -132,12 +133,17 @@ add.signal(strategy.st,
            arguments = list(formula = "longthreshold & longfilter", 
                             cross = TRUE), 
            label = "longentry")
-test_init <- applyIndicators(strategy.st, mktdata = OHLC(LQD))
+test_init <- applyIndicators(strategy.st, mktdata = OHLC(SPY))
 test <- applySignals(strategy.st, mktdata = test_init)
 # this also does not work.  It appears to be the same problem
-rmIndicators
+head(test_init)
 
-
+add.signal(strategy.st, 
+           name = "cross",
+           arguments = list(column = "SMA500",
+                            cross = TRUE,
+                            relationship = "gt"),
+           label = "crossover" )
 
 
 
@@ -150,7 +156,7 @@ rmIndicators
 
 
 plot(Cl(SPY))
-#getSymbols("LQD", from = "2000-01-01, to = 2016-06-30", src = "google")
+#getSymbols("SPY", from = "2000-01-01, to = 2016-06-30", src = "google")
 sma = SMA(Cl(SPY), n = 200)
 lines(sma, col = 'red')
 #getSymbols("SPY", from = "2000-01-01", to = "2013-12-31", scr = "yahoo")

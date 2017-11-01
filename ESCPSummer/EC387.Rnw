@@ -1,0 +1,365 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,positioning}
+\graphicspath{{./Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
+% Title and author information
+\title{Introduction to market-making and RIT}
+\author{Rob Hayward}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Two aims}
+Two aims today
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Get an experience of what it is like to be a trader in a financial market
+\item Learn something about \emph{market-microstructure}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Microstructure}
+There are three major aspects of microstructure that we will look at today
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item the institutional structure and its effect
+\item liquidity
+\item \emph{price discovery} 
+\end{itemize}
+\pause
+\vspace{1cm}
+They are connected
+\end{frame}
+
+\section{Institutional Structures}
+\begin{frame}{Institutional structures}
+There are three major ways that financial markets can be organised
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \emph{open outcry}
+\item dealer-orientated or market-maker systems
+\item electronic order markets
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Open outcry}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
+\end{frame}
+\begin{frame}{Market making: Dealer: Bid-Ask}
+\frametitle{Bid-Ask}
+\begin{center}
+\includegraphics[height = 1.8in, trim = 0 10 0 10]{Bid-Ask}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Electronic order markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Picture2.png}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+\begin{frame}{Terms to be aware of}
+Terms to be aware of
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Bid and Ask
+\item Long and short
+\item Market and Limit
+\end{itemize}
+\end{frame}
+
+\section{Liquidity}
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
+\begin{frame}{Margin}
+Margin means that you do not have to put up all the money immediately
+\begin{block}{}
+\begin{itemize}
+\item if margin requirement is 50\%
+\item you can buy \$2 million stock with your \$1 million
+\item if shorts are 150\%
+\item you can sell \$2 million stock with your \$1 million
+\end{itemize}
+\end{block}
+\pause
+Margin will change with the risk and liquidity of the market and collateral
+\end{frame}
+
+\begin{frame}{Transaction costs}
+The exchanges are public companies
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item There is a payment to the exchange for each transaction
+\item Exchanges may compete via transaction costs
+\item Rebates can be offered to those institutions willing to provide liquidity
+\end{itemize}
+\end{frame}
+\end{document}
+\section{Financial system}
+
+\begin{frame}{Circular flow of income}
+\
+\tikzset{
+    %Define standard arrow tip
+    >=stealth',
+    %Define style for boxes
+    punkt/.style={
+           rectangle,
+           rounded corners,
+           draw=black, very thick,
+           text width=6.5em,
+           minimum height=2em,
+           text centered},
+    % Define arrow style
+    pil/.style={
+           ->,
+           thick,
+           shorten <=2pt,
+           shorten >=2pt,}
+}
+\begin{figure}
+% http://tex.stackexchange.com/questions/67006/beamer-with-tikzpicture-how-to-change-scale-of-picture-and-distance-between-lin
+\begin{tikzpicture}[scale = 0.7, transform shape]
+%\draw [very thin, color = gray](-2, -2) grid (13, 7);
+\tikzstyle{block} = [draw, rectangle, text width = 8em, 
+  text centered, minimum height = 15mm, node distance = 8em]
+\tikzstyle{line} = [draw, -stealth, thick]
+\node [punkt] (Household) {Household};
+\node [punkt, above  of = Household, yshift =10em] (Firm){Firm};
+\node [punkt, above right of = Household, yshift = 4.0em, xshift = 5.5em] (Finsys){Finsys};
+\node [punkt, right of = Finsys, xshift = 7em] (Gov){Gov};
+\node [punkt, right of = Gov, xshift = 7em] (OS){OS};
+\path (Household.east) edge[pil, bend right=35] (OS.south);  
+\path (Household.east) edge[pil, bend right=35] (Gov.south);
+\path (Household.north) edge[pil] (Finsys.south);
+\path (OS.north) edge[pil, bend right=35] (Firm.east);  
+\path (Gov.north) edge[pil, bend right=35] (Firm.east);
+\path (Finsys.north) edge[pil] (Firm.south);
+\path (Household.north) edge[pil, bend right = 45] (Firm.south);
+\path (Firm.south) edge[pil, bend right = 45] (Household.north);
+%\path [line, right of = Household] -- (Finsys);
+%\path [line] (Finsys) -- (Firm);
+%\path [line] (Household) -- (Gov);
+%\path [line] (Household) -- (OS);
+%\path [line] (Gov) -- (Firm);
+%\path [line] (OS) -- (Firm);
+
+\node at (2.6, 1) (Savings) {Savings};
+\node at (7.2, 1) (Taxation) {Taxation};
+\node at (10.8, 1) (Imports) {Imports};
+\node at (2.5, 4.0) (Investment) {Investment};
+\node at (7.2, 4.0) (Government) {Government};
+\node at (10.6, 4.0) (Exports) {Exports};
+\node at (-1.6, 4.2) (Consumption) {Consumption};
+\node at (-1.6, 2.0) (Income) {Income};
+\end{tikzpicture}
+\caption{Circular flow of income}
+\label{figref:cir}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Financial institutions}
+There are four main types of financial institution
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Commercial banks
+\item Investment banks
+\item Funds
+\item Other
+\end{itemize}
+\pause
+Many financial institutions are amalgamations of these.
+\end{frame}
+
+\begin{frame}{Commercial bank}
+\begin{figure}
+\begin{tikzpicture}[scale = 0.75]
+%\draw [very thin, color = gray](0, 0) grid (14, 7);
+\draw [thick] (2, 6) to (12, 6);
+\draw [thick] (7, 7) to (7, 0);
+\node [above] at (10, 6) {Liabilities};
+\node [above] at (4, 6) {Assets};
+\node [right] at (7, 5) {Deposits 1000};
+\node [left] at (7, 5) {Cash 100};
+\node [right] at (7, 4) {Borrowing 200};
+\node [left] at (7, 4) {Loans 1200};
+\draw (3, 2) to (11, 2);
+\node [right] at (7, 3) {Capital 200};
+\node [left] at (7, 3) {Buildings etc. 100};
+\node [right] at (7, 1) {Total 1400};
+\node [left] at (7, 1) {Total 1400};
+\end{tikzpicture}
+\caption{Commercial bank balance sheet}
+\label{figref:bb}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}{Commercial bank 2}
+Bank profits are the difference between return on assets and the cost of liabilities.
+\begin{block}{}
+\begin{equation*}
+\pi_b = RA + OI - CL - FC
+\end{equation*}
+\end{block}
+\pause
+Where $\pi_b$ is the bank profit, RA is the return on assets, OI is other income, CL is the cost of loans and FC are fixed costs
+\end{frame}
+
+\begin{frame}{Investment bank 1}
+\begin{figure}
+\begin{tikzpicture}[scale = 0.75]
+%\draw [very thin, color = gray](0, 0) grid (14, 7);
+\draw [thick] (2, 6) to (12, 6);
+\draw [thick] (7, 7) to (7, 0);
+\node [above] at (10, 6) {Liabilities};
+\node [above] at (4, 6) {Assets};
+\node [right] at (7, 5) {Borrowing 200};
+\node [left] at (7, 5) {Securities 300};
+\draw (3, 2) to (11, 2);
+\node [right] at (7, 3) {Capital 200};
+\node [left] at (7, 3) {Buildings etc. 100};
+\node [right] at (7, 1) {Total 400};
+\node [left] at (7, 1) {Total 400};
+\end{tikzpicture}
+\caption{Investment bank balance sheet}
+\label{figref:ib}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Investment bank 2}
+They do not make investments; they are not banks.  Revenue come from, 
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Merger and acquisition, disposal of parts of business.  Business strategy. 
+\item Raising capital: IPOs, bond issuance, syndicated loans. 
+\item Making financial markets. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Funds 1}
+There are a wide range of different types of fund
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Pension funds
+\item Insurance funds
+\item Mutual funds
+\item Hedge funds
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Funds 2}
+\begin{figure}
+\begin{tikzpicture}[scale = 0.75]
+%\draw [very thin, color = gray](0, 0) grid (14, 7);
+\draw [thick] (2, 6) to (12, 6);
+\draw [thick] (7, 7) to (7, 0);
+\node [above] at (10, 6) {Liabilities};
+\node [above] at (4, 6) {Assets};
+\node [right] at (7, 5) {Obligation};
+\node [left] at (7, 5) {Portfolio 1000};
+%\node [right] at (7, 4) {Borrowing 200};
+%\node [left] at (7, 4) {Loans 1200};
+\draw (3, 2) to (11, 2);
+\node [right] at (7, 3) {Capital 200};
+\node [left] at (7, 3) {Buildings etc. 200};
+\node [right] at (7, 1) {Total 1200};
+\node [left] at (7, 1) {Total 1200};
+\end{tikzpicture}
+\caption{Fund balance sheet}
+\label{figref:fund}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Investment banks, funds and firms}
+\begin{tikzpicture}[xscale = 1, yscale = 1]
+\draw [blue] (1,1) rectangle (3, 2);
+\node at (2, 1.5) {Fund};
+\draw [blue] (6,5) rectangle (8, 6);
+\node at (7, 5.5) {Firm};
+\draw [blue] (11,1) rectangle (13, 2);
+\node at (12, 1.5) {Fund};
+\pause
+\draw [red] (5,3) circle [radius = 0.5];
+\node at (5, 3) {mm};
+\draw [red] (7,2) circle [radius = 0.5];
+\node at (7,2) {mm};
+\draw [red] (4,0) circle [radius = 0.5];
+\node at (4,0) {mm};
+\draw [red] (8,4) circle [radius = 0.5];
+\node at (8, 4) {mm};
+\draw [red] (9,0) circle [radius = 0.5];
+\node at (9, 0) {mm};
+\pause
+\draw [thick] [->] (3,2) -- (4.5,2.8);
+\draw [thick] [->] (8.5, 4) -- (11,2);
+\pause
+\draw [<->] (4.1, 0.6) -- (4.8, 2.5);
+\draw [<->] (4.5, 0) -- (8.5, 0);
+\draw [<->] (8.8, 0.4) -- (7.5, 2);
+\draw [<->] (9, 0.5) -- (8.1, 3.5);
+\draw [<->] (4.2, 0.5) -- (6.4, 2);
+\draw [<->] (7.4, 2.5) -- (7.9, 3.5);
+\end{tikzpicture}
+\end{frame}
+
+
+
+
+\end{document}
