@@ -1,0 +1,169 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table, handout]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,positioning}
+\graphicspath{{./Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
+% Title and author information
+\title{Introduction to Financial Markets}
+\author{Rob Hayward}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Market microstructure}
+How do markets actually work?
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item We know all about markets
+\item We know about supply and demand
+\item \href{https://www.youtube.com/watch?v=V2CK2TatM_U}{Dutch auction}
+\item \href{https://www.youtube.com/watch?v=qBRUPZPIu4Q}{English auction}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Microstructure}
+There are three major aspects of microstructure that we will look at today
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item the institutional structure and its effect
+\item liquidity
+\item \emph{price discovery} 
+\end{itemize}
+\pause
+\vspace{1cm}
+They are connected
+\end{frame}
+
+\section{Institutional Structures}
+\begin{frame}{Institutional structures}
+There are three major ways that financial markets can be organised
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \emph{open outcry}
+\item dealer-orientated or market-maker systems
+\item electronic order markets
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Open outcry}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
+\end{frame}
+\begin{frame}{Market making: Dealer: Bid-Ask}
+\frametitle{Bid-Ask}
+\begin{center}
+\includegraphics[height = 1.8in, trim = 0 10 0 10]{Bid-Ask}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Electronic order markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Picture2.png}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+\begin{frame}{Terms to be aware of}
+Terms to be aware of
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Bid and Ask
+\item Long and short
+\item Market and Limit
+\end{itemize}
+\end{frame}
+
+\section{Liquidity}
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
+\begin{frame}{Margin}
+Margin means that you do not have to put up all the money immediately
+\begin{block}{}
+\begin{itemize}
+\item if margin requirement is 50\%
+\item you can buy \$2 million stock with your \$1 million
+\item if shorts are 150\%
+\item you can sell \$2 million stock with your \$1 million
+\end{itemize}
+\end{block}
+\pause
+Margin will change with the risk and liquidity of the market and collateral
+\end{frame}
+
+\begin{frame}{Transaction costs}
+The exchanges are public companies
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item There is a payment to the exchange for each transaction
+\item Exchanges may compete via transaction costs
+\item Rebates can be offered to those institutions willing to provide liquidity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Other important concepts}
+\begin{itemize}[<+-| alert@+>]
+\item Primary and secondary markets
+\item Market participants
+\begin{itemize}
+\item informed traders
+\item noise or liquidity traders
+\item real money
+\item hedgers or speculators
+\end{itemize}
+\item Arbitrage
+\item Government intervention
+\end{itemize}
+\end{frame}
+
+\end{document}
