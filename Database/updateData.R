@@ -1,10 +1,10 @@
 # Update datafiles
 library(quantmod)
-lookback = 100
+lookback = 200
 startDate = Sys.Date() - lookback
 thePath = "~/robohay@gmail.com/Research/GIT/Trading/Database/"
 # the list.files lists all the files in the directory with the pattern .csv"
-theFiles = list.files(path = thePath, pattern = ".csv")
+#theFiles = list.files(path = thePath, pattern = ".csv")
 
 for(ii in theFiles){
   data = read.csv(paste(thePath, ii, sep = ""))
