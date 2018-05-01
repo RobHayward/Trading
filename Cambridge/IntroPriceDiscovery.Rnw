@@ -1,0 +1,127 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,positioning}
+\graphicspath{{../Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
+% Title and author information
+\title{Introduction and Price Discovery}
+\author{Rob Hayward}
+\date{May 2018}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 10 20 00 16]{Fin.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+\begin{frame}{Market microstructure}
+Market microstructure: the study of markets
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Institutional features and how they have changed over time
+\item Price discovery: the way that information gets into the price
+\end{itemize}
+\vspace{5mm}
+\pause
+They are related
+\end{frame}
+
+\section{Institutional Structures}
+\begin{frame}{Institutional structures}
+There are three major ways that financial markets can be organised
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \emph{Open outcry}
+\item Dealer-orientated or market-maker systems
+\item Electronic order markets
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Open outcry}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
+\end{frame}
+
+\begin{frame}{Market making: Dealer: Bid-Ask}
+\frametitle{Bid-Ask}
+\begin{center}
+\includegraphics[height = 1.8in, trim = 0 10 0 10]{Bid-Ask}
+\end{center}
+\end{frame}
+
+\begin{frame}{Electronic order markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{picture2.png}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+
+\section{Price Discovery}
+\begin{frame}{Price Discovery}
+How does the information get into the price? 
+\pause
+Kyle (1985) - \emph{Continuous Auctions and Insider Trading} \emph{Econometrica} \textbf{53b(6)}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Dealer Market
+\item Two types of trader - `informed' and `noise'
+\item Orders move prices
+\item Market makers count votes (order flow)
+\item Informed traders seek to benefit from information
+\end{itemize}
+\end{frame}
+
+\begin{frame}{RIT - price discovery cases}
+Three cases
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Case 1 - information about the intrinsic value is gradually unveiled.  Traders do not have the same information 
+\item Case 2 - Information about the intrinsic value becomes more precise with time
+\item Case 3 - Information becomes more precise with time and there is an exchange traded fund (ETF) that based on the value of the two securities that provides arbitrage opportunities  
+\end{itemize}
+\end{frame}
+
+\end{document}

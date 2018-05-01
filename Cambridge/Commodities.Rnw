@@ -1,0 +1,110 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+% Title and author information
+\title{Commodity Futures}
+\author{Rob Hayward}
+
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Introduction}
+Commodities are traded on exchanges.  
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item The futures markets have the most liquidity
+\item Liquidity requires standardisation
+\item Set delivery dates and time
+\item Set quantities
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Importance of liquidity}
+Liquidity is necessary to reduce the cost of transactions and to facilitate trade. There are two types of investor:
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item \emph{Hedger}: these are investors with an underlying interest in the commodity that is being traded
+\item \emph{Speculator}: those with no underlying interest.  
+\item Keynes and Hicks argue that hedgers pay speculators to take risk
+\item Knight argues that speculators use specialisation to reduce risk with purchase of information and diversification
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Pricing futures contracts}
+\begin{block}{}
+\begin{equation*}
+F(t, T) = S(t) \times (1 +r)^{(T-t)}
+\end{equation*}
+\end{block}{}
+$r$ is the financing cost
+\begin{block}{}
+The equation can also be adjusted to include storage costs and any benefits that are achieved during the holding period
+\end{block}
+%For other futures, storage costs, income in the form of dividends and coupons and any other benefits that accrue from the holding of the commodity. This may be particularly important if there are large storage costs involved for commodities.
+\end{frame}
+
+
+\begin{frame}{Expectations}
+When there are frictions and other impediments arbitrage may not work. In that case, the pricing will be determined by exceptions. 
+\begin{block}{}
+\begin{equation*}
+F(t, T) = E_t[S(T)]
+\end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Calendar spreads}
+A technique that can reduce risk is to trade a calendar spread
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Futures contracts are set in March, June, Sep, Dec
+\item Spreads between two or more contracts remove risk of a large move in the commodity
+\item \emph{Contango}: Future above spot or far contract above near
+\item \emph{Normal backwardation}: Spot above future or near above far
+\item Trade can be technical or based on the supply-demand
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Commodity investment}
+\begin{itemize}[<+-| alert@+>]
+\item Assess the supply and demand for commodity
+\begin{itemize}
+\item Economic growth/development
+\item Weather
+\item Political factors
+\end{itemize}
+\item Looking for speculative extremes
+\begin{itemize}
+\item COT positions
+\item Option prices
+\end{itemize}
+\item Calendar spreads or product spreads
+\end{itemize}
+\end{frame}
+
+\end{document}
+
