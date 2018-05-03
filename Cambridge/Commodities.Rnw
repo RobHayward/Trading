@@ -27,10 +27,6 @@
 \titlepage
 \end{frame}
 
-\begin{frame}{Outline}
-\tableofcontents
-\end{frame}
-
 \begin{frame}{Introduction}
 Commodities are traded on exchanges.  
 \pause
@@ -68,7 +64,7 @@ The equation can also be adjusted to include storage costs and any benefits that
 
 
 \begin{frame}{Expectations}
-When there are frictions and other impediments arbitrage may not work. In that case, the pricing will be determined by exceptions. 
+When there are frictions and other impediments arbitrage may not work. In that case, the pricing will be determined by expectations 
 \begin{block}{}
 \begin{equation*}
 F(t, T) = E_t[S(T)]
@@ -102,7 +98,11 @@ A technique that can reduce risk is to trade a calendar spread
 \item COT positions
 \item Option prices
 \end{itemize}
-\item Calendar spreads or product spreads
+\item Technical analysis
+\begin{itemize}
+\item calendar spreads
+\item product spreads
+\end{itemize}
 \end{itemize}
 \end{frame}
 
