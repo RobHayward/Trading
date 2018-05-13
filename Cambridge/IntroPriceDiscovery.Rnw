@@ -98,6 +98,75 @@ There are three major ways that financial markets can be organised
 \end{center}
 \end{frame}
 
+\begin{frame}{Terms to be aware of}
+Terms to be aware of
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Bid and Ask
+\item Long and short
+\item Market and Limit
+\item Liquidity
+\item Margin
+\end{itemize}
+\end{frame}
+
+\section{Liquidity}
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
+\begin{frame}{Margin}
+Margin means that you do not have to put up all the money immediately
+\begin{block}{}
+\pause
+\begin{itemize}
+\item if margin requirement is 50\%
+\item you can buy \$2 million stock with your \$1 million
+\item if shorts are 150\%
+\item you can sell \$2 million stock with your \$1 million
+% this is the 2 million from the stock and 1 million that you already have. 
+\end{itemize}
+\end{block}
+\pause
+Margin will change with the risk and liquidity of the market and with the nature of the collateral - \emph{maintenance margin}
+\end{frame}
+
+\begin{frame}{Transaction costs}
+The exchanges are public companies
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item There is a payment to the exchange for each transaction
+\item Exchanges may compete via transaction costs
+\item Rebates can be offered to those institutions willing to provide liquidity
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Other important concepts}
+\begin{itemize}[<+-| alert@+>]
+\item Primary and secondary markets
+\item Market participants
+\begin{itemize}
+\item informed traders
+\item noise or liquidity traders
+\item real money
+\item hedgers or speculators
+\end{itemize}
+\item Institutions
+\begin{itemize}
+\item bank
+\item investment bank
+\item fund
+\end{itemize}
+\end{itemize}
+\end{frame}
 
 \section{Price Discovery}
 \begin{frame}{Price Discovery}
