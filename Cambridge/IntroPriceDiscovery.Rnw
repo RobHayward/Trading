@@ -110,19 +110,6 @@ Terms to be aware of
 \end{itemize}
 \end{frame}
 
-\section{Liquidity}
-\begin{frame}{Liquidity}
-Kyle (1985) identified three main measures of liquidity
-\pause
-\begin{itemize}[<+-| alert@+>]
-\item `Tightness' - the bid-offer spread
-\item `Depth' - the price move for a specific order size
-\item `Resilience' - Speed that price returns to equilibrium
-\end{itemize}
-\pause
-A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
-\end{frame}
-
 \begin{frame}{Margin}
 Margin means that you do not have to put up all the money immediately
 \begin{block}{}
@@ -149,6 +136,7 @@ The exchanges are public companies
 \end{itemize}
 \end{frame}
 
+\section{Liquidity}
 \begin{frame}{Other important concepts}
 \begin{itemize}[<+-| alert@+>]
 \item Primary and secondary markets
@@ -168,6 +156,18 @@ The exchanges are public companies
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
 \section{Price Discovery}
 \begin{frame}{Price Discovery}
 How does the information get into the price? 
@@ -181,6 +181,52 @@ Kyle (1985) - \emph{Continuous Auctions and Insider Trading} \emph{Econometrica}
 \item Market makers count votes (order flow)
 \item Informed traders seek to benefit from information
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Efficient reaction to information}
+<<info1, echo=FALSE, fig.height=4.8,warning=FALSE,message=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Efficient reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+@
+\end{frame}
+
+\begin{frame}{Momentum}
+<<info2, echo=FALSE, fig.height=4.8,warning=FALSE,message=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Under-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+lines(z3, lty = 2)
+text(2.4, 2, "Under-reaction")
+@
+\end{frame}\begin{frame}{Over-reaction to information}
+<<info3, echo=FALSE, fig.height=4.8, warning=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Over-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+lines(z4, lty = 2)
+text(2.4, 6, "Overshooting")
+@
 \end{frame}
 
 \begin{frame}{RIT - price discovery cases}
