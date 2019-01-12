@@ -1,0 +1,256 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,positioning}
+\graphicspath{{../Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
+% Title and author information
+\title{Introduction to Trading}
+\author{Rob Hayward}
+\date{January 2019}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}{Outline}
+%\tableofcontents
+%\end{frame}
+
+\section{Introduction}
+\begin{frame}{Markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 10 20 00 16]{Fin.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+%\begin{frame}{Outline}
+%There are three main topics
+%\begin{itemize}[<+-| alert@+>]
+%\pause
+%\item Market micristructure: how markets work
+%\item How market institutions have evolved over time
+%\item The effect of this evolution on transparency, liquidity and price-discovery
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Requirements}
+%Successful markets require
+%\begin{itemize}[<+-| alert@+>]
+%\pause
+%\item Buyers and sellers
+%\item Low costs
+%\item Mechanisms for verification, recording and enforcement
+%\end{itemize}
+%\end{frame}
+%
+\begin{frame}{Trading Places}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{Open-Out-Cry.jpg}
+% trim is left, lower, right, upper
+\end{center}
+\href{https://www.youtube.com/watch?v=RLySXTIBS3c}{Trading Places}
+\end{frame}
+
+\begin{frame}{Key points}
+\begin{itemize}[<+-| alert@+>]
+		\pause
+	\item Structure/intermediation
+	\item Information
+	\item Long and short
+	\item Margin
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Evolution of markets}
+	\begin{figure}
+\begin{tikzpicture}
+\filldraw[teal!40!green!, draw=black] (0,1) rectangle (5,2);
+\node at (2.5, 1.5) {\footnotesize Open OutCry};
+\filldraw[teal!60!green, draw=black] (0, 2) rectangle (10, 3);
+\node at (5, 2.5) {\footnotesize Market-Making/Dealer};
+\filldraw[teal!80!green, draw=black] (5, 3) rectangle (10, 4);
+\node at (7.5, 3.5) {\footnotesize Electronic Order Market};
+\draw [thick, ->] (0, -1.8) -- (10, -1.8);
+\node at (5, -1.4) {\footnotesize Changes in regulation and technology};
+\node at (5, -2.1) {Time};
+\end{tikzpicture}
+%\caption{The evolution of market structures}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Market making/Dealer}
+\begin{center}
+\includegraphics[scale=0.3]{NYSE}
+%\includegraphics[height = 1.8in, trim = 0 10 0 10]{LSE}
+\end{center}
+\end{frame}
+
+\begin{frame}{Multiple market-maker: FX}
+\begin{tikzpicture}[xscale = 1, yscale = 1]
+\draw [blue] (1,1) rectangle (3, 2);
+\node at (2, 1.5) {Fund};
+\draw [blue] (6,5) rectangle (8, 6);
+\node at (7, 5.5) {Firm};
+\draw [blue] (11,1) rectangle (13, 2);
+\node at (12, 1.5) {Fund};
+\pause
+\draw [red] (5,3) circle [radius = 0.5];
+\node at (5, 3) {mm};
+\draw [red] (7,2) circle [radius = 0.5];
+\node at (7,2) {mm};
+\draw [red] (4,0) circle [radius = 0.5];
+\node at (4,0) {mm};
+\draw [red] (8,4) circle [radius = 0.5];
+\node at (8, 4) {mm};
+\draw [red] (9,0) circle [radius = 0.5];
+\node at (9, 0) {mm};
+\pause
+\draw [thick] [->] (3,2) -- (4.5,2.8);
+\draw [thick] [->] (8.5, 4) -- (11,2);
+\pause
+\draw [<->] (4.1, 0.6) -- (4.8, 2.5);
+\draw [<->] (4.5, 0) -- (8.5, 0);
+\draw [<->] (8.8, 0.4) -- (7.5, 2);
+\draw [<->] (9, 0.5) -- (8.1, 3.5);
+\draw [<->] (4.2, 0.5) -- (6.4, 2);
+\draw [<->] (7.4, 2.5) -- (7.9, 3.5);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Limit Order Book}
+Key elements
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Market and limit orders
+\item Limit order book
+\item Liquidity can evaporate
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Electronic order markets}
+\begin{center}
+\includegraphics[height = 2.6in, trim = 00 20 00 20]{picture2}
+% trim is left, lower, right, upper
+\end{center}
+\end{frame}
+
+\begin{frame}{Markets now}
+The structure of markets have been shaped by 
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Technology
+\begin{itemize}
+\item high-frequency-trading (HFT)
+\item algo trading
+\end{itemize}
+\item Regulation
+\begin{itemize}
+\item more exchanges
+\item more capital
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\end{document}
+\section{Price Discovery}
+\begin{frame}{Price Discovery}
+How does the information get into the price? 
+\pause
+Kyle (1985) - \emph{Continuous Auctions and Insider Trading} \emph{Econometrica} \textbf{53b(6)}
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Dealer Market
+\item Two types of trader - `informed' and `noise'
+\item Orders move prices
+\item Market makers count votes (order flow)
+\item Informed traders seek to benefit from information
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Efficient reaction to information}
+<<info1, echo=FALSE, fig.height=4.8,warning=FALSE,message=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Efficient reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+@
+\end{frame}
+
+\begin{frame}{Momentum}
+<<info2, echo=FALSE, fig.height=4.8,warning=FALSE,message=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Under-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z3 <- matrix(c(0, 0, 2, 4), ncol = 2, byrow = TRUE)
+lines(z3, lty = 2)
+text(2.4, 2, "Under-reaction")
+@
+\end{frame}\begin{frame}{Over-reaction to information}
+<<info3, echo=FALSE, fig.height=4.8, warning=FALSE>>=
+x <- seq(-5, 5, 1)
+y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+     main = "Over-reaction to good news")
+# set up matrix of points for the additional lines
+z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+lines(z1)
+lines(z2)
+z4 <- matrix(c(0, 4, 0, 7, 2, 4), ncol = 2, byrow = TRUE)
+lines(z4, lty = 2)
+text(2.4, 6, "Overshooting")
+@
+\end{frame}
+
+\begin{frame}{RIT - price discovery cases}
+Three cases
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item Case 1 - information about the intrinsic value is gradually unveiled.  Traders do not have the same information 
+\item Case 2 - Information about the intrinsic value becomes more precise with time
+\item Case 3 - Information becomes more precise with time and there is an exchange traded fund (ETF) that based on the value of the two securities that provides arbitrage opportunities  
+\end{itemize}
+\end{frame}
+
+\end{document}

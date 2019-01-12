@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{tikz}
+\begin{document}
+\begin{figure}
+\begin{tikzpicture}
+\draw (0,0) rectangle (5,1);
+\node at (2.5, 0.5) {\tiny Open OutCry};
+\draw (0, 1) rectangle (10, 2);
+\node at (5, 1.5) {\tiny Market-Making/Dealer};
+\draw (5, 2) rectangle (10, 3);
+\node at (7.5, 2.5) {\tiny Electronic Order Market};
+\draw [thick, ->] (0, -0.8) -- (10, -0.8);
+\node at (5, -0.4) {\tiny Changes in regulation and technology};
+\node at (5, -1) {Time};
+
+\end{tikzpicture}
+\caption{The evolution of market structures}
+\end{figure}
+
+
+
+\end{document}
