@@ -8,7 +8,7 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usetikzlibrary{arrows,positioning}
-\graphicspath{{../Pictures/}}
+\graphicspath{{../../Pictures/}}
 \usepackage{amsmath}
 \bibliographystyle{agsm}
 % Specify base color
@@ -33,19 +33,18 @@
 % Title and author information
 \title{Introduction to Trading}
 \author{Rob Hayward}
-\date{January 2019}
+\date{May 2019}
 
 \begin{document}
 
-%\begin{frame}
-%\titlepage
-%\end{frame}
+\begin{frame}
+\titlepage
+\end{frame}
 
 %\begin{frame}{Outline}
 %\tableofcontents
 %\end{frame}
 
-\section{Introduction}
 \begin{frame}{Markets}
 \begin{center}
 \includegraphics[height = 2.6in, trim = 10 20 00 16]{Fin.jpg}
@@ -171,8 +170,8 @@ The structure of markets have been shaped by
 \pause
 \item Technology
 \begin{itemize}
-\item high-frequency-trading (HFT)
 \item algo trading
+\item high-frequency-trading (HFT)
 \end{itemize}
 \item Regulation
 \begin{itemize}

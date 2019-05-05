@@ -1,0 +1,149 @@
+\documentclass[14pt,xcolor=pdftex,dvipsnames,table]{beamer}
+
+% Specify theme
+\usetheme{Madrid}
+% See deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html for other themes
+\usepackage{caption}
+\usepackage[comma, sort&compress]{natbib}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,positioning}
+\graphicspath{{../../Pictures/}}
+\usepackage{amsmath}
+\bibliographystyle{agsm}
+% Specify base color
+\usecolortheme[named=OliveGreen]{structure}
+% See http://goo.gl/p0Phn for other colors
+
+% Specify other colors and options as required
+\setbeamercolor{alerted text}{fg=Maroon}
+\setbeamertemplate{items}[square]
+
+\AtBeginSection[]{
+\begin{frame}
+\vfill
+\centering
+\begin{beamercolorbox}[sep=8pt, center, shadow=true, rounded=true]{title}
+\usebeamerfont{title}\insertsectionhead\par%
+\end{beamercolorbox}
+\vfill
+\end{frame}
+}
+
+% Title and author information
+\title{Institutional features of financial markets}
+\author{Rob Hayward}
+\date{May 2019}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}{Outline}
+%\tableofcontents
+%\end{frame}
+
+\section{Liquidity}
+\begin{frame}{Liquidity}
+Kyle (1985) identified three main measures of liquidity
+\pause
+\begin{itemize}[<+-| alert@+>]
+\item `Tightness' - the bid-offer spread
+\item `Depth' - the price move for a specific order size
+\item `Resilience' - Speed that price returns to equilibrium
+\end{itemize}
+\pause
+A. Persuad identified \emph{`Liquidity Black Holes'} in State Street Global Insight.  This emphasises the importance of diversity of opinion otherwise there is a risk that 'positive feedback is created
+\end{frame}
+
+\begin{frame}{Margin}
+In our case the margin is constant and related to the liquidity of the underlying asset.  However, 
+\begin{itemize}[<+-| alert@+>]
+		\pause
+	\item Margins will increase at times of uncertainty and when markets are volatile
+	\item This can create (negative) feedback loops 
+		\begin{itemize}
+			\item forced selling to finance margin
+			\item additional buying when margin is reduced is likely to be much less powerful
+		\end{itemize}
+	\item Spillover from one asset to another
+		\begin{itemize}
+			\item sell liquid/stable/valuable assets to fund margin calls on losing positions
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Which asset?}
+	\includegraphics[scale=0.34]{predict1}
+	Source: Andrew Lo
+	% tbills
+	%US Stocks
+	% Pfizler
+	% Fairfield
+\end{frame}
+
+\begin{frame}{Which asset?}
+	\includegraphics[scale=0.34]{predict2}
+\end{frame}
+
+\begin{frame}{Bernard Madoff}
+	\includegraphics[scale=0.8]{BernardMadoff}
+\end{frame}
+
+\begin{frame}{Madoff}
+The biggest fund fraud in history
+\begin{itemize}[<+-| alert@+>]
+\pause
+\item Black line is Fairfield Greenwich Securities - a feeder fund with large exposure
+\item Estimated at \$64.8bn
+\item Suspiciously stable
+\item Members suffered losses in other assets
+\end{itemize}
+\end{frame}
+
+\section{Structures}
+\begin{frame}{Structures}
+\begin{itemize}[<+-| alert@+>]
+\item Primary and secondary markets
+\item Market participants
+\begin{itemize}
+\item informed traders
+\item noise or liquidity traders
+\item real money
+\item hedgers or speculators
+\end{itemize}
+\item Institutions
+\begin{itemize}
+\item bank
+\item investment bank
+\item fund
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{Efficient reaction to information}
+%<<info1, echo=FALSE, fig.height=4.8,warning=FALSE,message=FALSE>>=
+%x <- seq(-5, 5, 1)
+%y <- c(0, 0, 0, 0, 0, 0, NA, NA, NA, NA, NA)
+%plot(x, y, type = 'l', ylim = c(-4, 8), xlab = "Event Days", ylab = "Return", 
+%     main = "Efficient reaction to good news")
+%# set up matrix of points for the additional lines
+%z1 <- matrix(c(0, 4, 4, 4), ncol = 2, byrow = TRUE)
+%z2 <- matrix(c(0, 0, 0, 4), ncol = 2)
+%lines(z1)
+%lines(z2)
+%@
+%\end{frame}
+%
+\section{Additional Resources}
+\begin{frame}{Additional resources}
+\begin{itemize}[<+-| alert@+>]
+\item Kyle, A., Continuous Auctions and Insider Trading, Econometrica, 1985.
+\item \href{https://en.wikipedia.org/wiki/Bernard_Madoff}{Bernard Madoff}
+\end{itemize}
+\end{frame}
+
+
+\end{document}
